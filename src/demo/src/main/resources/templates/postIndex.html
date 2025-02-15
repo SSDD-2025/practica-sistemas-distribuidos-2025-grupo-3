@@ -1,7 +1,42 @@
 <html>
+        <head>
+            <title>APP</title>
+            <link rel="stylesheet" type="text/css" href="/css/style.css">
+        </head>
+        <body>
+            <header>
+                <h1>APP</h1>
+                <p class="welcome">Aqui si estas registrado, bienvenido user y si no un ¿No estas registrado?</p>
+                <form action="hall.html">
+                    <p>Perfil: <input type="text" name="nombrePerfil"></p>
+                </form>
+            </header>
     <body>
-        <h1>POSTS</h1>
-        <p>hey boy</p>
+        <div class="main-content"> 
+            <div class="left-column">
+                <a href="/"><h3>Comunidades</h3></a>
+            </div>
+            <div class="center-column">
+                <h1>Posts Ejemplo</h1>
+                <ul>
+                    <p>Post1</p>
+                    <p>Post2</p>
+                    <p>Post3</p>
+                </ul>
+                <h1>Posts guardados</h1>
+                {{#posts}}
+                <p>{{title}} {{postContent}}</p>
+                {{/posts}}
+
+                {{^posts}}
+                <p>No hay posts guardados</p>
+                {{/posts}}
+            </div>
+            <div class="right-column">
+                <a href="../newPost.html"><h4>Nuevo Post</h4></a>
+            </div>
+        </div>
+
     </body>
 
 </html>

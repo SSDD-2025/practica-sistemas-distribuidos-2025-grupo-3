@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>APP</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+    </head>
+    <body>
+        <header>
+            <h1>APP</h1>
+            <p class="welcome">Aqui si estas registrado, bienvenido user y si no un ¿No estas registrado?</p>
+            <form action="hall.html">
+                <p>Perfil: <input type="text" name="nombrePerfil"></p>
+            </form>
+        </header>
+    <body>
+        <h1>POSTS</h1>
+        <form action="/posts/newPost" method="post">
+            <h3>Comunidad</h3>
+                <select id="select">
+                    <option value="Comunidad1">Comunidad1</option>
+                    <option value="Comunidad2">Comunidad2</option>
+                    <option value="Comunidad3">Comunidad3</option>
+                </select>
+            <p>Titulo post: <input type="text" name="title"></p>
+            <p>Contenido post: <input type="text" name="postContent"></p>
+            <input type="submit" value="Save">
+        </form>
+    </body>
+
+</html>

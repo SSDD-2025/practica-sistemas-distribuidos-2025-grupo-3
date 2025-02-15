@@ -1,7 +1,15 @@
+html{
+    background-color: #303030;
+}
+
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 2px solid #ccc; /* Línea separatoria debajo del header */
+    padding-bottom: 10px; /* Espacio debajo del contenido del header */
+    margin-bottom: 20px; /* Espacio entre el header y el resto de la página */
+    background-color: #575757;
 }
 
 .welcome {
@@ -14,7 +22,20 @@ form {
 }
 
 form p {
-    margin: 0;
+    margin-right: 40px;
+}
+
+header h1{
+    margin-left: 40px;
+    color: #ff0000;
+}
+
+header form p {
+    color: #cecece ;
+}
+
+header p{
+    color: #e2e2e2;
 }
 
 .main-content {
@@ -26,7 +47,7 @@ form p {
 
 /* Estilo para las columnas */
 .left-column, .center-column, .right-column {
-    background-color: #f4f4f4; 
+    background-color: #616161; 
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -67,6 +88,10 @@ form p {
     margin-top: 30px; /* Espaciado antes del título "Mis posts" */
     padding-top: 50px; /* Espaciado interno arriba */
     border-top: 2px solid #ccc; /* Línea divisoria */
+}
+
+body form{
+    color: #ffffff;
 }
 
 h3 {
