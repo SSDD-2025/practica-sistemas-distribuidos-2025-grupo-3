@@ -10,5 +10,10 @@ public class HallController {
     public String showHall() {
         return "hall";
     }
+
+    @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
     
 }
