@@ -1,4 +1,7 @@
+package com.example.demo.model;
+
 public class Comment {
+
     private String comment;
     private User user;
 
