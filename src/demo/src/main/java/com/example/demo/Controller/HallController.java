@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HallController {
-    @GetMapping("/")
+    @GetMapping("/home")
     public String showHall() {
-        return "hall";
+        return "home";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index() {
         return "index";
     }
