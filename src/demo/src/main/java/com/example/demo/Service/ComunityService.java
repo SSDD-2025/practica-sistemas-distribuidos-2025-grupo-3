@@ -7,21 +7,21 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.Comunity;
+import com.example.demo.model.Community;
 
 @Service
 public class ComunityService {
 
-    private Map<Long, Comunity> comunities = new HashMap<>();
+    private Map<Long, Community> comunities = new HashMap<>();
     private AtomicLong nextId = new AtomicLong();
 
     public ComunityService(){}
 
-    public Collection<Comunity> findAll(){
+    public Collection<Community> findAll(){
         return comunities.values();
     }
 
-    public Comunity findById(Long id){
+    public Community findById(Long id){
         return comunities.get(id);
     }
 
@@ -29,7 +29,7 @@ public class ComunityService {
         comunities.remove(id);
     }
 
-    public void save(Comunity c){
+    public void save(Community c){
         Long id = nextId.incrementAndGet();
         c.setId(id);
         comunities.put(id, c);

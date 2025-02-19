@@ -1,12 +1,12 @@
 package com.example.demo.model;
 
 
-public class Comunity {
+public class Community {
     private Long id;
     private String name;
     //coleccion con usuarios en la comunidad
 
-    public Comunity(String n){
+    public Community(String n){
         this.name = n;
     }
 
