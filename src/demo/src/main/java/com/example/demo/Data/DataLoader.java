@@ -15,7 +15,7 @@ public class DataLoader {
     
     @Autowired
     PostService ps;
-    
+
     @Autowired
     ComunityService cs;
 
@@ -26,11 +26,13 @@ public class DataLoader {
 
         Comunity c1 = new Comunity("Java");
         Comunity c2 = new Comunity("Futbol");
+        Comunity c3 = new Comunity("Baloncesto");
 
         ps.save(post1);
         ps.save(post2);
 
         cs.save(c1);
         cs.save(c2);
+        cs.save(c3);
     }
 }

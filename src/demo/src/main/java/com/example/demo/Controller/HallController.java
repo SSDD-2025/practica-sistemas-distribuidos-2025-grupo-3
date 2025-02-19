@@ -17,7 +17,7 @@ public class HallController {
     @GetMapping("/home")
     public String showHall(Model model) {
         model.addAttribute("comunities", cs.findAll());
-        return "hall";
+        return "home";
     }
 
     @GetMapping("/")
