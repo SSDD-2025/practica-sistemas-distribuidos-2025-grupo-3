@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 public class Post {
 
+    private Long id;
     private String title;
     private String postContent;
 
@@ -24,5 +25,13 @@ public class Post {
     
     public void setTitulo(String t){
         this.title = t;
+    }
+
+    public Long getId(){
+        return this.id;
+    }
+    
+    public void setId(Long id){
+        this.id = id;
     }
 }

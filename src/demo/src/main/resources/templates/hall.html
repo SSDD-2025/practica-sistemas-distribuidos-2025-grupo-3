@@ -31,11 +31,15 @@
             <!-- Columna central -->
             <div class="center-column">
                 <h3>Comunidades "mas visitadas"</h3>
+                {{#comunities}}    
                 <ul>
-                    <li>Comunidad A</li>
-                    <li>Comunidad B</li>
-                    <li>Comunidad C</li>
+                    <li>{{name}}</li>
                 </ul>
+                {{/comunities}}
+
+                {{^comunities}}
+                <p>No hay comunidades</p>
+                {{/comunities}}
             </div>
 
             <!-- Columna derecha -->
