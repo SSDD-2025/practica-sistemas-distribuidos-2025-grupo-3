@@ -111,3 +111,29 @@ h3 {
 a{
     color: #ccc;
 }
+
+.community-link {
+    font-size: 1.5rem; /* Tamaño de fuente más grande */
+    font-weight: bold; /* Texto en negrita */
+    color: #2a3138; /* Azul bootstrap */
+    text-decoration: none; /* Sin subrayado */
+    transition: color 0.3s ease; /* Transición para el efecto hover */
+}
+
+.community-link:hover {
+    color: #0056b3; /* Azul más oscuro al pasar el cursor */
+    text-decoration: underline; /* Subrayado al pasar el cursor */
+}
+
+/* Separación entre elementos de la lista */
+.list-group-item {
+    background-color: #f9f9f9; /* Fondo claro */
+    padding: 15px; /* Espaciado interno */
+    font-size: 1.2rem; /* Tamaño de la lista */
+    border: none; /* Sin bordes */
+    color: #000000; /* Text*/
+}
+
+.list-group-item:not(:last-child) {
+    border-bottom: 1px solid #ddd; /* Línea separatoria entre elementos */
+}

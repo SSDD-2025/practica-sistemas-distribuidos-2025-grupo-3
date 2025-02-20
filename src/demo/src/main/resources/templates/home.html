@@ -16,7 +16,7 @@
                 <h2>Home</h2>
             </div>
             <hr>
-    
+
             <div class="row">
                 <!-- Columna izquierda -->
                 <div class="col-md-3">
@@ -34,40 +34,17 @@
                 <!-- Columna central -->
                 <div class="col-md-6">
                     <h3>Comunidades "mas visitadas"</h3>
-                    {{#comunities}}    
-                    <ul>
-                        <li>{{name}}</li>
+                     <ul class="list-group list-group-flush">
+                        {{#comunities}}
+                        <li class="list-group-item"></li>
+                            <a href="/communities/{{id}}" class="community-link">{{name}}</a>
+                        </li>
+                        {{/comunities}}
+
+                        {{^comunities}}
+                        <p>No hay comunidades</p>
+                        {{/comunities}}
                     </ul>
-                    {{/comunities}}
-    
-                    {{^comunities}}
-                    <p>No hay comunidades</p>
-                    {{/comunities}}
-    
-                    <!-- Formulario para crear post -->
-                    <div class="card p-3 mb-4">
-                        <form action="/submit-post" method="post" enctype="multipart/form-data">
-                            <textarea name="content" class="form-control mb-2" placeholder="Escribe algo..." required></textarea>
-                            <input type="file" name="image" class="form-control mb-2" accept="image/*">
-                            <button type="submit" class="btn btn-success">Publicar</button>
-                        </form>
-                    </div>
-                    
-                    <!-- Feed de publicaciones -->
-                    <div id="feed">
-                        <div class="card mb-3 p-3">
-                            <h5>Usuario Ejemplo</h5>
-                            <p>Este es un ejemplo de publicación.</p>
-                            <img src="https://via.placeholder.com/150" class="img-fluid" alt="Imagen del post">
-                            
-                            <hr>
-                            <!-- Sección de comentarios -->
-                            <div>
-                                <p><strong>Usuario2</strong>: Comentario de ejemplo.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <p id="no-posts" class="text-center text-muted d-none">No posts yet.</p>
                 </div>
     
                 <!-- Columna derecha -->
