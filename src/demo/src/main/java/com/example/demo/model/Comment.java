@@ -22,9 +22,8 @@ public class Comment  {
         // Used by JPA
     }
 
-    public Comment(String comment, User user) {
+    public Comment(String comment) {
         this.comment = comment;
-        this.user = user;
     }
 
     public String getComment() {
@@ -56,6 +55,6 @@ public class Comment  {
     @Override
 	public String toString() {
 		return String.format("Comment[id=%d, comment='%s', user='%s']",
-				id, comment, user);
+				id, comment);
 	}
 }
