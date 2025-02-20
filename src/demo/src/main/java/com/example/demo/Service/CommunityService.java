@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Community;
 
 @Service
-public class ComunityService {
+public class CommunityService {
 
     private Map<Long, Community> comunities = new HashMap<>();
     private AtomicLong nextId = new AtomicLong();
 
-    public ComunityService(){}
+    public CommunityService(){}
 
     public Collection<Community> findAll(){
         return comunities.values();

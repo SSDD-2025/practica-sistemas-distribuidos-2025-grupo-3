@@ -3,7 +3,7 @@ package com.example.demo.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.Service.ComunityService;
+import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.model.Community;
 import com.example.demo.model.Post;
@@ -17,7 +17,7 @@ public class DataLoader {
     PostService ps;
 
     @Autowired
-    ComunityService cs;
+    CommunityService cs;
 
     @PostConstruct
     public void run() throws Exception{

@@ -5,14 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.demo.Service.ComunityService;
+import com.example.demo.Service.CommunityService;
 
 
 @Controller
-public class HallController {
+public class WebController {
 
     @Autowired
-    private ComunityService cs;
+    private CommunityService cs;
+
 
     @GetMapping("/home")
     public String showHall(Model model) {
@@ -20,14 +21,9 @@ public class HallController {
         return "home";
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
-
-    @GetMapping("/user-main-page")
+    @GetMapping("/user_main_page")
     public String login() {
-        return "user-main-page";
+        return "user_main_page";
     }
 
 }
