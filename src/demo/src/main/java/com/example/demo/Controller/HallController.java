@@ -25,4 +25,9 @@ public class HallController {
         return "index";
     }
 
+    @GetMapping("/user-main-page")
+    public String login() {
+        return "user-main-page";
+    }
+
 }
