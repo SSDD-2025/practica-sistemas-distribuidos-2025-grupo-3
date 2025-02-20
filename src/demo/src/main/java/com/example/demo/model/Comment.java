@@ -9,9 +9,8 @@ import jakarta.persistence.Entity;
 public class Comment {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String comment;
     private User user;
 
