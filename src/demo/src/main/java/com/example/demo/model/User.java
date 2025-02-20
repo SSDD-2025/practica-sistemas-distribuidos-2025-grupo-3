@@ -3,6 +3,12 @@ package com.example.demo.model;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 
 @Entity
@@ -15,6 +21,9 @@ public class User {
     private String username;
     private String password;
     private String email;
+
+    @OneToMany(cascade=CascadeType.ALL)  private List<Post> posts;
+
     
 
     protected User() {
@@ -25,6 +34,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.posts = new ArrayList<>();
     }
 
     // Getters
@@ -40,6 +50,10 @@ public class User {
         return email;
     }
 
+    public long getId() {
+        return id;
+    }
+
     // Setters
     public void setUsername(String username) {
         this.username = username;
@@ -51,6 +65,10 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
 
