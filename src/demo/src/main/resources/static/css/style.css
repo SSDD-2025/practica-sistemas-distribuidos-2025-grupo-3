@@ -1,5 +1,5 @@
 html{
-    background-color: #575757;
+    background-color: #ffffff;
 }
 
 header {
@@ -8,7 +8,6 @@ header {
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid #ccc; /* Línea separatoria debajo del header */
-    padding-bottom: 10px; /* Espacio debajo del contenido del header */
     margin-bottom: 20px; /* Espacio entre el header y el resto de la página */
     background-color: #575757;
     vertical-align: middle;
