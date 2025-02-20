@@ -1,9 +1,23 @@
 package com.example.demo.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Entity;
+
+@Entity
 public class Comment {
+
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
     private String comment;
     private User user;
+
+    protected Comment() {
+        // Used by JPA
+    }
 
     public Comment(String comment, User user) {
         this.comment = comment;
@@ -22,4 +36,10 @@ public class Comment {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+	public String toString() {
+		return String.format("Customer[id=%d, username='%s', pasword='%s', email='%s']",
+				id, comment, user);
+	}
 }
