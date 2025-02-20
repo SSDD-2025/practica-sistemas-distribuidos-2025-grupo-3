@@ -7,3 +7,8 @@ function validarFormulario() {
     }
     return true;
 }
+
+function mostrarAlerta() {
+    var toast = new bootstrap.Toast(document.getElementById('alertToast'));
+    toast.show();
+}
