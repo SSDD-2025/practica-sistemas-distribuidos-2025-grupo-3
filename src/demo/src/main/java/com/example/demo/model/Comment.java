@@ -27,19 +27,22 @@ public class Comment {
     public String getComment() {
         return this.comment;
     }
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+
     public User getUser() {
         return this.user;
     }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+    
     public void setUser(User user) {
         this.user = user;
     }
 
     @Override
 	public String toString() {
-		return String.format("Customer[id=%d, username='%s', pasword='%s', email='%s']",
+		return String.format("Comment[id=%d, comment='%s', user='%s']",
 				id, comment, user);
 	}
 }
