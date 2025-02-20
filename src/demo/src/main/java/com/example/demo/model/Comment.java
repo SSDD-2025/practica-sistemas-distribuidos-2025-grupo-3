@@ -35,7 +35,9 @@ public class Comment {
     public void setUser(User user) {
         this.user = user;
     }
-    public String toString() {
+
+    @Override
+	public String toString() {
 		return String.format("Customer[id=%d, username='%s', pasword='%s', email='%s']",
 				id, comment, user);
 	}
