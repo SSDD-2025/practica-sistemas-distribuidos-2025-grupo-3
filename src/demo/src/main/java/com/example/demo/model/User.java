@@ -1,30 +1,32 @@
 package com.example.demo.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-
 @Entity
 public class User {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     private String username;
     private String password;
     private String email;
 
-    @OneToMany(cascade=CascadeType.ALL)  private List<Post> posts;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
 
-    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "user_community",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "community_id")
+    )
+    private List<Community> communities = new ArrayList<>();
 
     protected User() {
         // Used by JPA
@@ -34,7 +36,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.posts = new ArrayList<>();
     }
 
     // Getters
@@ -71,10 +72,9 @@ public class User {
         this.id = id;
     }
 
-
     @Override
-	public String toString() {
-		return String.format("User[id=%d, username='%s', pasword='%s', email='%s']",
-				id, username, password, email);
-	}
+    public String toString() {
+        return String.format("User[id=%d, username='%s', password='%s', email='%s']",
+                id, username, password, email);
+    }
 }

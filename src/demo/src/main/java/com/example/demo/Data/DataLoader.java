@@ -21,8 +21,8 @@ public class DataLoader {
 
     @PostConstruct
     public void run() throws Exception{
-        Post post1 = new Post("Titulo ejemplo", "contenido ejemplo");
-        Post post2 = new Post("Titulo ejemplo2", "contenido ejemplo2");
+      Post post1 = new Post("Baloncesto", null, null, null);
+      Post post2 = new Post("Futbol", null,null,null);
 
         Community c1 = new Community("Java");
         Community c2 = new Community("Futbol");

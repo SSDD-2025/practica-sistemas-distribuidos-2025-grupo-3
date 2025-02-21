@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,34 +15,57 @@ public class Community {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
     
+    private String name;
 
-    public Community(String n){
-        this.name = n;
+    @OneToMany(mappedBy = "community", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "communities")
+    private List<User> users = new ArrayList<>();
+
+    public Community(String name) {
+        this.name = name;
     }
 
-    protected Community(){
+    protected Community() {
         // Used by JPA
     }
 
-    private String getName(){
+    public String getName() {
         return this.name;
     }
-    private void setName(String n){
-        this.name = n;
+
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Long getId(){
+    public Long getId() {
         return this.id;
     }
-    
-    public void setId(Long id){
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String toString(){
-        return String.format("Community[id=%d, name='%s']", id, name);
+    public List<Post> getPosts() {
+        return posts;
     }
 
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Community[id=%d, name='%s']", id, name);
+    }
 }
