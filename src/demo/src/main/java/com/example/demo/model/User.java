@@ -2,17 +2,16 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    private String username;
+    private String username; //Username will be unique so there is no need for an id, we can use the username as the id
     private String password;
     private String email;
+    private Date dateJoined;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
@@ -32,10 +31,11 @@ public class User {
         // Used by JPA
     }
 
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email, Date dateJoined) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.dateJoined = dateJoined;
     }
 
     // Getters
@@ -51,10 +51,6 @@ public class User {
         return email;
     }
 
-    public long getId() {
-        return id;
-    }
-
     // Setters
     public void setUsername(String username) {
         this.username = username;
@@ -68,13 +64,14 @@ public class User {
         this.email = email;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {
-        return String.format("User[id=%d, username='%s', password='%s', email='%s']",
-                id, username, password, email);
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", dateJoined=" + dateJoined +
+                '}';
     }
 }

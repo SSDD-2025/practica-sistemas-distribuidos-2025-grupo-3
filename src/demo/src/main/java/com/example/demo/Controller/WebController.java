@@ -35,4 +35,9 @@ public class WebController {
         return "user_main_page";
     }
 
+    @GetMapping("/registration_page")
+    public String register() {
+        return "registration_page";
+    }
+
 }
