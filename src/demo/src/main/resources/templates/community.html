@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="/css/style.css">
     </head>
     
-    <body>
+    <body class="bg-light d-flex flex-column min-vh-100">
         {{> html_components/header}}
         <div class="container flex-grow-1 mt-4"> 
             <div class="d-flex justify-content-between align-items-center">
@@ -18,16 +18,19 @@
 
             <div class="row">
                 <!-- Columna izquierda -->
-                <div class="col-md-3">
-                    <button class="btn btn-danger">
-                        <i class="bi bi-plus-lg"></i> - Eliminar comunidad
-                    </button>
+                <div class="col-md-2 col-12 flex-column">
+                    <button class="btn btn-danger w-auto">Eliminar comunidad</button>
                 </div>
     
                 <!-- Columna central -->
-                <div class="col-md-6">
+                <div class="col-md-8 col-12">
                     <div class="card p-3 mb-4">
                         <form action="/savePost" method="post" enctype="multipart/form-data" class="d-flex flex-column">
+                            <!-- Título de la publicación-->
+                            <div class="w-100 d-flex align-items-center">
+                                <input type="text" id="title" name="title" placeholder="Título de la publicación" required class="form-control">
+                            </div>
+                            <br>
                             <!-- Cuadro de texto -->
                             <textarea name="content" class="form-control mb-2" placeholder="Escribe algo..." required></textarea>
                     
@@ -45,65 +48,82 @@
                     
                     <!-- Feed de publicaciones -->
                     <div id="feed">
-                        <div class="card mb-3 p-3">
-                            <!-- Encabezado de la publicación -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <img src="https://via.placeholder.com/50" class="rounded-circle me-2" alt="Foto usuario">
-                                    <h5 class="mb-0">Usuario Ejemplo</h5>
-                                </div>
-                                <button class="btn btn-danger btn-sm">Eliminar Publicación</button>
-                            </div>
-                        
-                            <!-- Contenido de la publicación -->
-                            <p class="mt-3">Este es un ejemplo de publicación.</p>
-                            <img src="https://via.placeholder.com/150" class="img-fluid rounded" alt="Imagen del post">
-                        
-                            <hr>
-                        
-                            <!-- Sección de comentarios -->
-                            <div>
-                                <!-- Botón para añadir comentario -->
-                                <button class="btn btn-outline-primary w-100 d-flex align-items-center">
-                                    <span class="me-2">+</span> Añadir comentario
-                                </button>
-                        
-                                <p class="mt-2"><strong>Comentarios:</strong></p>
-                        
-                                <!-- Contenedor de comentarios -->
-                                <div class="bg-light p-2 rounded">
-                                    <p class="text-muted text-center">Aún no hay comentarios</p>
-                        
-                                    <!-- Ejemplo de un comentario -->
-                                    <div class="d-flex align-items-start mt-2 p-2 bg-white rounded shadow-sm">
-                                        <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Foto usuario">
-                                        <div class="flex-grow-1">
-                                            <p class="mb-1"><strong>Usuario2</strong>: Comentario de ejemplo.</p>
-                                        </div>
-                        
-                                        <!-- Menú desplegable de opciones -->
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown">
-                                                &#x22EE;
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item text-danger" href="#">Eliminar comentario</a></li>
-                                            </ul>
-                                        </div>
+                        {{#posts}}
+                            <div class="card mb-3 p-3">
+                                <!-- Encabezado de la publicación -->
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://via.placeholder.com/50" class="rounded-circle me-2" alt="Foto usuario">
+                                        <h5 class="mb-0">{{userName.username}}</h5>
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown">
+                                            &#x22EE;
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item text-danger" href="#">Eliminar Publicación</a></li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            
+                                <!-- Contenido de la publicación -->
+                                <div class="card mb-3 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{title}}</h5>
+                                        <p class="card-text">{{postContent}}</p>
+                                        <small class="text-muted">Publicado el {{creationDate}}</small>
+                                    </div>
+                                </div>
+                                <!--<img src="https://via.placeholder.com/150" class="img-fluid rounded" alt="Imagen del post">-->
+                            
+                                <hr>
+                            
+                                <!-- Sección de comentarios -->
+                                <div>
+                                    <!-- Add comment -->
+                                    <form enctype="multipart/form-data" class="d-flex flex gap-2">
+                                        <textarea name="commentText" class="form-control" placeholder="comenta algo..." required></textarea>
+                                        <button class="btn btn-outline-primary w-10 d-flex align-items-center">Comentar</button>
+                                    </form>
                         
+                                    <!-- Contenedor de comentarios  -->
+                                    <div class="bg-light p-2 rounded">
+                                        <p class="text-muted text-center">Aún no hay comentarios</p>
+                            
+                                        <!-- Ejemplo de un comentario 
+                                        <div class="d-flex align-items-start mt-2 p-2 bg-white rounded shadow-sm">
+                                            <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Foto usuario">
+                                            <div class="flex-grow-1">
+                                                <p class="mb-1"><strong>Usuario2</strong>: Comentario de ejemplo.</p>
+                                            </div>
+                                            -->
+                                            <!-- Menú desplegable de opciones  -->
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown">
+                                                    &#x22EE;
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item text-danger" href="#">Eliminar comentario</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        {{/posts}}
+
+                        {{^posts}}
+                            <p class="text-muted">Aún no has publicado nada.</p>    
+                        {{/posts}}
                     </div>
                 </div>
     
                 <!-- Columna derecha -->
-                <div class="col-md-3">
+                <div class="col-md-2 col-12">
 
                 </div>
             </div>
         </div>
-
+        {{> html_components/footer}}
     </body>
 </html>

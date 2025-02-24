@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Repository.CommunityRepository;
 import com.example.demo.Repository.PostRepository;
+import com.example.demo.Repository.UserRepository;
 import com.example.demo.model.Community;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
@@ -24,8 +25,12 @@ public class PostController {
     @Autowired
     private CommunityRepository communityRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @PostMapping("/savePost")
     public String newPost(
+        @RequestParam("title") String postTitle,
         @RequestParam("content") String postContent,
         @RequestParam(value = "image", required = false) MultipartFile imageFile,
         @RequestParam("communityId") Long communityId,
@@ -33,7 +38,7 @@ public class PostController {
         //@AuthenticationPrincipal User user // Recibir usuario para cuando haya sistema de autenticacion
         ) {
 
-            User user = new User("username", "password", "email", null);
+            User user = userRepository.findById(1L).get(); // De momento por defecto, mas adelante cambiar por el usuario autenticado
             Community community = communityRepository.findById(communityId)
             .orElseThrow(() -> new RuntimeException("Comunidad no encontrada"));
             byte[] imageData = null;
@@ -50,7 +55,7 @@ public class PostController {
 
             // Crea el post con los datos capturados
             Post post = new Post(
-                    null, // El título no está en el formulario
+                    postTitle,
                     postContent,
                     imageName,
                     imageData,
@@ -61,7 +66,7 @@ public class PostController {
                 postRepository.save(post);
             //Devuelve la comniudad en la que estabas
                 model.addAttribute("community", community);
-
-            return "community";
+                model.addAttribute("posts", community.getPosts());
+                return "redirect:/communities/" + communityId;
         }
 }

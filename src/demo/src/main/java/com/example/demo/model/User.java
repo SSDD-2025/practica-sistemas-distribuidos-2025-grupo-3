@@ -8,7 +8,9 @@ import java.util.List;
 public class User {
 
     @Id
-    private String username; //Username will be unique so there is no need for an id, we can use the username as the id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String username;
     private String password;
     private String email;
     private Date dateJoined;
@@ -39,6 +41,10 @@ public class User {
     }
 
     // Getters
+    public long getId() {
+        return id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -52,6 +58,10 @@ public class User {
     }
 
     // Setters
+    public void setId(long id) {
+        this.id = id;
+    }
+    
     public void setUsername(String username) {
         this.username = username;
     }

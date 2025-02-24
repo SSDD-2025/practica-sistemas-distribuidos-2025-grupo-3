@@ -100,18 +100,6 @@ header p{
     border-top: 2px solid #ccc; /* Línea divisoria */
 }
 
-body form{
-    color: #ffffff;
-}
-
-h3 {
-    margin-top: 0;
-}
-
-a{
-    color: #ccc;
-}
-
 .community-link {
     font-size: 1.5rem; /* Tamaño de fuente más grande */
     font-weight: bold; /* Texto en negrita */

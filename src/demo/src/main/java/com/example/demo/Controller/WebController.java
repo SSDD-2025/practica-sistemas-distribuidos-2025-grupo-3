@@ -7,12 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.Repository.CommunityRepository;
+import com.example.demo.Repository.PostRepository;
 
 @Controller
 public class WebController {
 
     @Autowired
     private CommunityRepository communityRepository;
+
+    @Autowired 
+    private PostRepository postRepository;
 
     @GetMapping("/home")
     public String showHall(Model model) {
@@ -23,6 +27,7 @@ public class WebController {
     @GetMapping("/communities/{id}")
     public String showCommunity(Model model, @PathVariable Long id) {
         communityRepository.findById(id).ifPresent(community -> model.addAttribute("community", community));
+        model.addAttribute("posts", postRepository.findByCommunityId(id));
         return "community";
     }
     
