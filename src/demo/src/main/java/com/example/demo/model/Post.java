@@ -22,7 +22,7 @@ public class Post {
     private byte[] imageData;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "username", nullable = false)
     private User userName;
 
     @ManyToOne

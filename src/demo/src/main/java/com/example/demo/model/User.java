@@ -22,7 +22,7 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "user_community",
-        joinColumns = @JoinColumn(name = "user_id"),
+        joinColumns = @JoinColumn(name = "username"),
         inverseJoinColumns = @JoinColumn(name = "community_id")
     )
     private List<Community> communities = new ArrayList<>();
