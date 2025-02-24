@@ -3,10 +3,10 @@ package com.example.demo.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.Service.CommunityService;
-import com.example.demo.Service.PostService;
+import com.example.demo.Repository.CommunityRepository;
+import com.example.demo.Repository.UserRepository;
 import com.example.demo.model.Community;
-import com.example.demo.model.Post;
+import com.example.demo.model.User;
 
 import jakarta.annotation.PostConstruct;
 
@@ -14,25 +14,21 @@ import jakarta.annotation.PostConstruct;
 public class DataLoader {
     
     @Autowired
-    PostService ps;
-
+    private CommunityRepository cR;
+    
     @Autowired
-    CommunityService cs;
+    private UserRepository uR;
+
 
     @PostConstruct
     public void run() throws Exception{
-      Post post1 = new Post("Baloncesto", null, null, null, null, null);
-      Post post2 = new Post("Futbol", null,null,null, null, null);
 
-        Community c1 = new Community("Java");
-        Community c2 = new Community("Futbol");
-        Community c3 = new Community("Baloncesto");
+        cR.save(new Community("Java"));
+        cR.save(new Community("Futbol"));
+        cR.save(new Community("Baloncesto"));
 
-        ps.save(post1);
-        ps.save(post2);
+        uR.save(new User("username", "password", "email", null));
+        uR.save(new User("username2", "password2", "email2", null));
 
-        cs.save(c1);
-        cs.save(c2);
-        cs.save(c3);
     }
 }

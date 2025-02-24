@@ -18,7 +18,7 @@ public class Comment  {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User userName;
 
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
@@ -37,7 +37,7 @@ public class Comment  {
     }
 
     public User getUser() {
-        return this.user;
+        return this.userName;
     }
 
     public Long getId() {
@@ -50,7 +50,7 @@ public class Comment  {
     }
 
     public void SetUser(User user) {
-        this.user = user;
+        this.userName = user;
     }
     
     public void setId(Long id) {

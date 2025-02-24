@@ -27,11 +27,14 @@
                 <!-- Columna central -->
                 <div class="col-md-6">
                     <div class="card p-3 mb-4">
-                        <form action="/submit-post" method="post" enctype="multipart/form-data" class="d-flex flex-column">
-                            <!-- Cuadro de texto arriba -->
+                        <form action="/savePost" method="post" enctype="multipart/form-data" class="d-flex flex-column">
+                            <!-- Cuadro de texto -->
                             <textarea name="content" class="form-control mb-2" placeholder="Escribe algo..." required></textarea>
                     
-                            <!-- Contenedor que ocupa todo el ancho -->
+                            <!-- Campo oculto para el ID de la comunidad -->
+                            <input type="hidden" name="communityId" value="{{community.id}}">
+
+                            <!-- Subida de imagen y botón de envío -->
                             <div class="w-100 d-flex align-items-center gap-2">
                                 <input type="file" name="image" class="form-control">
                                 <button type="submit" class="btn btn-success">Publicar</button>

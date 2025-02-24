@@ -6,30 +6,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.example.demo.Service.CommunityService;
-
+import com.example.demo.Repository.CommunityRepository;
 
 @Controller
 public class WebController {
 
     @Autowired
-    private CommunityService cs;
-
+    private CommunityRepository communityRepository;
 
     @GetMapping("/home")
     public String showHall(Model model) {
-        model.addAttribute("comunities", cs.findAll());
+        model.addAttribute("comunities", communityRepository.findAll());
         return "home";
     }
 
     @GetMapping("/communities/{id}")
     public String showCommunity(Model model, @PathVariable Long id) {
-        model.addAttribute("community", cs.findById(id));
-        model.addAttribute("id", id);
+        communityRepository.findById(id).ifPresent(community -> model.addAttribute("community", community));
         return "community";
     }
     
-
     @GetMapping("/user_main_page")
     public String login() {
         return "user_main_page";

@@ -23,7 +23,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User userName;
 
     @ManyToOne
     @JoinColumn(name = "community_id", nullable = false)
@@ -41,7 +41,7 @@ public class Post {
             this.postContent = postContent;
             this.image = image;
             this.imageData = imageData;
-            this.user = user;
+            this.userName = user;
             this.community = community;
             this.creationDate = LocalDateTime.now();
         }
@@ -71,11 +71,11 @@ public class Post {
         }
 
         public User getUser() {
-            return user;
+            return userName;
         }
 
         public void setUser(User user) {
-            this.user = user;
+            this.userName = user;
         }
 
         public Community getCommunity() {
