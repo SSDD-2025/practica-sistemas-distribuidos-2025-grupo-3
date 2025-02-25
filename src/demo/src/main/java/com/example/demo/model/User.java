@@ -14,6 +14,10 @@ public class User {
     private String password;
     private String email;
     private Date dateJoined;
+    private String image;
+    @Lob
+    @Column(length = 1048576)
+    private byte[] imageData;
 
     @OneToMany(mappedBy = "userName", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
@@ -31,6 +35,36 @@ public class User {
 
     protected User() {
         // Used by JPA
+    }
+
+    public User(Long id, String username, String password, String email, Date dateJoined, String image,
+            byte[] imageData, List<Post> posts, List<Comment> comments, List<Community> communities) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.dateJoined = dateJoined;
+        this.image = image;
+        this.imageData = imageData;
+        this.posts = posts;
+        this.comments = comments;
+        this.communities = communities;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 
     public User(String username, String password, String email, Date dateJoined) {
