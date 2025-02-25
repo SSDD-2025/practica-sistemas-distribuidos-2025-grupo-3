@@ -13,21 +13,23 @@
         <div class="row">
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center border-end">
                 <h2>Bienvenido</h2>
-                <form action="/home" method="get">
+                <form action="/guest" method="get">
                     <button type="submit" class="btn btn-secondary mt-3">Acceso Invitado</button>
                 </form>
-
             </div>
             <div class="col-md-6">
                 <h4 class="text-center">Login</h4>
-                <form onsubmit="return validarFormulario()">
+                {{#error}}
+                <div class="alert alert-danger text-center">Credenciales incorrectas</div>
+                {{/error}}
+                <form action="/login" method="post">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Nombre o Email</label>
-                        <input type="text" id="email" class="form-control" placeholder="Ingrese su email o nombre">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" id="email" name="email" class="form-control" placeholder="Ingrese su email" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" id="password" class="form-control" placeholder="Ingrese su contraseña">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese su contraseña" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Ingresar</button>
                     <div class="mb-3 text-center">
