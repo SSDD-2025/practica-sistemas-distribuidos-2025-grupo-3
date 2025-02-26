@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class UserController {
 
+    
     @Autowired
     private UserService userService;
 
@@ -61,5 +62,17 @@ public class UserController {
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
+    }
+
+    @PostMapping("/user/delete")
+    public String deleteUser(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            userService.deleteUser(user.getId()); // Llama al método deleteUser en UserService
+            session.invalidate(); // Invalida la sesión después de eliminar al usuario
+        }
+        
+        return "redirect:/"; // Redirige a la página principal después de eliminar al usuario
     }
 }

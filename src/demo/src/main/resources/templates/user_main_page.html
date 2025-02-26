@@ -24,7 +24,11 @@
                             <p class="text-muted">Miembro desde: fecha de registro</p>
                             {{/user.dateJoined}}
                             <a href="#" class="btn btn-primary mt-2" onclick="mostrarAlerta()">Editar Perfil</a>
-                            <a href="#" class="btn btn-danger mt-2" onclick="mostrarAlerta()">Eliminar Perfil</a>
+                                <form id="eliminarUsuarioForm" action="/user/delete" method="POST" style="display: inline;">
+                                    <button type="button" class="btn btn-danger mt-2" onclick="confirmarEliminacion()">Eliminar Perfil</button>
+                                </form>
+                        
+                        </a>
                         </div>
                     </div>
                 </div>
