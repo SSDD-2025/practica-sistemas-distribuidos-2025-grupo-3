@@ -54,9 +54,9 @@ public class PostController {
 
 
     @PostMapping("/post/delete/{postId}")
-public String deletePost(@PathVariable Long postId, 
-HttpSession session,
-@RequestParam("communityId") Long communityId) {
+    public String deletePost(@PathVariable Long postId, 
+    HttpSession session,
+    @RequestParam("communityId") Long communityId) {
     
     User user = (User) session.getAttribute("user");
     
