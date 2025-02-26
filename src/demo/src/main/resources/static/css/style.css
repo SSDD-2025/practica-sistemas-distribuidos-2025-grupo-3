@@ -57,6 +57,16 @@ header {
     transform: scale(1.05);
 }
 
+/* Botón "Registrarse" */
+.btn-register {
+    background-color: #708C69;
+}
+
+.btn-register:hover {
+    background-color: #8daa8a; /* Color más claro en hover */
+    transform: scale(1.05);
+}
+
 /* Botón "Salir" */
 .btn-logout {
     background-color: #D9534F;
