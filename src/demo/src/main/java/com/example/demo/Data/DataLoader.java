@@ -29,7 +29,7 @@ public class DataLoader {
     public void run() throws Exception{
 
         /* Usuario precargado del sistema para acceso invitado */
-        userRepository.save(new User("Invitado", "password", "email", null));
+        userRepository.save(new User("Invitado", "-", "-", null));
 
         /* Informacióm de muestra */
         communityRepository.save(new Community("Java"));

@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Repository.CommunityRepository;
-import com.example.demo.Repository.UserRepository;
 import com.example.demo.Service.PostService;
 import com.example.demo.model.Community;
 import com.example.demo.model.User;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PostController {
@@ -24,21 +25,15 @@ public class PostController {
     @Autowired
     private CommunityRepository communityRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @PostMapping("/savePost")
     public String newPost(
         @RequestParam("title") String title,
         @RequestParam("content") String content,
         @RequestParam(value = "image", required = false) MultipartFile imageFile,
-        @RequestParam("communityId") Long communityId
+        @RequestParam("communityId") Long communityId,
+        HttpSession session
     ) {
-        // Obtener usuario (cambiar cuando haya autenticación)
-        User user = userRepository.findById(1L)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        // Obtener la comunidad
+        User user = (User) session.getAttribute("user");
         Community community = communityRepository.findById(communityId)
                 .orElseThrow(() -> new RuntimeException("Comunidad no encontrada"));
 

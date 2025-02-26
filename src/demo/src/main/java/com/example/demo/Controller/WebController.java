@@ -63,7 +63,16 @@ public class WebController {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
+        model.addAttribute("posts", postRepository.findByUserName(user));
         return "user_main_page";
+    }
+
+    @GetMapping("/quienes_somos")
+    public String who(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        model.addAttribute("isGuest", user.getId() == 1);
+        return "quienes_somos";
     }
 
     @GetMapping("/registration_page")

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>¿Quienes somos?</title>
+        {{> commons/head}}
+        <style>
+            .centered-image {
+                max-width: 934px;
+                max-height: 404px;
+                width: 100%; /* Ajuste responsivo */
+                height: auto;
+                display: block;
+                margin: 0 auto; /* Centrado horizontal */
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); /* Centrado total */
+            }
+        </style>
+    </head>
+    <body class="bg-light d-flex flex-column min-vh-100">
+
+        {{> commons/header}}
+        <div class="container flex-grow-1 mt-4"> 
+            <img src="/assets/img/who.png" alt="Imagen" class="centered-image">
+        </div>
+        {{> commons/footer}}
+    </body>
+
+</html>

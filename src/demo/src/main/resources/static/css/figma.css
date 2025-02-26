@@ -1,0 +1,126 @@
+/* Rectangle 6 */
+
+position: absolute;
+width: 1920px;
+height: 130px;
+left: 0px;
+top: 0px;
+
+background: #013D5A;
+
+
+/* LinkedCommunity */
+
+position: absolute;
+width: 356px;
+height: 54px;
+left: 52px;
+top: 33px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 900;
+font-size: 36px;
+line-height: 54px;
+/* identical to box height */
+
+color: #708C69;
+
+
+
+/* Rectangle 15 */
+
+position: absolute;
+width: 151.56px;
+height: 50px;
+left: 1541px;
+top: 39px;
+
+background: #F4A258;
+border-radius: 7.8125px;
+
+
+/* MI CUENTA */
+
+position: absolute;
+width: 106.25px;
+height: 26.56px;
+left: 1576.94px;
+top: 49.94px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 900;
+font-size: 17.1875px;
+line-height: 26px;
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #FFFFFF;
+
+
+
+/* Rectangle 16 */
+
+position: absolute;
+width: 125px;
+height: 50px;
+left: 1712.88px;
+top: 39px;
+
+background: #D9534F;
+border-radius: 7.8125px;
+
+
+/* SALIR */
+
+position: absolute;
+width: 106.25px;
+height: 26.56px;
+left: 1722.25px;
+top: 49.94px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 900;
+font-size: 17.1875px;
+line-height: 26px;
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #FFFFFF;
+
+
+
+/* Group */
+
+position: absolute;
+left: 80.83%;
+right: 18.11%;
+top: 4.77%;
+bottom: 92.84%;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 81.03%;
+right: 18.31%;
+top: 4.77%;
+bottom: 94.05%;
+
+border: 2.01126px solid #200E32;
+
+
+/* Vector */
+
+position: absolute;
+left: 80.83%;
+right: 18.11%;
+top: 6.41%;
+bottom: 92.84%;
+
+border: 2.01126px solid #200E32;
