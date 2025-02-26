@@ -6,13 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Repository.CommunityRepository;
 import com.example.demo.Repository.PostRepository;
 import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class CommunityController {
     
