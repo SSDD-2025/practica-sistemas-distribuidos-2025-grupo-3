@@ -61,7 +61,17 @@
                                             &#x22EE;
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item text-danger" href="#" onclick="mostrarAlerta()">Eliminar Publicación</a></li>
+                                            <li>
+                                                <form action="/post/delete/{{id}}" method="post" style="display: inline;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    
+                                                     <!-- Campo oculto para el ID de la comunidad -->
+                                                     <input type="hidden" name="communityId" value="{{community.id}}">
+
+                                                     <button type="submit" class="dropdown-item text-danger">Eliminar Publicación</button>
+                                                </form>
+                                                
+                                            </li>
                                         </ul>
                                     </div>
                                     {{/isGuest}}

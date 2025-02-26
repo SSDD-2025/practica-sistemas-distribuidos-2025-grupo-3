@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Repository.CommunityRepository;
+import com.example.demo.Repository.PostRepository;
 import com.example.demo.Service.PostService;
 import com.example.demo.model.Community;
 import com.example.demo.model.User;
@@ -24,6 +25,10 @@ public class PostController {
 
     @Autowired
     private CommunityRepository communityRepository;
+
+    @Autowired
+    private PostRepository postRepository; 
+
 
     @PostMapping("/savePost")
     public String newPost(
@@ -46,4 +51,22 @@ public class PostController {
     public ResponseEntity<byte[]> getPostImage(@PathVariable Long postId) {
         return postService.getPostImage(postId);
     }
+
+
+    @PostMapping("/post/delete/{postId}")
+public String deletePost(@PathVariable Long postId, 
+HttpSession session,
+@RequestParam("communityId") Long communityId) {
+    
+    User user = (User) session.getAttribute("user");
+    
+
+    if (user == null) {
+        return "redirect:/";
+    }
+    postRepository.deleteById(postId);
+    return "redirect:/communities/" + communityId  ;
+}
+
+
 }
