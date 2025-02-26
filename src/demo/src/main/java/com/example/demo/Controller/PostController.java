@@ -54,19 +54,24 @@ public class PostController {
 
 
     @PostMapping("/post/delete/{postId}")
+<<<<<<< Updated upstream
     public String deletePost(@PathVariable Long postId, 
     HttpSession session,
     @RequestParam("communityId") Long communityId) {
+=======
+    public String deletePost(
+        @PathVariable Long postId, 
+        HttpSession session,
+        @RequestParam("communityId") Long communityId) {
+>>>>>>> Stashed changes
     
-    User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
     
-
-    if (user == null) {
-        return "redirect:/";
+        if (user == null) {
+            return "redirect:/";
+        }
+        postRepository.deleteById(postId);
+        return "redirect:/communities/" + communityId;
     }
-    postRepository.deleteById(postId);
-    return "redirect:/communities/" + communityId  ;
-}
-
 
 }
