@@ -20,6 +20,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("/register")
+    public String register(@RequestParam("username") String username,
+                           @RequestParam("email") String email,
+                           @RequestParam("password") String password,
+                           HttpSession session,
+                           Model model) {
+        User user = userService.registerUser(username, email, password);
+        if (user != null) {
+            session.setAttribute("user", user);
+            return "redirect:/home";
+        }
+        model.addAttribute("error", true);
+        return "index";
+    }
+
     @PostMapping("/login")
     public String login(@RequestParam("email") String email,
                         @RequestParam("password") String password,
