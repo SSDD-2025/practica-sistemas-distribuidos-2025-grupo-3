@@ -23,4 +23,12 @@ public class UserService {
     public User getGuestUser() {
         return userRepository.findById(1L).orElse(null);
     }
+
+    public User registerUser(String username, String email, String password) {
+        if (userRepository.findByEmail(email) != null | userRepository.findByUsername(username) != null) {
+            return null;
+        }
+        User user = new User(username, password, email, new java.util.Date());
+        return userRepository.save(user);
+    }
 }
