@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.User;
 
@@ -17,16 +16,16 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class UserController {
 
-    
     @Autowired
     private UserService userService;
 
     @PostMapping("/register")
-    public String register(@RequestParam("username") String username,
-                           @RequestParam("email") String email,
-                           @RequestParam("password") String password,
-                           HttpSession session,
-                           Model model) {
+    public String register(
+            String username,
+            String email,
+            String password,
+            HttpSession session,
+            Model model) {
         User user = userService.registerUser(username, email, password);
         if (user != null) {
             session.setAttribute("user", user);
@@ -37,12 +36,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("email") String email,
-                        @RequestParam("password") String password,
-                        HttpSession session,
-                        Model model) {
+    public String login(
+            String email,
+            String password,
+            HttpSession session,
+            Model model) {
         User user = userService.authenticateUser(email, password);
-        
+
         if (user != null) {
             session.setAttribute("user", user);
             return "redirect:/home";
@@ -72,7 +72,7 @@ public class UserController {
             userService.deleteUser(user.getId()); // Llama al método deleteUser en UserService
             session.invalidate(); // Invalida la sesión después de eliminar al usuario
         }
-        
+
         return "redirect:/"; // Redirige a la página principal después de eliminar al usuario
     }
 }

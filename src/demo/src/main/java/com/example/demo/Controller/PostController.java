@@ -32,10 +32,10 @@ public class PostController {
 
     @PostMapping("/savePost")
     public String newPost(
-        @RequestParam("title") String title,
-        @RequestParam("content") String content,
+        String title,
+        String content,
         @RequestParam(value = "image", required = false) MultipartFile imageFile,
-        @RequestParam("communityId") Long communityId,
+        Long communityId,
         HttpSession session
     ) {
         User user = (User) session.getAttribute("user");
@@ -57,7 +57,7 @@ public class PostController {
     public String deletePost(
         @PathVariable Long postId, 
         HttpSession session,
-        @RequestParam("communityId") Long communityId
+        Long communityId
     ) {
         User user = (User) session.getAttribute("user");
             
