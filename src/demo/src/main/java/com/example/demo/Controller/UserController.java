@@ -22,12 +22,10 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public String register(@RequestParam("username") String username,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
+    public String register(String username,String email,String password,
             HttpSession session,
             Model model) {
-        boolean[] errorUserMail = new boolean[]{false, false};
+        boolean[] errorUserMail = new boolean[] { false, false };
         User user = userService.registerUser(username, email, password, errorUserMail);
         if (user != null) {
             session.setAttribute("user", user);
@@ -46,16 +44,16 @@ public class UserController {
             HttpSession session,
             Model model) {
         User user = (User) session.getAttribute("user");
-        if(username != null && !username.trim().isEmpty()) {
+        if (username != null && !username.trim().isEmpty()) {
             user.setUsername(username);
         }
-        if(password != null && !password.trim().isEmpty()) {
+        if (password != null && !password.trim().isEmpty()) {
             user.setPassword(password);
         }
-        if (email != null && !email.trim().isEmpty() ) {
+        if (email != null && !email.trim().isEmpty()) {
             user.setEmail(email);
         }
-        if(imageFile != null) {
+        if (imageFile != null) {
             user.setImage(imageFile.getOriginalFilename());
             try {
                 user.setImageData(imageFile.getBytes());
@@ -63,10 +61,11 @@ public class UserController {
                 e.printStackTrace();
             }
         }
-        //model.addAttribute("exito", true); Here we should configure a message to show the user that the update was successful
+        // model.addAttribute("exito", true); Here we should configure a message to show
+        // the user that the update was successful
         userService.updateUser(user);
         session.setAttribute("user", user);
-        return "redirect:/user_main_page"; 
+        return "redirect:/user_main_page";
 
     }
 
@@ -77,7 +76,6 @@ public class UserController {
             HttpSession session,
             Model model) {
         User user = userService.authenticateUser(email, password);
-
 
         if (user != null) {
             session.setAttribute("user", user);
