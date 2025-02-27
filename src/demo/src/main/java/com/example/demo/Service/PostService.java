@@ -51,5 +51,9 @@ public class PostService {
         headers.set("Content-Type", "image/jpeg");
         return new ResponseEntity<byte[]>(imageData, headers, HttpStatus.OK);
     }
+
+    public void deletePost(Long postId) {
+        postRepository.deleteById(postId);
+    }
 }
 
