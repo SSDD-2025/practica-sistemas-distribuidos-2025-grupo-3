@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>ERROR</title>
+        <title>Linked Community</title>
         {{> commons/head}}
     </head>
-    <body>
-        <h1 style="color: red;">ERROR</h1>
-        <p>No se encuentra la pagina solicitada</p>
+    <body class="bg-light d-flex flex-column min-vh-100">
+
+        {{> commons/header}}
+
+        <div class="container flex-grow-1 mt-5">
+            <div class="row">
+                <!-- Columna izquierda -->
+                <div class="col-md-3">
+
+                </div>
+
+                <!-- Columna central -->
+                <div class="col-md-6 mb-4 align-items-center">
+                    <h1 class="text-center">Error {{errorCode}}</h1>
+                    <p class="text-center">{{errorMessage}}</p>
+                </div>
+                
+                <!-- Columna derecha -->
+                <div class="col-md-3">
+
+                </div>
+            </div>
+        </div>
+        {{> commons/footer}}
     </body>
 
 </html>

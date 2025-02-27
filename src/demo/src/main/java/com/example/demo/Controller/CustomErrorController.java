@@ -1,19 +1,36 @@
 package com.example.demo.Controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Controller
 public class CustomErrorController implements ErrorController {
 
-    @GetMapping("/error")
-    @ResponseStatus(HttpStatus.NOT_FOUND) // Mantiene el código 404
-    public String handleError(HttpServletRequest request) {
-        return "error"; // Retorna la vista error.html en templates/
-    }
+    @RequestMapping("/error") // Captura posibles errores HTTP
+    public String handleError(HttpServletRequest request, Model model) {
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
+        if (status != null) {
+            int statusCode = Integer.parseInt(status.toString());
+            model.addAttribute("errorCode", statusCode);
+
+            switch (statusCode) {
+                case 400 -> model.addAttribute("errorMessage", "Solicitud incorrecta.");
+                case 401 -> model.addAttribute("errorMessage", "No autorizado.");
+                case 403 -> model.addAttribute("errorMessage", "Acceso prohibido.");
+                case 404 -> model.addAttribute("errorMessage", "Página no encontrada.");
+                case 408 -> model.addAttribute("errorMessage", "Tiempo de espera agotado.");
+                case 409 -> model.addAttribute("errorMessage", "Conflicto en la solicitud.");
+                case 500 -> model.addAttribute("errorMessage", "Error interno del servidor.");
+                default -> model.addAttribute("errorMessage", "Ocurrió un error inesperado.");
+            }
+        }
+
+        return "error";
+    }
 }
