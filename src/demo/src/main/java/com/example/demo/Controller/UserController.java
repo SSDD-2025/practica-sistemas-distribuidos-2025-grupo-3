@@ -71,11 +71,11 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(
-            String email,
+            String logger,
             String password,
             HttpSession session,
             Model model) {
-        User user = userService.authenticateUser(email, password);
+        User user = userService.authenticateUser(logger, password);
 
         if (user != null) {
             session.setAttribute("user", user);
