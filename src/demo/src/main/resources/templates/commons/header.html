@@ -1,11 +1,19 @@
-<header class="d-flex justify-content-between align-items-center p-3">
-    <div class="container d-flex justify-content-between ">
-        <a href="/home" class="text-decoration-none header-logo">Linked<span style="color: white;">Community</span></a>
+<header class="d-flex align-items-center p-3">
+    <div class="container d-flex align-items-center justify-content-between">
+        <!-- Contenedor del logo con ancho mínimo para evitar que los botones se desplacen -->
+        <div class="logo-container">
+            <a href="/home" class="text-decoration-none header-logo">
+                <span class="d-none d-md-inline">Linked<span style="color: white;">Community</span></span>
+                <img src="/assets/img/logo.png" alt="Logo" class="d-md-none logo-small">
+            </a>
+        </div>
 
-        <div class="header-buttons">
+        <div class="header-buttons d-flex">
             {{^isGuest}}  <!-- Si NO es invitado -->
                 <form action="/user_main_page" method="get">
-                    <button type="submit" class="btn-account" ><i class="bi bi-person-circle"></i><span class="ms-1"></span>Mi cuenta</button>
+                    <button type="submit" class="btn-account">
+                        <i class="bi bi-person-circle"></i><span class="ms-1"></span>Mi cuenta
+                    </button>
                 </form>
             {{/isGuest}}
 

@@ -29,7 +29,7 @@ public class CommunityController {
         communityRepository.findById(id).ifPresent(community -> model.addAttribute("community", community));
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
-        model.addAttribute("posts", postRepository.findByCommunityId(id));
+        model.addAttribute("posts", postRepository.findByCommunityIdOrderByCreationDateDesc(id));
         return "community";
     }
 

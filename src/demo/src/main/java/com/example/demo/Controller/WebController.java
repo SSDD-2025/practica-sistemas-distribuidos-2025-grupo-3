@@ -54,7 +54,7 @@ public class WebController {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
-        model.addAttribute("posts", postRepository.findByUserName(user));
+        model.addAttribute("posts", postRepository.findByUserNameOrderByCreationDateDesc(user));
         return "user_main_page";
     }
 

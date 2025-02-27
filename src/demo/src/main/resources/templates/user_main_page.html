@@ -15,22 +15,39 @@
             <div class="row">
                 <!-- Sección de perfil -->
                 <div class="col-md-4">
-                    <div class="card text-center shadow-sm">
+                    <div class="card text-center shadow-sm position-relative">
+                        <!-- Dropdown en la esquina superior derecha con tres puntos verticales -->
+                        <div class="dropdown position-absolute top-0 start-0 m-2">
+                            <button class="btn btn-light btn-sm rounded-circle shadow-sm" type="button" id="userOptions" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i> <!-- Icono de tres puntos -->
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-start shadow-sm p-2 rounded">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center" href="/edit_user_page">
+                                        <i class="bi bi-pencil text-primary me-2"></i> Editar Perfil
+                                    </a>
+                                </li>
+                                <li>
+                                    <form id="eliminarUsuarioForm" action="/user/delete" method="POST">
+                                        <button type="button" class="dropdown-item d-flex align-items-center text-danger" onclick="confirmarEliminacion()">
+                                            <i class="bi bi-trash me-2"></i> Eliminar Perfil
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                
                         <div class="card-body">
-                            <img src="/user/image/{{user.id}}" alt="Foto de perfil" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                            <img src="/user/image/{{user.id}}" alt="Foto de perfil" class="rounded-circle img-fluid mb-3 mt-5" style="width: 150px; height: 150px; object-fit: cover;">
                             <h4 class="card-title">{{user.username}}</h4>
                             <p class="text-muted">Correo: {{user.email}}</p>
                             {{#user.dateJoined}}
                             <p class="text-muted">Miembro desde: {{user.dateJoined}}</p>
                             {{/user.dateJoined}}
-                            <a href="/edit_user_page" class="btn btn-primary mt-2">Editar Perfil</a>
-                            <form id="eliminarUsuarioForm" action="/user/delete" method="POST" style="display: inline;">
-                                <button type="button" class="btn btn-danger mt-2" onclick="confirmarEliminacion()">Eliminar Perfil</button>
-                            </form>
-                        </a>
                         </div>
                     </div>
                 </div>
+                
 
                 <!-- Sección de publicaciones -->
                 <div class="col-md-8">
@@ -45,7 +62,7 @@
                                 <img src="/post/image/{{id}}" class="img-fluid rounded" style="max-width: 100%; max-height: 100px;">
                                 {{/image}}
                                 <div class="d-flex justify-content-end">
-                                    <small class="text-muted">Publicado el {{creationDate}}</small>
+                                    <small class="text-muted">Publicado el {{creationDate}} en {{community.name}}</small>
                                 </div>
                             </div>
                         </div>

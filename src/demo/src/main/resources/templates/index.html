@@ -5,14 +5,12 @@
         {{> commons/head}}
         <script src="js/validaciones.js"></script>
     </head>
-    <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <body class="d-flex justify-content-center align-items-center vh-100 bg-light" background="/assets/img/background.png">
         <div class="container p-4 bg-white shadow rounded" style="max-width: 800px;">
             <div class="row">
                 <div class="col-md-6 d-flex flex-column justify-content-center align-items-center border-end">
                     <h2>Bienvenido</h2>
-                    <form action="/guest" method="get">
-                        <button type="submit" class="btn btn-secondary mt-3">Acceso Invitado</button>
-                    </form>
+                    <img src="/assets/img/logo.png" alt="Logo" class="img-fluid" style="height: 170px; width: 170px;">
                 </div>
                 <div class="col-md-6">
                     <h4 class="text-center">Login</h4>
@@ -38,6 +36,9 @@
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Ingresar</button>
                         <div class="mb-3 text-center">
+                            <form action="/guest" method="get">
+                                <button type="submit" class="btn btn-secondary mt-3">Acceso Invitado</button>
+                            </form>
                             <a href="/registration_page" class="btn btn-secondary mt-3">¿No estás registrado?</a>
                         </div>
                     </form>

@@ -46,22 +46,6 @@ public class User {
         this.imageData = imageData;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public byte[] getImageData() {
-        return imageData;
-    }
-
-    public void setImageData(byte[] imageData) {
-        this.imageData = imageData;
-    }
-
     public User(String username, String password, String email, Date dateJoined) {
         this.username = username;
         this.password = password;
@@ -86,6 +70,14 @@ public class User {
         return email;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
     // Setters
     public void setId(long id) {
         this.id = id;
@@ -102,7 +94,14 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public void setImage(String image) {
+        this.image = image;
+    }
 
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
 
     @Override
     public String toString() {

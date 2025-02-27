@@ -24,6 +24,15 @@ header {
     text-decoration: none;
 }
 
+.logo-small {
+    height: 60px; /* Tamaño ajustado del logo */
+    display: block;
+}
+
+.logo-container {
+    min-width: 250px; /* Ajusta esto al ancho del texto completo */
+}
+
 /* Contenedor de botones */
 .header-buttons {
     display: flex;
@@ -76,6 +85,57 @@ header {
     background-color: #e57373; /* Color más claro en hover */
     transform: scale(1.05);
 }
+
+/* Botones de user home page */
+
+.custom-btn-primary {
+    background-color: #013D5A !important;
+    border-color: #013D5A !important;
+    color: white !important;
+}
+
+.custom-btn-primary:hover {
+    background-color: #022B40 !important; /* Un poco más oscuro en hover */
+    border-color: #022B40 !important;
+}
+
+.custom-btn-danger {
+    background-color: #D9534F !important;
+    border-color: #D9534F !important;
+    color: white !important;
+}
+
+.custom-btn-danger:hover {
+    background-color: #B52B27 !important; /* Un poco más oscuro en hover */
+    border-color: #B52B27 !important;
+}
+
+/* Dropdown style in user home page */
+
+.btn-light.btn-sm.rounded-circle {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.dropdown-menu {
+    min-width: 180px; /* Evita que sea muy pequeño */
+    border-radius: 10px; /* Bordes más redondeados */
+}
+
+.dropdown-item {
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.2s ease-in-out;
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 61, 90, 0.1); /* Sutil efecto hover */
+}
+
 
 /* COMUNIDADES */
 
