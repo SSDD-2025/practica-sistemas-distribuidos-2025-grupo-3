@@ -6,6 +6,9 @@
     </head>
     <body class="bg-light d-flex flex-column min-vh-100">
         {{> commons/header}}
+        <!--{{#exito}}
+        alert("Usuario editado con exito") This little block was an idea to show a message when the user edited his profile, but it didn't work
+        {{/exito}}                    we will try to implement it later -->  
 
         <!-- Contenido principal -->
         <div class="container flex-grow-1 mt-5">
@@ -20,10 +23,7 @@
                             {{#user.dateJoined}}
                             <p class="text-muted">Miembro desde: {{user.dateJoined}}</p>
                             {{/user.dateJoined}}
-                            {{^user.dateJoined}}
-                            <p class="text-muted">Miembro desde: fecha de registro</p>
-                            {{/user.dateJoined}}
-                            <a href="#" class="btn btn-primary mt-2" onclick="mostrarAlerta()">Editar Perfil</a>
+                            <a href="/edit_user_page" class="btn btn-primary mt-2">Editar Perfil</a>
                         </div>
                     </div>
                 </div>

@@ -24,11 +24,20 @@ public class UserService {
         return userRepository.findById(1L).orElse(null);
     }
 
-    public User registerUser(String username, String email, String password) {
+    public User registerUser(String username, String email, String password, boolean[] errorUserMail) {
         if (userRepository.findByEmail(email) != null | userRepository.findByUsername(username) != null) {
+            if(userRepository.findByEmail(email) != null) {
+                errorUserMail[1] = true;
+            }
+            if(userRepository.findByUsername(username) != null) {
+                errorUserMail[0] = true;
+            }
             return null;
         }
         User user = new User(username, password, email, new java.util.Date());
         return userRepository.save(user);
+    }
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 }

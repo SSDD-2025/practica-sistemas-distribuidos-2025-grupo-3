@@ -19,10 +19,18 @@
                     {{#error}}
                     <div class="alert alert-danger text-center">Credenciales incorrectas</div>
                     {{/error}}
+                    {{#errorUser}}
+                    <div class="alert alert-danger text-center">Usuario ya existente</div>
+                    {{/errorUser}}
+                    {{^errorUser}}
+                    {{#errorMail}}
+                    <div class="alert alert-danger text-center">Email ya existente</div>
+                    {{/errorMail}}
+                    {{/errorUser}}
                     <form action="/login" method="post">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="text" id="email" name="email" class="form-control" placeholder="Ingrese su email" required>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Ingrese su email" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Contraseña</label>

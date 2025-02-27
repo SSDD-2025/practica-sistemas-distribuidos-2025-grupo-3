@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>LC-Mi cuenta</title>
+    {{> commons/head}}
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+    {{> commons/header}}
+    <h1 class="text-center mb-4">Editar Perfil</h1>
+
+    <div class="container p-4 bg-white shadow rounded" style="max-width: 600px;">
+        <h2 class="text-center mb-4">Edicion de perfil</h2>
+
+        <form action="/edit_user" method="post">
+            <div class="row">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nombre de usuario:</label>
+                    <input type="text" id="username" name="username" placeholder="Ingrese su nombre de usuario" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo electrónico:</label>
+                    <input type="email" id="email" name="email" placeholder="Ingrese su correo electrónico">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña:</label>
+                    <input type="password" id="password" name="password" placeholder="Ingrese su contraseña">
+                </div>
+                <div class="w-100 d-flex align-items-center gap-2">
+                    <input type="file" name="image" class="form-control" accept="image/*">
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary w-100">Confirmar edición</button>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="d-flex justify-content-between">
+                    <a href="/user_main_page" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Volver al perfil
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+    {{> commons/footer}}
+</body>
+
+</html>

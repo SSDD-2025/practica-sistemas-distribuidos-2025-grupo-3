@@ -79,5 +79,9 @@ public class WebController {
     public String register() {
         return "registration_page";
     }
+    @GetMapping("/edit_user_page")
+    public String editUser() {
+        return "edit_user_page";
+    }
 
 }
