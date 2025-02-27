@@ -22,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public String register(String username,String email,String password,
+    public String register(String username, String email, String password,
             HttpSession session,
             Model model) {
         boolean[] errorUserMail = new boolean[] { false, false };
@@ -45,13 +45,17 @@ public class UserController {
             Model model) {
         User user = (User) session.getAttribute("user");
         if (username != null && !username.trim().isEmpty()) {
-            user.setUsername(username);
+            if (userService.usernamePresent(username)) {
+                user.setUsername(username);
+            }
         }
         if (password != null && !password.trim().isEmpty()) {
             user.setPassword(password);
         }
         if (email != null && !email.trim().isEmpty()) {
-            user.setEmail(email);
+            if (userService.emailPresent(email)) {
+                user.setEmail(username);
+            }
         }
         if (imageFile != null) {
             user.setImage(imageFile.getOriginalFilename());
@@ -61,8 +65,10 @@ public class UserController {
                 e.printStackTrace();
             }
         }
-        // model.addAttribute("exito", true); Here we should configure a message to show
-        // the user that the update was successful
+        /*
+         * We should later on add some custom error or success
+         * messages based on what we were able to change or not
+         */
         userService.updateUser(user);
         session.setAttribute("user", user);
         return "redirect:/user_main_page";

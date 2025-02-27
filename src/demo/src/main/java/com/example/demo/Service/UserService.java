@@ -13,7 +13,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public User authenticateUser(String logger, String password) {
-        if (logger.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+$")) { //If the logger has an email format, then check for it in the database by email
+        if (logger.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+(\\.[a-zA-Z]+)?$")) { //If the logger has an email format, then check for it in the database by email
             User user = userRepository.findByEmail(logger);
             if (user != null && user.getPassword().equals(password)) {
                 return user;
@@ -51,5 +51,11 @@ public class UserService {
 
     public void updateUser(User user) {
         userRepository.save(user);
+    }
+    public boolean usernamePresent(String username) {
+        return userRepository.findByUsername(username) != null;
+    }
+    public boolean emailPresent(String email) {
+        return userRepository.findByEmail(email) != null;
     }
 }
