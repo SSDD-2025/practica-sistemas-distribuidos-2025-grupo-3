@@ -37,6 +37,11 @@ public class UserService {
         User user = new User(username, password, email, new java.util.Date());
         return userRepository.save(user);
     }
+
+    public void deleteUser(long id) {
+        userRepository.deleteById(id);
+    }
+
     public void updateUser(User user) {
         userRepository.save(user);
     }

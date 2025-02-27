@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.Repository.CommunityRepository;
 import com.example.demo.Repository.PostRepository;
@@ -48,15 +47,7 @@ public class WebController {
         return "home"; 
     }
 
-    @GetMapping("/communities/{id}")
-    public String showCommunity(HttpSession session, Model model, @PathVariable Long id) {
-        User user = (User) session.getAttribute("user");
-        communityRepository.findById(id).ifPresent(community -> model.addAttribute("community", community));
-        model.addAttribute("user", user);
-        model.addAttribute("isGuest", user.getId() == 1);
-        model.addAttribute("posts", postRepository.findByCommunityId(id));
-        return "community";
-    }
+    
     
     @GetMapping("/user_main_page")
     public String login(HttpSession session, Model model) {
