@@ -37,18 +37,13 @@ public class User {
         // Used by JPA
     }
 
-    public User(Long id, String username, String password, String email, Date dateJoined, String image,
-            byte[] imageData, List<Post> posts, List<Comment> comments, List<Community> communities) {
-        this.id = id;
+    public User(String username, String password, String email, Date dateJoined, String image, byte[] imageData) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.dateJoined = dateJoined;
         this.image = image;
         this.imageData = imageData;
-        this.posts = posts;
-        this.comments = comments;
-        this.communities = communities;
     }
 
     public String getImage() {

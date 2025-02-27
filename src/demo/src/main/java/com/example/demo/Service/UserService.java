@@ -1,6 +1,9 @@
 package com.example.demo.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Repository.UserRepository;
@@ -57,5 +60,19 @@ public class UserService {
     }
     public boolean emailPresent(String email) {
         return userRepository.findByEmail(email) != null;
+    }
+
+    public ResponseEntity<byte[]> getUserImage(Long userId) {
+        User user = userRepository.findById(userId)
+        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        byte[] imageData = user.getImageData();
+        if (imageData == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "image/*");
+        return new ResponseEntity<byte[]>(imageData, headers, HttpStatus.OK);
     }
 }

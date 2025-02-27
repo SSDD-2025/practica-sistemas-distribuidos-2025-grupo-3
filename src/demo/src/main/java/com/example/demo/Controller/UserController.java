@@ -1,8 +1,12 @@
 package com.example.demo.Controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,7 +49,7 @@ public class UserController {
             Model model) {
         User user = (User) session.getAttribute("user");
         if (username != null && !username.trim().isEmpty()) {
-            if (userService.usernamePresent(username)) {
+            if (!userService.usernamePresent(username)) {
                 user.setUsername(username);
             }
         }
@@ -53,18 +57,20 @@ public class UserController {
             user.setPassword(password);
         }
         if (email != null && !email.trim().isEmpty()) {
-            if (userService.emailPresent(email)) {
-                user.setEmail(username);
+            if (!userService.emailPresent(email)) {
+                user.setEmail(email);
             }
         }
-        if (imageFile != null) {
-            user.setImage(imageFile.getOriginalFilename());
-            try {
+
+        try {
+            if (imageFile != null && !imageFile.isEmpty()) {
+                user.setImage(imageFile.getOriginalFilename());
                 user.setImageData(imageFile.getBytes());
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (IOException e) {
+            throw new RuntimeException("Error al procesar la imagen", e);
         }
+
         /*
          * We should later on add some custom error or success
          * messages based on what we were able to change or not
@@ -114,5 +120,10 @@ public class UserController {
         }
 
         return "redirect:/"; // Redirige a la página principal después de eliminar al usuario
+    }
+
+    @GetMapping("/user/image/{userId}")
+    public ResponseEntity<byte[]> getUserImage(@PathVariable Long userId) {
+        return userService.getUserImage(userId);
     }
 }
