@@ -18,9 +18,12 @@
                 <!-- Columna izquierda -->
                 <div class="col-md-3">
                     {{^isGuest}}
-                    <button class="btn btn-primary" onclick="mostrarAlerta()">
-                        <i class="bi bi-plus-lg"></i> Añadir comunidad
-                    </button>
+                    <form action="/community/create" method="post">
+                        <input type="text" id="communityName" name="name" class="form-control" placeholder="Nombre de la comunidad" required>
+                        <button class="btn btn-primary mt-2" type="submit">
+                            <i class="bi bi-plus-lg"></i> Añadir Comunidad
+                        </button>
+                    </form>
                     {{/isGuest}}
                 </div>
     

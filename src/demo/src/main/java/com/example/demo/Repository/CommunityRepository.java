@@ -6,5 +6,7 @@ import com.example.demo.model.Community;
 
 @Repository
 public interface CommunityRepository extends JpaRepository<Community, Long> {
-    
+
+    boolean existsByName(String name);
+
 }
