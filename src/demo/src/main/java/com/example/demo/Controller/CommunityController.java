@@ -35,7 +35,7 @@ public class CommunityController {
 
     @PostMapping("/community/create")
     public String createCommunity(
-            @RequestParam String name, // Asegúrate de que el parámetro se obtenga correctamente
+            @RequestParam String name,
             HttpSession session) {
         User user = (User) session.getAttribute("user");
 
@@ -44,14 +44,16 @@ public class CommunityController {
         }
 
         if (name == null || name.isEmpty()) {
-            // Manejar el caso donde el nombre es inválido (opcional)
-            return "redirect:/home"; // O redirigir a alguna página de error
+            return "redirect:/home";
         }
 
-        Community community = new Community(name); // Aquí es donde debes crear la comunidad
+        if (communityRepository.existsByName(name)) {
+            return "redirect:/home";
+        }
+        Community community = new Community(name);
         communityRepository.save(community);
 
-        return "redirect:/home"; // Redirige a la página principal tras la creación
+        return "redirect:/home";
     }
 
     @PostMapping("/community/delete/{communityId}")
