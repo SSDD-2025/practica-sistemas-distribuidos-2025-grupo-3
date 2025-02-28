@@ -1,5 +1,10 @@
 package com.example.demo.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +21,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public User authenticateUser(String logger, String password) {
-        if (logger.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+(\\.[a-zA-Z]+)?$")) { //If the logger has an email format, then check for it in the database by email
+        if (logger.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+(\\.[a-zA-Z]+)?$"))  { //If the logger has an email format, then check for it in the database by email
             User user = userRepository.findByEmail(logger);
             if (user != null && user.getPassword().equals(password)) {
                 return user;
@@ -34,7 +39,7 @@ public class UserService {
         return userRepository.findById(1L).orElse(null);
     }
 
-    public User registerUser(String username, String email, String password, boolean[] errorUserMail) {
+    public User registerUser(String username, String email, String password, boolean[] errorUserMail) throws IOException {
         if (userRepository.findByEmail(email) != null | userRepository.findByUsername(username) != null) {
             if (userRepository.findByEmail(email) != null) {
                 errorUserMail[1] = true;
@@ -44,7 +49,10 @@ public class UserService {
             }
             return null;
         }
-        User user = new User(username, password, email, new java.util.Date());
+        Path imagePath = Paths.get("src\\demo\\src\\main\\resources\\static\\assets\\img\\default-user-profile-image.webp");
+        byte[] imageData = Files.readAllBytes(imagePath);
+        String imageName = imagePath.getFileName().toString();
+        User user = new User(username, password, email, new java.util.Date(), imageName, imageData);
         return userRepository.save(user);
     }
 

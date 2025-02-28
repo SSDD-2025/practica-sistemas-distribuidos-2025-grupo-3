@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping("/register")
     public String register(String username, String email, String password,
             HttpSession session,
-            Model model) {
+            Model model) throws IOException {
         boolean[] errorUserMail = new boolean[] { false, false };
         User user = userService.registerUser(username, email, password, errorUserMail);
         if (user != null) {
