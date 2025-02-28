@@ -1,10 +1,9 @@
 package com.example.demo.Data;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.Repository.CommunityRepository;
@@ -41,15 +40,24 @@ public class DataLoader {
         communityRepository.save(new Community("Baloncesto"));
         communityRepository.save(new Community("Aquagym"));
 
-        Path imagePath = Paths.get("src\\demo\\src\\main\\resources\\static\\assets\\img\\default-user-profile-image.webp");
-        byte[] imageData = Files.readAllBytes(imagePath);
-        String imageName = imagePath.getFileName().toString();
+        ClassPathResource imgFile;
+        imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
+        byte[] imageData;
+        imageData = Files.readAllBytes(imgFile.getFile().toPath());
+        String imageName;
+        imageName = imgFile.getFilename();
 
         userRepository.save(new User("Pitolo Margarito", "password", "email@1", new java.util.Date(), imageName, imageData));
         userRepository.save(new User("Florensia", "password2", "email@2", new java.util.Date(), imageName, imageData));
         userRepository.save(new User("Pepito", "password3", "email@3", new java.util.Date(), imageName, imageData));
         userRepository.save(new User("Juan Carlos", "password4", "email@4", new java.util.Date(), imageName, imageData));
         userRepository.save(new User("Pepa", "password5", "email@5", new java.util.Date(), imageName, imageData));
+
+        //Separated developers accounts dataloaders, could maybe use them in a future as admin users
+        imgFile = new ClassPathResource("static/assets/img/imagensergio.gif");
+        imageData = Files.readAllBytes(imgFile.getFile().toPath());
+        imageName = imgFile.getFilename();
+        userRepository.save(new User("Sergio", "454548", "s.espinosa.2020@alumnos.urjc.es", new java.util.Date(), imageName, imageData));
 
         postRepository.save(new Post("Mi post sobre java", "Java mola que te cagas hermano, me la paso programando y aprendiendo cosas y en futuros post haré algo para enseñaros lo mucho que sé", "imagen", null, userRepository.findById(5L).get(), communityRepository.findById(1L).get()));
         postRepository.save(new Post("Aprendiendo Spring", "Spring es un framework muy poderoso para desarrollar aplicaciones en Java. Estoy disfrutando mucho aprenderlo.", "imagen3", null, userRepository.findById(2L).get(), communityRepository.findById(1L).get()));

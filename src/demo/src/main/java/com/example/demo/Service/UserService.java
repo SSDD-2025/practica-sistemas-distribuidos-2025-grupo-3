@@ -2,10 +2,9 @@ package com.example.demo.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public User authenticateUser(String logger, String password) {
-        if (logger.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+(\\.[a-zA-Z]+)?$"))  { //If the logger has an email format, then check for it in the database by email
+        if (logger.matches("^[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\\.[a-zA-Z]+)*$"))  { //If the logger has an email format, then check for it in the database by email
             User user = userRepository.findByEmail(logger);
             if (user != null && user.getPassword().equals(password)) {
                 return user;
@@ -49,9 +48,9 @@ public class UserService {
             }
             return null;
         }
-        Path imagePath = Paths.get("src\\demo\\src\\main\\resources\\static\\assets\\img\\default-user-profile-image.webp");
-        byte[] imageData = Files.readAllBytes(imagePath);
-        String imageName = imagePath.getFileName().toString();
+        ClassPathResource imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
+        byte[] imageData = Files.readAllBytes(imgFile.getFile().toPath());
+        String imageName = imgFile.getFilename();
         User user = new User(username, password, email, new java.util.Date(), imageName, imageData);
         return userRepository.save(user);
     }
