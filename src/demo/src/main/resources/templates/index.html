@@ -5,7 +5,7 @@
         {{> commons/head}}
         <script src="js/validaciones.js"></script>
     </head>
-    <body class="d-flex justify-content-center align-items-center vh-100 bg-light" background="/assets/img/background.png">
+    <body class="d-flex justify-content-center align-items-center vh-100 bg-light" style="background-image: url('/assets/img/background.png'); background-size: cover; background-position: center;">
         <div class="container p-4 bg-white shadow rounded" style="max-width: 800px;">
             <div class="row">
                 <div class="col-md-6 d-flex flex-column justify-content-center align-items-center border-end">
@@ -35,13 +35,13 @@
                             <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese su contraseña" required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-                        <div class="mb-3 text-center">
-                            <form action="/guest" method="get">
-                                <button type="submit" class="btn btn-secondary mt-3">Acceso Invitado</button>
-                            </form>
-                            <a href="/registration_page" class="btn btn-secondary mt-3">¿No estás registrado?</a>
-                        </div>
                     </form>
+                    <div class="mb-3 text-center d-flex flex-row gap-2 m-auto justify-content-center">
+                        <form action="/guest" method="get">
+                            <button type="submit" class="btn btn-secondary mt-3">Acceso Invitado</button>
+                        </form>
+                        <a href="/registration_page" class="btn btn-secondary mt-3">¿No estás registrado?</a>
+                    </div>
                 </div>
             </div>
         </div>
