@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.Repository.CommentRepository;
 import com.example.demo.Repository.CommunityRepository;
 import com.example.demo.Repository.PostRepository;
 import com.example.demo.Repository.UserRepository;
+import com.example.demo.model.Comment;
 import com.example.demo.model.Community;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
@@ -26,6 +28,9 @@ public class DataLoader {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
 
     @PostConstruct
@@ -64,6 +69,8 @@ public class DataLoader {
         postRepository.save(new Post("Java Streams", "Los Streams en Java son una herramienta muy útil para manejar colecciones de datos de manera funcional.", "imagen4", null, userRepository.findById(3L).get(), communityRepository.findById(1L).get()));
         postRepository.save(new Post("Java y Concurrencia", "La concurrencia en Java es un tema complejo pero muy interesante. Estoy aprendiendo sobre hilos y sincronización.", "imagen5", null, userRepository.findById(4L).get(), communityRepository.findById(1L).get()));
         postRepository.save(new Post("Mi opinion", "Me encanta el futbol", "imagen2", null, userRepository.findById(2L).get(), communityRepository.findById(2L).get()));
+
+        commentRepository.save(new Comment("Muy interesante tu post", userRepository.findById(5L).get(), postRepository.findById(1L).get()));
 
     }
 }
