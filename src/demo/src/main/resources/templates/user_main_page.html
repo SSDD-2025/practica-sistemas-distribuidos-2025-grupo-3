@@ -71,6 +71,23 @@
                         <p class="text-muted">Aún no has publicado nada.</p>
                         {{/posts}}
                     </div>
+                    <!-- Sección de Mis Comentarios -->
+                    <h3 class="mb-3 mt-5">Mis Comentarios</h3>
+                    <div id="comment-container">
+                        {{#comments}}
+                        <div class="card mb-3 shadow-sm">
+                            <div class="card-body">
+                                <p class="card-text">{{comment}}</p>
+                                <div class="d-flex justify-content-end">
+                                    <small class="text-muted">Comentado en el post: "{{postTitle}}"</small>
+                                </div>
+                            </div>
+                        </div>
+                        {{/comments}}
+                        {{^comments}}
+                        <p class="text-muted">Aún no has comentado nada.</p>
+                        {{/comments}}
+                    </div>
                 </div>
             </div>
         </div>

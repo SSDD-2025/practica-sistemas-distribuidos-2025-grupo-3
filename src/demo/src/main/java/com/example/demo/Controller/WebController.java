@@ -5,14 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.demo.Repository.CommentRepository;
 import com.example.demo.Repository.CommunityRepository;
 import com.example.demo.Repository.PostRepository;
+import com.example.demo.model.Comment;
 import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class WebController {
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Autowired
     private CommunityRepository communityRepository;
@@ -43,7 +48,7 @@ public class WebController {
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
         model.addAttribute("comunities", communityRepository.findAll());
-
+        model.addAttribute("comments", commentRepository.findByUserName(user));
         return "home"; 
     }
 
