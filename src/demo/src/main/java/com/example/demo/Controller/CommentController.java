@@ -22,7 +22,7 @@ public class CommentController {
     @Autowired 
     private PostRepository postRepository;
     
-    @PostMapping("/newComment")
+    @PostMapping("/saveComment")
     public String createComment(String content, Long postId, HttpSession session) {
         
         User user = (User) session.getAttribute("user");

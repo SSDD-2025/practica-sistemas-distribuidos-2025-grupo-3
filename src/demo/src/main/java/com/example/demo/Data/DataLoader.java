@@ -70,7 +70,8 @@ public class DataLoader {
         postRepository.save(new Post("Java y Concurrencia", "La concurrencia en Java es un tema complejo pero muy interesante. Estoy aprendiendo sobre hilos y sincronización.", "imagen5", null, userRepository.findById(4L).get(), communityRepository.findById(1L).get()));
         postRepository.save(new Post("Mi opinion", "Me encanta el futbol", "imagen2", null, userRepository.findById(2L).get(), communityRepository.findById(2L).get()));
 
-        commentRepository.save(new Comment("Muy interesante tu post", userRepository.findById(5L).get(), postRepository.findById(1L).get()));
-
+        commentRepository.save(new Comment("Muy interesante tu post", userRepository.findById(6L).get(), postRepository.findById(1L).get()));
+        commentRepository.save(new Comment("Gracias por compartir", userRepository.findById(2L).get(), postRepository.findById(1L).get()));
+        
     }
 }
