@@ -3,7 +3,9 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 @Entity
 public class User {
 
@@ -14,6 +16,7 @@ public class User {
     private String password;
     private String email;
     private Date dateJoined;
+
     private String image;
     @Lob
     @Column(length = 1048576)
@@ -32,6 +35,17 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "community_id")
     )
     private List<Community> communities = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+        name = "user_friends",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "friend_id"),
+        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "friend_id"})
+    )
+    private Set<User> friends = new HashSet<>();
+    
+
 
     protected User() {
         // Used by JPA
@@ -54,7 +68,7 @@ public class User {
     }
 
     // Getters
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -76,6 +90,14 @@ public class User {
 
     public byte[] getImageData() {
         return imageData;
+    }
+
+    public Set<User> getFriends() {
+        return friends;
+    }
+
+    public Date getDateJoined() {
+        return dateJoined;
     }
 
     // Setters
@@ -102,6 +124,10 @@ public class User {
     public void setImageData(byte[] imageData) {
         this.imageData = imageData;
     }
+    
+    public void setDateJoined(Date dateJoined) {
+        this.dateJoined = dateJoined;
+    }
 
     @Override
     public String toString() {
@@ -112,4 +138,5 @@ public class User {
                 ", dateJoined=" + dateJoined +
                 '}';
     }
+
 }

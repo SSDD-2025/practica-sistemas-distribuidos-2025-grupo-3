@@ -13,7 +13,7 @@ header {
     align-items: center;
     background-color: #013D5A; /* Color del header */
     padding: 15px 30px;
-    height: 100px;
+    height: 70px;
 }
 
 /* Logo */
@@ -86,28 +86,76 @@ header {
     transform: scale(1.05);
 }
 
-/* Botones de user home page */
+/* SIDEBAR */
 
-.custom-btn-primary {
-    background-color: #013D5A !important;
-    border-color: #013D5A !important;
-    color: white !important;
+.list-group-item.active {
+    background-color: #f8f9fa; /* Gris muy claro para el fondo */
+    color: #343a40; /* Gris oscuro para el texto */
+    font-weight: bold;
+    border-left: 4px solid #6c757d; /* Gris medio para un detalle de borde */
 }
 
-.custom-btn-primary:hover {
-    background-color: #022B40 !important; /* Un poco más oscuro en hover */
-    border-color: #022B40 !important;
+.list-group-item {
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.custom-btn-danger {
-    background-color: #D9534F !important;
-    border-color: #D9534F !important;
-    color: white !important;
+.list-group-item:hover {
+    background-color: #e9ecef; /* Un gris un poco más oscuro al pasar el mouse */
+    color: #212529; /* Gris más intenso para mejorar contraste */
 }
 
-.custom-btn-danger:hover {
-    background-color: #B52B27 !important; /* Un poco más oscuro en hover */
-    border-color: #B52B27 !important;
+/* Communities*/
+
+.community-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.community-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.post-title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.post-snippet {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+
+/* People*/
+
+.profile-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+}
+.profile-img {
+    transition: all 0.3s ease;
+    position: relative;
+}
+.profile-link:hover .profile-img {
+    filter: brightness(50%);
+}
+.profile-link:hover .profile-text {
+    opacity: 1;
+}
+.profile-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 /* Dropdown style in user home page */
@@ -197,7 +245,7 @@ header {
 footer {
 
     width: 100%;
-    height: 80px;
+    height: 60px;
     left: 0px;
 
     background: #708C69;

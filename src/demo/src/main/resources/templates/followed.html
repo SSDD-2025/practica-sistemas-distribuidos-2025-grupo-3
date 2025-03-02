@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Linked Community</title>
+        {{> commons/head}}
+    </head>
+    <body class="bg-light d-flex flex-column min-vh-100">
+
+        {{> commons/header}}
+        
+        <div class="container flex-grow-1 mt-4"> 
+
+            <div class="row" class="mt-4">
+                <!-- Columna izquierda -->
+                <div class="col-md-3">
+                    {{> commons/sidebar}}
+                </div>
+    
+                <!-- Columna central -->
+                <div class="col-md-8 mb-4">
+                    {{^followedUsers}}
+                        <p>Aún no sigues a nadie</p>
+                    {{/followedUsers}}
+                    {{#followedUsers}}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <img src="/user/image/{{id}}" class="rounded-circle me-3" width="50" height="50">
+                                <h5 class="mb-0">{{username}}</h5>
+                            </div>
+                            <hr>
+                            {{#recentPosts}}
+                            <div class="post">
+                                <p>{{postContent}}</p>
+                                <small class="text-muted">{{creationDate}}</small>
+                            </div>
+                            <hr>
+                            {{/recentPosts}}
+                            {{^recentPosts}}
+                            <p>Aún no ha publicado nada</p>
+                            {{/recentPosts}}
+                        </div>
+                    </div>
+                    {{/followedUsers}}
+                </div>
+                
+              
+                
+            </div>
+        </div>
+        {{> commons/footer}}
+    </body>
+
+</html>

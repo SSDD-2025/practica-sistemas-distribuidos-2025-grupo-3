@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>{{user.username}} - Perfil</title>
+    {{> commons/head}}
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+    {{> commons/header}}
+    
+    <div class="container flex-grow-1 mt-5">
+        <div class="row">
+            <!-- Sección de perfil -->
+            <div class="col-md-4">
+                <div class="card text-center shadow-sm position-relative">
+                    <div class="card-body">
+                        <img src="/user/image/{{user.id}}" alt="Foto de perfil" class="rounded-circle img-fluid mb-3 mt-5" style="width: 150px; height: 150px; object-fit: cover;">
+                        <h4 class="card-title">{{user.username}}</h4>
+                        {{#user.dateJoined}}
+                        <p class="text-muted">Miembro desde: {{user.dateJoined}}</p>
+                        {{/user.dateJoined}}
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Sección de publicaciones -->
+            <div class="col-md-8">
+                <h3 class="mb-3">Publicaciones de {{user.username}}</h3>
+                <div id="post-container">
+                    {{#posts}}
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{title}}</h5>
+                            <p class="card-text">{{postContent}}</p>
+                            {{#image}}
+                            <img src="/post/image/{{id}}" class="img-fluid rounded" style="max-width: 100%; max-height: 100px;">
+                            {{/image}}
+                            <div class="d-flex justify-content-end">
+                                <small class="text-muted">Publicado el {{creationDate}} en {{community.name}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    {{/posts}}
+                    {{^posts}}
+                    <p class="text-muted">Aún no ha publicado nada.</p>
+                    {{/posts}}
+                </div>
+            </div> 
+        </div>
+    </div>
+
+    {{> commons/footer}}
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Linked Community - Personas</title>
+    {{> commons/head}}
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+    {{> commons/header}}
+    
+    <div class="container flex-grow-1 mt-4"> 
+        <div class="row">
+            <!-- Columna izquierda -->
+            <div class="col-md-3">
+                {{> commons/sidebar}}
+            </div>
+
+            <!-- Columna central -->
+            <div class="col-md-8 mb-4">
+                <h3 class="mb-3">Personas en la plataforma</h3>
+                <div class="row">
+                    {{#users}}
+                    <div class="col-md-4 mb-3">
+                        <div class="card shadow-sm border-0 rounded-3">
+                            <div class="card-body text-center ">
+                                <!-- Imagen del usuario -->
+                                <form action="/profile/{{id}}" method="get" class="profile-link mb-3">
+                                    <button type="submit" class="border-0 bg-transparent p-0">
+                                        <img src="/user/image/{{id}}" class="profile-img rounded-circle border border-3 border-secondary-subtle" 
+                                             alt="Foto de {{username}}" width="90" height="90">
+                                        <span class="profile-text">Ver perfil</span>
+                                    </button>
+                                </form>
+
+                                <!-- Nombre de usuario -->
+                                <h5 class="card-title fw-bold">{{username}}</h5>
+                    
+                                <!-- Botones -->
+                                <div class="d-flex justify-content-center gap-2 mt-3">
+                                    {{#isFollowing}}
+                                        <button class="btn btn-secondary btn-sm d-flex align-items-center gap-1" disabled>
+                                            <i class="bi bi-check-circle"></i> Siguiendo
+                                        </button>
+                                        <form action="/follow/{{id}}" method="post">
+                                            <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center gap-1">
+                                                <i class="bi bi-person-dash-fill"></i> Dejar de seguir
+                                            </button>
+                                        </form>
+                                    {{/isFollowing}}
+                    
+                                    {{^isFollowing}}
+                                        <form action="/follow/{{id}}" method="post">
+                                            <button type="submit" class="btn btn-primary btn-sm d-flex align-items-center gap-1">
+                                                <i class="bi bi-person-plus-fill"></i> Seguir
+                                            </button>
+                                        </form>
+                                    {{/isFollowing}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                             
+                    {{/users}}
+                
+                    {{^users}}
+                    <p class="text-muted text-center">No hay personas registradas en la plataforma.</p>
+                    {{/users}}
+                </div>                                
+                
+            </div>
+        </div>
+    </div>
+
+    {{> commons/footer}}
+</body>
+</html>

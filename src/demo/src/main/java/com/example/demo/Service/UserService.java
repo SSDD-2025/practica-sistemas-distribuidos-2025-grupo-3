@@ -2,6 +2,8 @@ package com.example.demo.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -10,14 +12,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTO.FollowedUserDTO;
+import com.example.demo.Repository.PostRepository;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.model.User;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
 
     public User authenticateUser(String logger, String password) {
         if (logger.matches("^[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\\.[a-zA-Z]+)*$"))  { //If the logger has an email format, then check for it in the database by email
@@ -62,6 +71,7 @@ public class UserService {
     public void updateUser(User user) {
         userRepository.save(user);
     }
+    
     public boolean usernamePresent(String username) {
         return userRepository.findByUsername(username) != null;
     }
@@ -82,4 +92,48 @@ public class UserService {
         headers.set("Content-Type", "image/*");
         return new ResponseEntity<byte[]>(imageData, headers, HttpStatus.OK);
     }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public void saveUser(User currentUser) {
+        userRepository.save(currentUser);
+    }
+
+    public boolean isFollowing(User currentUser, User otherUser) {
+        return userRepository.existsFriendship(currentUser.getId(), otherUser.getId());
+    }
+    
+
+    @Transactional
+    public void toggleFollow(Long userId, Long friendId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        User friend = userRepository.findById(friendId).orElseThrow();
+    
+        if (user.getFriends().contains(friend)) {
+            user.getFriends().remove(friend);
+        } else {
+            user.getFriends().add(friend);
+        }
+        userRepository.save(user);
+    }
+
+    public List<FollowedUserDTO> getFollowedUsersWithPosts(Long currentUserId) {
+    User currentUser = userRepository.findByIdWithFriends(currentUserId);
+
+    return currentUser.getFriends().stream()
+        .map(friend -> new FollowedUserDTO(
+            friend.getId(),
+            friend.getUsername(),
+            friend.getImageData(), // Asegúrate de tener este campo en tu entidad
+            postRepository.findTop3ByuserNameOrderByCreationDateDesc(friend) // Últimos 3 posts
+        ))
+        .collect(Collectors.toList());
+}
+    
 }

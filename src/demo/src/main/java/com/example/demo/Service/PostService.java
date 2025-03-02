@@ -1,6 +1,8 @@
 package com.example.demo.Service;
 
 import java.io.IOException;
+import java.util.List;
+
 import org.springframework.http.HttpHeaders;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,10 @@ public class PostService {
 
     public void deletePost(Long postId) {
         postRepository.deleteById(postId);
+    }
+
+    public List<Post> findByUserOrderByCreationDateDesc(User user) {
+        return postRepository.findByUserNameOrderByCreationDateDesc(user);
     }
 }
 

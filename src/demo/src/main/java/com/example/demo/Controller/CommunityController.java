@@ -44,16 +44,16 @@ public class CommunityController {
         }
 
         if (name == null || name.isEmpty()) {
-            return "redirect:/home";
+            return "redirect:/communities";
         }
 
         if (communityRepository.existsByName(name)) {
-            return "redirect:/home";
+            return "redirect:/communities";
         }
         Community community = new Community(name);
         communityRepository.save(community);
 
-        return "redirect:/home";
+        return "redirect:/communities";
     }
 
     @PostMapping("/community/delete/{communityId}")
@@ -61,12 +61,12 @@ public class CommunityController {
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            return "redirect:/";
+            return "redirect:/communities";
         }
 
         communityRepository.deleteById(communityId);
 
-        return "redirect:/home";
+        return "redirect:/communities";
     }
 
 }

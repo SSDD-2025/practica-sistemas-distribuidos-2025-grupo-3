@@ -122,6 +122,13 @@ public class UserController {
         return "redirect:/"; // Redirige a la página principal después de eliminar al usuario
     }
 
+    @PostMapping("/follow/{id}")
+    public String toggleFollow(@PathVariable Long id, HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+        userService.toggleFollow(currentUser.getId(), id);
+        return "redirect:/people";
+    }
+
     @GetMapping("/user/image/{userId}")
     public ResponseEntity<byte[]> getUserImage(@PathVariable Long userId) {
         return userService.getUserImage(userId);

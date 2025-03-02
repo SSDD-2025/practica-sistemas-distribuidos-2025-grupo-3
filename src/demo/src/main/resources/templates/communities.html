@@ -14,11 +14,30 @@
                 <!-- Columna izquierda -->
                 <div class="col-md-3">
                     {{> commons/sidebar}}
+                    {{^isGuest}}
+                    <form action="/community/create" method="post" class="mt-4">
+                        <input type="text" id="communityName" name="name" class="form-control w-100" placeholder="Añade tu comunidad" required>
+                        <button class="btn btn-primary w-100 mt-2 d-flex align-items-center justify-content-center" type="submit">
+                            <i class="bi bi-plus-lg"></i> Crear Comunidad
+                        </button>
+                    </form>
+                    {{/isGuest}}
+
                 </div>
     
                 <!-- Columna central -->
                 <div class="col-md-8 mb-4">
-
+                    <ul class="community-list">
+                        {{#comunities}}
+                        <li class="community-item">
+                            <a href="/communities/{{id}}" class="community-link">{{name}}</a>
+                        </li>
+                        {{/comunities}}
+                
+                        {{^comunities}}
+                        <p class="no-communities">No hay comunidades</p>
+                        {{/comunities}}
+                    </ul>
                 </div>
                 
               

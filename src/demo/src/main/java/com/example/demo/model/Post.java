@@ -3,7 +3,6 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +14,14 @@ public class Post {
     private Long id;
     
     private String title;
+
+    @Lob
     private String postContent;
-    private String creationDate;
+    
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP) // Indica que es una fecha con hora
+    private LocalDateTime creationDate;
+    
     private String image;
     @Lob
     @Column(length = 1048576)
@@ -44,12 +49,7 @@ public class Post {
             this.imageData = imageData;
             this.userName = user;
             this.community = community;
-            this.creationDate = formatDate(LocalDateTime.now());
-        }
-
-        private String formatDate(LocalDateTime date) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            return date.format(formatter);
+            this.creationDate = LocalDateTime.now();
         }
 
         public String getPostContent() {
@@ -100,11 +100,11 @@ public class Post {
             this.comments = comments;
         }
 
-        public String getCreationDate() {
+        public LocalDateTime getCreationDate() {
             return creationDate;
         }
 
-        public void setCreationDate(String creationDate) {
+        public void setCreationDate(LocalDateTime creationDate) {
             this.creationDate = creationDate;
         }
 
