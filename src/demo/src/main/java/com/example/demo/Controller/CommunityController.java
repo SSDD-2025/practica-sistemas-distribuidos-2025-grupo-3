@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,9 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.Repository.CommentRepository;
 import com.example.demo.Repository.CommunityRepository;
 import com.example.demo.Repository.PostRepository;
+import com.example.demo.Repository.CommentRepository;
+import com.example.demo.model.Comment;
 import com.example.demo.model.Community;
+import com.example.demo.model.Post;
 import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +28,9 @@ public class CommunityController {
     private CommunityRepository communityRepository;
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private CommentRepository CommentRepository;
+
 
     @GetMapping("/communities/{id}")
     public String showCommunity(HttpSession session, Model model, @PathVariable Long id) {

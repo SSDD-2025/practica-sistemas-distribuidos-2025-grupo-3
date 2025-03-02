@@ -6,6 +6,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import jakarta.persistence.Entity;
 
 @Entity
@@ -15,23 +18,34 @@ public class Comment  {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String comment;
-
+    private String creation;
     @ManyToOne
-    @JoinColumn(name = "username", nullable = false)
+    @JoinColumn(name = "userName", nullable = false)
     private User userName;
 
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
-    private Post post;
+    private Post post;  
 
     protected Comment() {
         // Used by JPA
     }
 
-    public Comment(String comment) {
+    public Comment(String comment, User user, Post post) {
         this.comment = comment;
+        this.userName = user;
+        this.post = post;
+        //this.creation = formatDate(LocalDateTime.now());
     }
 
+    private String formatDate(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return date.format(formatter);
+    }
+
+    public String getCreation() {
+        return this.creation;
+    }
     public String getComment() {
         return this.comment;
     }

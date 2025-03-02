@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.Repository.CommentRepository;
 import com.example.demo.Repository.CommunityRepository;
 import com.example.demo.Repository.PostRepository;
 import com.example.demo.Repository.UserRepository;
+import com.example.demo.model.Comment;
 import com.example.demo.model.Community;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
@@ -26,6 +28,9 @@ public class DataLoader {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
 
     @PostConstruct
@@ -130,5 +135,8 @@ public class DataLoader {
         postRepository.save(new Post("Explorando la Cocina Asiática", "La cocina asiática es diversa y llena de sabores únicos. Aprende a preparar algunos de los platos más populares de Asia.", null, null, user3, cocinaCommunity));
         postRepository.save(new Post("Postres Irresistibles para Endulzar tu Día", "Si tienes un antojo de algo dulce, estas recetas de postres te encantarán. Desde pasteles hasta galletas, hay algo para todos.", null, null, user4, cocinaCommunity));
 
+        commentRepository.save(new Comment("Muy interesante tu post", userRepository.findById(6L).get(), postRepository.findById(1L).get()));
+        commentRepository.save(new Comment("Gracias por compartir", userRepository.findById(2L).get(), postRepository.findById(1L).get()));
+        
     }
 }

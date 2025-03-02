@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.DTO.FollowedUserDTO;
 import com.example.demo.DTO.UserDTO;
+import com.example.demo.Repository.CommentRepository;
 import com.example.demo.Repository.CommunityRepository;
 import com.example.demo.Repository.PostRepository;
 import com.example.demo.Service.UserService;
@@ -21,6 +22,9 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class WebController {
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Autowired
     private CommunityRepository communityRepository;
@@ -47,7 +51,6 @@ public class WebController {
 
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
-
         return "home"; 
     }
 
@@ -117,6 +120,7 @@ public class WebController {
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
         model.addAttribute("posts", postRepository.findByUserNameOrderByCreationDateDesc(user));
+        model.addAttribute("comments", commentRepository.findByUserName(user));
         return "user_main_page";
     }
 
