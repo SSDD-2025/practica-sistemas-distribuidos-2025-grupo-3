@@ -78,8 +78,9 @@
                         <div class="card mb-3 shadow-sm">
                             <div class="card-body">
                                 <p class="card-text">{{comment}}</p>
-                                <div class="d-flex justify-content-end">
-                                    <small class="text-muted">Comentado en el post: "{{postTitle}}"</small>
+                                <div class="d-flex flex-column align-items-end">
+                                    <small class="text-muted">Comentado en el post: "{{post.title}}"</small>
+                                    <small class="text-muted">De la comunidad: "{{post.community.name}}"</small>
                                 </div>
                             </div>
                         </div>

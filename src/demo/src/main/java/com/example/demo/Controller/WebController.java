@@ -48,7 +48,6 @@ public class WebController {
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
         model.addAttribute("comunities", communityRepository.findAll());
-        model.addAttribute("comments", commentRepository.findByUserName(user));
         return "home"; 
     }
 
@@ -60,6 +59,7 @@ public class WebController {
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
         model.addAttribute("posts", postRepository.findByUserNameOrderByCreationDateDesc(user));
+        model.addAttribute("comments", commentRepository.findByUserName(user));
         return "user_main_page";
     }
 

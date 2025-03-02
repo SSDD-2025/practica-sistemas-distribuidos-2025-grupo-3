@@ -19,4 +19,14 @@ public class CommentService {
         commentRepository.save(comment);
     
     }
+
+    public void deleteComment(Long commentId) {
+        /*Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new RuntimeException("Comentario no encontrado"));
+        
+         if (comment.getUser().getId() != user.getId()) {
+            throw new RuntimeException("No puedes borrar un comentario que no es tuyo");        para que no se pueda borrar un comentario que no sea del usuario
+        } */
+        commentRepository.deleteById(commentId);
+        }
 }

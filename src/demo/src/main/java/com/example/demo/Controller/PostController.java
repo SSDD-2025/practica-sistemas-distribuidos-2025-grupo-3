@@ -63,7 +63,7 @@ public class PostController {
         }
         
         postService.deletePost(postId);
-        return "redirect:/communities/" + communityId  ;
+        return "redirect:/communities/" + communityId     ;
     }
 
     

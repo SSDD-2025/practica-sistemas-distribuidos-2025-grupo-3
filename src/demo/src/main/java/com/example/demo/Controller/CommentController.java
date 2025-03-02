@@ -12,6 +12,8 @@ import com.example.demo.model.Post;
 import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @Controller
 public class CommentController {
@@ -34,5 +36,12 @@ public class CommentController {
         
         return "redirect:/communities/" + post.getCommunity().getId();
     }
+
+    @PostMapping("/comment/deleteComment/{commentId}")
+    public String deleteComment(@PathVariable Long commentId, HttpSession session, Long communityId) {
+        commentService.deleteComment(commentId);
+        return "redirect:/communities/" + communityId;
+    }
+    
 
 }

@@ -107,21 +107,35 @@
                                     </form>
                                 </div>
                                 {{/isGuest}}
-                                <div class="bg-light p-1 rounded" style="width: 715px;">
-                                    {{#comments}}
-                                    <div class="d-flex align-items-start mt-1 p-2 bg-white rounded shadow-sm" style="width: 700px;">
-                                        <img src="/user/image/{{user.id}}" class="rounded-circle me-2" style="width: 20px; height: 20px;" alt="Foto usuario">
-                                        <div class="flex-grow-1">
-                                            <p class="mb-0"><strong>{{userName.username}}</strong>: {{comment}}</p>
+                                <!-- Botón para mostrar comentarios -->
+                                <button class="btn btn-sm btn-outline-secondary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#comments-{{id}}" aria-expanded="false" aria-controls="comments-{{id}}">
+                                    Ver comentarios {{comments.size}}
+                                </button>
+                                <!-- Contenedor de comentarios -->
+                                <div class="collapse" id="comments-{{id}}">
+                                    <div class="bg-light p-1 rounded" style="width: 715px;">
+                                        {{#comments}}
+                                        <div class="d-flex align-items-start mt-1 p-2 bg-white rounded shadow-sm" style="width: 700px;">
+                                            <img src="/user/image/{{user.id}}" class="rounded-circle me-2" style="width: 20px; height: 20px;" alt="Foto usuario">
+                                            <div class="flex-grow-1 d-flex justify-content-between">
+                                                <p class="mb-0"><strong>{{userName.username}}</strong>: {{comment}}</p>
+                                                {{^isGuest}}
+                                                <form action="/comment/deleteComment/{{id}}" method="post" style="display:inline;">
+                                                    <input type="hidden" name="communityId" value="{{community.id}}">
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este comentario?');">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                                {{/isGuest}}
+                                            </div>
                                         </div>
+                                        {{/comments}}
+                                        
+                                        {{^comments}}
+                                        <p class="text-muted text-center">Aún no hay comentarios</p>
+                                        {{/comments}}
                                     </div>
-                                    {{/comments}}
-                                    
-                                    {{^comments}}
-                                    <p class="text-muted text-center">Aún no hay comentarios</p>
-                                    {{/comments}}
-                                </div>
-
+                                </div> 
                             </div>
                         {{/posts}}
 
