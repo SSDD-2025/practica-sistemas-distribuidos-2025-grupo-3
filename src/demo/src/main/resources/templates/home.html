@@ -18,8 +18,30 @@
     
                 <!-- Columna central -->
                 <div class="col-md-8 mb-4">
-
+                    <h3 class="mb-3">Últimas publicaciones</h3>
+                    {{#latestPosts}}
+                    <div class="card post-card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">{{title}}</h5>
+                            <p class="card-text">{{postContent}}</p>
+                
+                            {{#image}}
+                            <img src="/post/image/{{id}}" class="img-fluid rounded post-img mt-2" alt="Imagen del post">
+                            {{/image}}
+                
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <a href="/communities/{{community.id}}" class="btn btn-sm btn-primary">Ver en {{community.name}}</a>
+                                <small class="text-muted">Publicado el {{creationDate}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    {{/latestPosts}}
+                
+                    {{^latestPosts}}
+                    <p class="text-muted text-center">Aún no hay publicaciones recientes.</p>
+                    {{/latestPosts}}
                 </div>
+                
                 
               
                 

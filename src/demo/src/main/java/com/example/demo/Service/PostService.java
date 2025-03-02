@@ -35,7 +35,6 @@ public class PostService {
             throw new RuntimeException("Error al procesar la imagen", e);
         }
 
-        // Crear el post
         Post post = new Post(title, content, imageName, imageData, user, community);
         postRepository.save(post);
     }
@@ -60,6 +59,15 @@ public class PostService {
 
     public List<Post> findByUserOrderByCreationDateDesc(User user) {
         return postRepository.findByUserNameOrderByCreationDateDesc(user);
+    }
+
+    public List<Post> findTop5ByOrderByCreationDateDesc() {
+        return postRepository.findTop5ByOrderByCreationDateDesc();
+    }
+
+    public Post findPostById(Long postId) {
+        return postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post no encontrado"));
     }
 }
 

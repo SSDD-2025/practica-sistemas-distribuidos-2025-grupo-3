@@ -17,7 +17,6 @@ public class CommentService {
     public void createComment(String content, User user, Post post) {
         Comment comment = new Comment(content, user, post);
         commentRepository.save(comment);
-    
     }
 
     public void deleteComment(Long commentId) {

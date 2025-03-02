@@ -22,4 +22,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findTop3ByuserNameOrderByCreationDateDesc(User user);
 
+    List<Post> findTop5ByOrderByCreationDateDesc();
+
 }

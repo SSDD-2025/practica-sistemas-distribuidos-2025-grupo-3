@@ -36,6 +36,7 @@
                     
                                 <!-- Botones -->
                                 <div class="d-flex justify-content-center gap-2 mt-3">
+                                    {{^isGuest}}
                                     {{#isFollowing}}
                                         <button class="btn btn-secondary btn-sm d-flex align-items-center gap-1" disabled>
                                             <i class="bi bi-check-circle"></i> Siguiendo
@@ -54,6 +55,7 @@
                                             </button>
                                         </form>
                                     {{/isFollowing}}
+                                    {{/isGuest}}
                                 </div>
                             </div>
                         </div>

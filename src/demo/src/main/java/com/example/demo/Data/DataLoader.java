@@ -37,16 +37,8 @@ public class DataLoader {
     public void run() throws Exception{
 
         ClassPathResource imgFile;
-        imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
-        byte[] imageData;
-        imageData = Files.readAllBytes(imgFile.getFile().toPath());
-        String imageName;
-        imageName = imgFile.getFilename();
 
-        /* Usuario precargado del sistema para acceso invitado */
-        userRepository.save(new User("Invitado", "-", "-", new java.util.Date(), imageName, imageData));
-
-        /* Informacióm de muestra */
+        /* COMMUNITIES */
         communityRepository.save(new Community("Java"));
         communityRepository.save(new Community("Futbol"));
         communityRepository.save(new Community("Tecnología"));
@@ -55,30 +47,41 @@ public class DataLoader {
         communityRepository.save(new Community("Libros"));
         communityRepository.save(new Community("Fotografía"));
 
-        userRepository.save(new User("Juan Pérez", "password1", "juan.perez@example.com", new java.util.Date(), imageName, imageData));
-        userRepository.save(new User("María García", "password2", "maria.garcia@example.com", new java.util.Date(), imageName, imageData));
-        userRepository.save(new User("Carlos Rodríguez", "password3", "carlos.rodriguez@example.com", new java.util.Date(), imageName, imageData));
-        userRepository.save(new User("Ana Martínez", "password4", "ana.martinez@example.com", new java.util.Date(), imageName, imageData));
-        userRepository.save(new User("Luis Hernández", "password5", "luis.hernandez@example.com", new java.util.Date(), imageName, imageData));
-        userRepository.save(new User("Laura López", "password6", "laura.lopez@example.com", new java.util.Date(), imageName, imageData));
-        userRepository.save(new User("José González", "password7", "jose.gonzalez@example.com", new java.util.Date(), imageName, imageData));
-        userRepository.save(new User("Marta Sánchez", "password8", "marta.sanchez@example.com", new java.util.Date(), imageName, imageData));
-        userRepository.save(new User("David Fernández", "password9", "david.fernandez@example.com", new java.util.Date(), imageName, imageData));
-        userRepository.save(new User("Elena Ruiz", "password10", "elena.ruiz@example.com", new java.util.Date(), imageName, imageData));
-
-        //Separated developers accounts dataloaders, could maybe use them in a future as admin users
+        /* USERS */
+            /* Guest user */
+        imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
+        userRepository.save(new User("Invitado", "-", "-", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
+            /* Users */
+        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview1.webp");
+        userRepository.save(new User("Juan Pérez", "password1", "juan.perez@example.com", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
+        imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
+        userRepository.save(new User("María García", "password2", "maria.garcia@example.com", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
+        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview2.webp");
+        userRepository.save(new User("Carlos Rodríguez", "password3", "carlos.rodriguez@example.com", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
+        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview3.webp");
+        userRepository.save(new User("Ana Martínez", "password4", "ana.martinez@example.com", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
+        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview4.webp");
+        userRepository.save(new User("Luis Hernández", "password5", "luis.hernandez@example.com", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
+        imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
+        userRepository.save(new User("Laura López", "password6", "laura.lopez@example.com", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
+        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview5.webp");
+        userRepository.save(new User("José González", "password7", "jose.gonzalez@example.com", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
+        imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
+        userRepository.save(new User("Marta Sánchez", "password8", "marta.sanchez@example.com", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
+        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview6.webp");
+        userRepository.save(new User("David Fernández", "password9", "david.fernandez@example.com", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
+        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview7.webp");
+        userRepository.save(new User("Elena Ruiz", "password10", "elena.ruiz@example.com", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
+            /* Developer users */
         imgFile = new ClassPathResource("static/assets/img/imagensergio.gif");
-        imageData = Files.readAllBytes(imgFile.getFile().toPath());
-        imageName = imgFile.getFilename();
-        userRepository.save(new User("Sergio", "454548", "s.espinosa.2020@alumnos.urjc.es", new java.util.Date(), imageName, imageData));
+        userRepository.save(new User("Sergio", "454548", "s.espinosa.2020@alumnos.urjc.es", new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
 
-        // Get 4 users form DB
         User user1 = userRepository.findByEmail("juan.perez@example.com");
         User user2 = userRepository.findByEmail("maria.garcia@example.com");
         User user3 = userRepository.findByEmail("carlos.rodriguez@example.com");
         User user4 = userRepository.findByEmail("ana.martinez@example.com");
 
-        // Crear 10 posts para la comunidad de Java
+        /* POSTS */
         Community javaCommunity = communityRepository.findByName("Java");
         postRepository.save(new Post("Introducción a Java", "Java es un lenguaje de programación de propósito general que es concurrente, basado en clases y orientado a objetos. Fue diseñado para tener la menor cantidad de dependencias de implementación posible.", null, null, user1, javaCommunity));
         postRepository.save(new Post("Java y la Programación Orientada a Objetos", "La programación orientada a objetos (POO) es un paradigma de programación basado en el concepto de 'objetos', que pueden contener datos y código: datos en forma de campos, y código, en forma de procedimientos.", null, null, user2, javaCommunity));
@@ -91,7 +94,6 @@ public class DataLoader {
         postRepository.save(new Post("Desarrollo de Aplicaciones Web con Java", "Java es una excelente opción para el desarrollo de aplicaciones web. Con frameworks como Spring y herramientas como JSP y Servlets, es posible crear aplicaciones web robustas y escalables.", null, null, user1, javaCommunity));
         postRepository.save(new Post("Buenas Prácticas en Java", "Las buenas prácticas en Java incluyen el uso de convenciones de nomenclatura, la escritura de código limpio y legible, la realización de pruebas unitarias, y el uso de patrones de diseño cuando sea apropiado.", null, null, user2, javaCommunity));
 
-        // Crear 10 posts para la comunidad de Fútbol
         Community futbolCommunity = communityRepository.findByName("Futbol");
         postRepository.save(new Post("Historia del Fútbol", "El fútbol es un deporte de equipo jugado entre dos conjuntos de once jugadores cada uno y algunos árbitros que se ocupan de que las normas se cumplan correctamente. Es ampliamente considerado el deporte más popular del mundo.", null, null, user1, futbolCommunity));
         postRepository.save(new Post("Reglas Básicas del Fútbol", "El fútbol se juega con una pelota esférica entre dos equipos de once jugadores cada uno. El objetivo del juego es marcar más goles que el oponente en el tiempo reglamentario.", null, null, user2, futbolCommunity));
@@ -104,7 +106,6 @@ public class DataLoader {
         postRepository.save(new Post("El Impacto del Fútbol en la Cultura Global", "El fútbol tiene un impacto significativo en la cultura global. Es un deporte que une a personas de diferentes orígenes y culturas, y tiene el poder de inspirar y emocionar a millones de personas.", null, null, user1, futbolCommunity));
         postRepository.save(new Post("El Futuro del Fútbol", "El futuro del fútbol parece brillante, con nuevas tecnologías, tácticas innovadoras y una creciente popularidad en todo el mundo. El deporte continuará evolucionando y emocionando a los aficionados en los años venideros.", null, null, user2, futbolCommunity));
 
-        // Crear 10 posts para la comunidad de Tecnología
         Community tecnologiaCommunity = communityRepository.findByName("Tecnología");
         postRepository.save(new Post("El Futuro de la Inteligencia Artificial", "La inteligencia artificial (IA) está transformando el mundo a un ritmo acelerado. Desde asistentes virtuales hasta vehículos autónomos, la IA está cambiando la forma en que vivimos y trabajamos.", null, null, user1, tecnologiaCommunity));
         postRepository.save(new Post("Blockchain y su Impacto en la Industria", "Blockchain es una tecnología revolucionaria que está cambiando la forma en que se realizan las transacciones y se almacenan los datos. Su impacto se siente en diversas industrias, desde las finanzas hasta la salud.", null, null, user2, tecnologiaCommunity));
@@ -117,7 +118,6 @@ public class DataLoader {
         postRepository.save(new Post("Big Data y Análisis de Datos: Transformando la Toma de Decisiones", "El big data y el análisis de datos están transformando la forma en que las empresas toman decisiones. Al analizar grandes volúmenes de datos, las organizaciones pueden obtener insights valiosos y tomar decisiones más informadas.", null, null, user1, tecnologiaCommunity));
         postRepository.save(new Post("El Futuro de la Computación en la Nube", "La computación en la nube está cambiando la forma en que almacenamos y procesamos los datos. Esta tecnología ofrece flexibilidad, escalabilidad y ahorro de costos, y está impulsando la innovación en diversas industrias.", null, null, user2, tecnologiaCommunity));
 
-        // Crear 7 posts para la comunidad de Viajes
         Community viajesCommunity = communityRepository.findByName("Viajes");
         postRepository.save(new Post("Los Mejores Destinos para Viajar en 2025", "Descubre los destinos más populares y emocionantes para viajar en 2025. Desde playas paradisíacas hasta ciudades vibrantes, hay algo para todos.", null, null, user1, viajesCommunity));
         postRepository.save(new Post("Consejos para Viajar con un Presupuesto Limitado", "Viajar no tiene que ser caro. Aquí tienes algunos consejos para ahorrar dinero y disfrutar de tus viajes sin gastar una fortuna.", null, null, user2, viajesCommunity));
@@ -127,7 +127,6 @@ public class DataLoader {
         postRepository.save(new Post("Viajes Sostenibles: Cómo Reducir tu Huella de Carbono", "Viajar de manera sostenible es posible. Aquí tienes algunos consejos para reducir tu impacto ambiental mientras exploras el mundo.", null, null, user2, viajesCommunity));
         postRepository.save(new Post("Las Mejores Playas del Mundo", "Si eres un amante del sol y la arena, no te pierdas estas playas impresionantes que te dejarán sin aliento.", null, null, user3, viajesCommunity));
 
-        // Crear 5 posts para la comunidad de Cocina
         Community cocinaCommunity = communityRepository.findByName("Cocina");
         postRepository.save(new Post("Recetas Fáciles para Principiantes", "Si estás empezando en la cocina, estas recetas fáciles y deliciosas te ayudarán a ganar confianza y habilidades.", null, null, user4, cocinaCommunity));
         postRepository.save(new Post("Los Mejores Platos de la Cocina Italiana", "La cocina italiana es famosa en todo el mundo. Descubre cómo preparar algunos de los platos más icónicos de Italia.", null, null, user1, cocinaCommunity));
@@ -135,6 +134,7 @@ public class DataLoader {
         postRepository.save(new Post("Explorando la Cocina Asiática", "La cocina asiática es diversa y llena de sabores únicos. Aprende a preparar algunos de los platos más populares de Asia.", null, null, user3, cocinaCommunity));
         postRepository.save(new Post("Postres Irresistibles para Endulzar tu Día", "Si tienes un antojo de algo dulce, estas recetas de postres te encantarán. Desde pasteles hasta galletas, hay algo para todos.", null, null, user4, cocinaCommunity));
 
+        /* COMMENTS */
         commentRepository.save(new Comment("Muy interesante tu post", userRepository.findById(6L).get(), postRepository.findById(1L).get()));
         commentRepository.save(new Comment("Gracias por compartir", userRepository.findById(2L).get(), postRepository.findById(1L).get()));
         

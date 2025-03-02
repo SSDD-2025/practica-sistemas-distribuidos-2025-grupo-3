@@ -14,6 +14,7 @@ import com.example.demo.DTO.UserDTO;
 import com.example.demo.Repository.CommentRepository;
 import com.example.demo.Repository.CommunityRepository;
 import com.example.demo.Repository.PostRepository;
+import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
@@ -33,6 +34,9 @@ public class WebController {
     private PostRepository postRepository;
 
     @Autowired
+    private PostService postService;
+
+    @Autowired
     private UserService userService;
 
     @GetMapping("/")
@@ -44,13 +48,16 @@ public class WebController {
     @GetMapping("/home")
     public String home(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
+        List<Post> latestPosts = postService.findTop5ByOrderByCreationDateDesc();
 
         if (user == null) {
             return "redirect:/";
         }
 
+        model.addAttribute("latestPosts", latestPosts);
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
+        model.addAttribute("isHome", true);
         return "home"; 
     }
 
@@ -83,15 +90,16 @@ public class WebController {
         User currentUser = (User) session.getAttribute("user");
 
         if (currentUser == null) {
-            return "redirect:/login"; // Redirige si no hay sesión activa
+            return "redirect:/login";
         }
 
         List<UserDTO> userList = userService.getAllUsers().stream()
-            .filter(user -> !user.getId().equals(currentUser.getId())) // No mostrar al usuario actual
-            .filter(user -> user.getId() != 1) // No mostrar al usuario invitado
+            .filter(user -> !user.getId().equals(currentUser.getId()))
+            .filter(user -> user.getId() != 1)
             .map(user -> new UserDTO(user.getId(), user.getUsername(), userService.isFollowing(currentUser, user)))
             .collect(Collectors.toList());
 
+        model.addAttribute("isGuest", currentUser.getId() == 1);
         model.addAttribute("isPeople", true);
         model.addAttribute("users", userList);
         return "people";
@@ -99,14 +107,16 @@ public class WebController {
 
 
     @GetMapping("/profile/{id}")
-    public String userProfile(@PathVariable Long id, Model model) {
+    public String userProfile(@PathVariable Long id, Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
         User user = userService.getUserById(id);
         if (user == null) {
-            return "redirect:/people"; // Si no existe, redirigir a otra página
+            return "redirect:/home";
         }
 
         List<Post> userPosts = postRepository.findByUserNameOrderByCreationDateDesc(user);
 
+        model.addAttribute("isGuest", currentUser.getId() == 1);
         model.addAttribute("user", user);
         model.addAttribute("posts", userPosts);
         

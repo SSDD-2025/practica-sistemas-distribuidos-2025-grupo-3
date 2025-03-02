@@ -1,14 +1,21 @@
 <div class="list-group shadow-sm rounded">
+    <form action="/home" method="get">
+        <button type="submit" class="list-group-item list-group-item-action d-flex align-items-center w-100 border-0 {{#isHome}}active{{/isHome}}">
+            <i class="bi bi-house-fill me-2"></i> Home
+        </button>
+    </form>
     <form action="/communities" method="get">
         <button type="submit" class="list-group-item list-group-item-action d-flex align-items-center w-100 border-0 {{#isCommunities}}active{{/isCommunities}}">
             <i class="bi bi-people-fill me-2"></i> Comunidades
         </button>
     </form>
+    {{^isGuest}}
     <form action="/followed" method="get">
         <button type="submit" class="list-group-item list-group-item-action d-flex align-items-center w-100 border-0 {{#isFriends}}active{{/isFriends}}">
             <i class="bi bi-person-lines-fill me-2"></i> Seguidos
         </button>
     </form>
+    {{/isGuest}}
     <form action="/people" method="get">
         <button type="submit" class="list-group-item list-group-item-action d-flex align-items-center w-100 border-0 {{#isPeople}}active{{/isPeople}}">
             <i class="bi bi-person-fill me-2"></i> Personas

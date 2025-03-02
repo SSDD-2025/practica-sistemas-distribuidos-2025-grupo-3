@@ -115,11 +115,11 @@ public class UserController {
         User user = (User) session.getAttribute("user");
 
         if (user != null) {
-            userService.deleteUser(user.getId()); // Llama al método deleteUser en UserService
-            session.invalidate(); // Invalida la sesión después de eliminar al usuario
+            userService.deleteUser(user.getId());
+            session.invalidate();
         }
 
-        return "redirect:/"; // Redirige a la página principal después de eliminar al usuario
+        return "redirect:/";
     }
 
     @PostMapping("/follow/{id}")
