@@ -22,30 +22,45 @@
                         <p>Aún no sigues a nadie</p>
                     {{/followedUsers}}
                     {{#followedUsers}}
-                    <div class="card mb-3">
+                    <div class="card mb-4 shadow-sm rounded">
                         <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <img src="/user/image/{{id}}" class="rounded-circle me-3" width="50" height="50">
-                                <h5 class="mb-0">{{username}}</h5>
+                            <!-- Encabezado con foto y nombre de usuario enlazados a su perfil -->
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <a href="/profile/{{id}}" class="text-decoration-none">
+                                    <img src="/user/image/{{id}}" class="rounded-circle shadow-sm border" 
+                                        style="width: 50px; height: 50px; object-fit: cover;" 
+                                        alt="Foto de {{username}}">
+                                </a>
+                                <a href="/profile/{{id}}" class="fw-bold text-dark text-decoration-none">
+                                    <h5 class="mb-0">{{username}}</h5>
+                                </a>
                             </div>
+                    
                             <hr>
+                    
                             {{#recentPosts}}
-                            <div class="post">
-                                <p>{{postContent}}</p>
-                                <small class="text-muted">{{creationDate}}</small>
+                            <div class="post p-3 bg-light rounded mb-3">
+                                <p class="mb-2">{{postContent}}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">
+                                        <i class="bi bi-clock me-1"></i> {{creationDate}}
+                                    </small>
+                                    <a href="/communities/{{community.id}}" class="btn btn-sm btn-outline-dark">
+                                        <i class="bi bi-people-fill me-1"></i>{{community.name}}
+                                    </a>
+                                </div>
                             </div>
-                            <hr>
                             {{/recentPosts}}
+                    
                             {{^recentPosts}}
-                            <p>Aún no ha publicado nada</p>
+                            <p class="text-muted text-center">Aún no ha publicado nada.</p>
                             {{/recentPosts}}
                         </div>
                     </div>
                     {{/followedUsers}}
+
                 </div>
-                
-              
-                
+
             </div>
         </div>
         {{> commons/footer}}

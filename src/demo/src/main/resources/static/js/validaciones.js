@@ -86,3 +86,9 @@ document.getElementById("imageUpload").addEventListener("change", function(event
         reader.readAsDataURL(file);
     }
 });
+
+document.querySelectorAll('.collapse').forEach(el => {
+    el.addEventListener('show.bs.collapse', () => {
+        el.classList.add('animate__animated', 'animate__fadeIn');
+    });
+});

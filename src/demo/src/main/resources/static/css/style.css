@@ -11,7 +11,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #013D5A; /* Color del header */
+    background-color: #013D5A;
     padding: 15px 30px;
     height: 70px;
 }
@@ -25,12 +25,12 @@ header {
 }
 
 .logo-small {
-    height: 60px; /* Tamaño ajustado del logo */
+    height: 60px; 
     display: block;
 }
 
 .logo-container {
-    min-width: 250px; /* Ajusta esto al ancho del texto completo */
+    min-width: 250px;
 }
 
 /* Contenedor de botones */
@@ -62,7 +62,7 @@ header {
 }
 
 .btn-account:hover {
-    background-color: #f6b276; /* Color más claro en hover */
+    background-color: #f6b276; 
     transform: scale(1.05);
 }
 
@@ -72,7 +72,7 @@ header {
 }
 
 .btn-register:hover {
-    background-color: #8daa8a; /* Color más claro en hover */
+    background-color: #8daa8a; 
     transform: scale(1.05);
 }
 
@@ -82,17 +82,17 @@ header {
 }
 
 .btn-logout:hover {
-    background-color: #e57373; /* Color más claro en hover */
+    background-color: #e57373; 
     transform: scale(1.05);
 }
 
 /* SIDEBAR */
 
 .list-group-item.active {
-    background-color: #f8f9fa; /* Gris muy claro para el fondo */
-    color: #343a40; /* Gris oscuro para el texto */
+    background-color: #f8f9fa;
+    color: #343a40; 
     font-weight: bold;
-    border-left: 4px solid #6c757d; /* Gris medio para un detalle de borde */
+    border-left: 4px solid #6c757d;
 }
 
 .list-group-item {
@@ -100,8 +100,8 @@ header {
 }
 
 .list-group-item:hover {
-    background-color: #e9ecef; /* Un gris un poco más oscuro al pasar el mouse */
-    color: #212529; /* Gris más intenso para mejorar contraste */
+    background-color: #e9ecef;
+    color: #212529;
 }
 
 /* Communities*/
@@ -136,7 +136,6 @@ header {
 }
 
 .post-card:hover {
-    transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -156,6 +155,40 @@ header {
     background-color: #012A40;
     border-color: #012A40;
 }
+
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 10px 25px rgba(0, 61, 90, 0.2);
+}
+
+textarea {
+    resize: none;
+    border-radius: 10px;
+}
+
+textarea:focus {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+.dropdown-menu {
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.bg-light {
+    background-color: #f9f9f9;
+}
+
+.comment-container {
+    max-width: 700px;
+    margin: auto;
+}
+
 
 
 /* People*/
@@ -200,8 +233,8 @@ header {
 }
 
 .dropdown-menu {
-    min-width: 180px; /* Evita que sea muy pequeño */
-    border-radius: 10px; /* Bordes más redondeados */
+    min-width: 180px; 
+    border-radius: 10px; 
 }
 
 .dropdown-item {
@@ -211,7 +244,7 @@ header {
 }
 
 .dropdown-item:hover {
-    background: rgba(0, 61, 90, 0.1); /* Sutil efecto hover */
+    background: rgba(0, 61, 90, 0.1);
 }
 
 /* -------- Specific Styles for the "Edit User" Page -------- */
@@ -224,12 +257,12 @@ header {
 
 .edit-user .content {
     flex: 1;
-    margin-bottom: 50px; /* More space before the footer */
+    margin-bottom: 50px;
 }
 
 /* Card Styles */
 .edit-user .card {
-    max-width: 650px; /* Wider card */
+    max-width: 650px;
     width: 100%;
     border-radius: 15px;
 }
@@ -287,7 +320,7 @@ header {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Espaciado entre los elementos */
+    gap: 15px; 
 }
 
 .community-item {
@@ -299,15 +332,15 @@ header {
     align-items: center;
     justify-content: center;
     text-align: center;
-    transition: background 0.3s ease-in-out; /* Efecto hover */
-    position: relative; /* Para mantener la estructura */
+    transition: background 0.3s ease-in-out; 
+    position: relative;
 }
 
 .community-item:hover {
-    background: #02507A; /* Aclarado al pasar el mouse */
+    background: #02507A;
 }
 
-/* Modificación para que el link cubra todo el recuadro */
+
 .community-link {
     font-family: 'Poppins', sans-serif;
     font-size: 30px;
@@ -322,7 +355,7 @@ header {
 }
 
 .community-item:hover .community-link {
-    color: #FFFFFF; /* Cambio de color al pasar el mouse */
+    color: #FFFFFF; 
 }
 
 .no-communities {
@@ -335,7 +368,6 @@ header {
 
 /* FOOTER */
 
-/* Rectangle 17 */
 footer {
 
     width: 100%;

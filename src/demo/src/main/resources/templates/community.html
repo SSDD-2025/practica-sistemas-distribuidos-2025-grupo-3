@@ -52,92 +52,89 @@
                     <!-- Feed de publicaciones -->
                     <div id="feed">
                         {{#posts}}
-                            <div class="card mb-3 p-3">
+                        <div class="card mb-4 rounded">
+                            <div class="card-body">
                                 <!-- Encabezado de la publicación -->
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <div class="d-flex align-items-center">
-                                        <img src="/user/image/{{user.id}}" class="rounded-circle img-fluid me-2" style="width: 30px; height: 30px; object-fit: cover;" alt="Foto usuario">
-                                        <h5 class="mb-0">{{user.username}}</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="/user/image/{{user.id}}" class="rounded-circle shadow-sm" style="width: 40px; height: 40px; object-fit: cover;" alt="Foto usuario">
+                                        <div>
+                                            <h6 class="mb-0 fw-bold">{{user.username}}</h6>
+                                            <small class="text-muted">{{creationDate}}</small>
+                                        </div>
                                     </div>
+                        
                                     {{^isGuest}}
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown">
-                                            &#x22EE;
+                                        <button class="btn btn-light btn-sm rounded-circle shadow-sm" type="button" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <form action="/post/delete/{{id}}" method="post" style="display: inline;">
+                                                <form action="/post/delete/{{id}}" method="post">
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    
-                                                     <!-- Campo oculto para el ID de la comunidad -->
-                                                     <input type="hidden" name="communityId" value="{{community.id}}">
-
-                                                     <button type="submit" class="dropdown-item text-danger">Eliminar Publicación</button>
+                                                    <input type="hidden" name="communityId" value="{{community.id}}">
+                                                    <button type="submit" class="dropdown-item text-danger">
+                                                        <i class="bi bi-trash me-2"></i>Eliminar
+                                                    </button>
                                                 </form>
-                                                
                                             </li>
                                         </ul>
                                     </div>
                                     {{/isGuest}}
                                 </div>
-                            
+                        
                                 <!-- Contenido de la publicación -->
-                                <div class="card mb-3 shadow-sm">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{title}}</h5>
-                                        <p class="card-text">{{postContent}}</p>
-                                        {{#image}}
-                                        <img src="/post/image/{{id}}" class="img-fluid rounded" style="max-width: 100%; max-height: 100px;">
-                                        {{/image}}
-                                        <div class="d-flex justify-content-end">
-                                            <small class="text-muted">Publicado el {{creationDate}}</small>
-                                        </div>
-                                    </div>
+                                <h5 class="card-title fw-bold">{{title}}</h5>
+                                <p class="card-text">{{postContent}}</p>
+                        
+                                {{#image}}
+                                <div class="text-center mb-3">
+                                    <img src="/post/image/{{id}}" class="img-fluid rounded shadow-sm" style="max-height: 200px; object-fit: cover;">
                                 </div>
-
-                                <!-- Sección de comentarios -->
+                                {{/image}}
+                        
+                                <!-- Comentarios -->
                                 {{^isGuest}}
-                                <div>
-                                    <form enctype="multipart/form-data" class="d-flex flex gap-2 mb-2" action="/saveComment" method="post">
-                                        <!-- Campo oculto para el ID de la publicación -->
-                                        <input type="hidden" name="postId" value="{{id}}">
-                                        <!-- Áreas de comentario más pequeñas -->
-                                        <textarea name="content" class="form-control form-control-sm" placeholder="comenta algo..." required></textarea>
-                                        <button type="submit" value="Save" class="btn btn-outline-primary btn-sm">Comentar</button>
-                                    </form>
-                                </div>
+                                <form enctype="multipart/form-data" class="d-flex gap-2" action="/saveComment" method="post">
+                                    <input type="hidden" name="postId" value="{{id}}">
+                                    <textarea name="content" class="form-control form-control-sm" placeholder="Comenta algo..." required></textarea>
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-send"></i></button>
+                                </form>
                                 {{/isGuest}}
-                                <!-- Botón para mostrar comentarios -->
-                                <button class="btn btn-sm btn-outline-secondary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#comments-{{id}}" aria-expanded="false" aria-controls="comments-{{id}}">
-                                    Ver comentarios {{comments.size}}
+                        
+                                <button class="btn btn-outline-secondary btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#comments-{{id}}">
+                                    Ver comentarios ({{comments.size}})
                                 </button>
-                                <!-- Contenedor de comentarios -->
-                                <div class="collapse" id="comments-{{id}}">
-                                    <div class="bg-light p-1 rounded" style="width: 715px;">
+                        
+                                <div class="collapse mt-3" id="comments-{{id}}">
+                                    <div class="bg-light rounded p-3">
                                         {{#comments}}
-                                        <div class="d-flex align-items-start mt-1 p-2 bg-white rounded shadow-sm" style="width: 700px;">
-                                            <img src="/user/image/{{user.id}}" class="rounded-circle me-2" style="width: 20px; height: 20px;" alt="Foto usuario">
-                                            <div class="flex-grow-1 d-flex justify-content-between">
-                                                <p class="mb-0"><strong>{{userName.username}}</strong>: {{comment}}</p>
-                                                {{^isGuest}}
-                                                <form action="/comment/deleteComment/{{id}}" method="post" style="display:inline;">
-                                                    <input type="hidden" name="communityId" value="{{community.id}}">
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este comentario?');">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </form>
-                                                {{/isGuest}}
+                                        <div class="d-flex align-items-start mb-2 p-2 bg-white shadow-sm rounded">
+                                            <img src="/user/image/{{user.id}}" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
+                                            <div class="flex-grow-1">
+                                                <strong>{{userName.username}}</strong> {{comment}}
                                             </div>
+                                            {{^isGuest}}
+                                            <form action="/comment/deleteComment/{{id}}" method="post" style="display:inline;">
+                                                <input type="hidden" name="communityId" value="{{community.id}}">
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                            {{/isGuest}}
                                         </div>
                                         {{/comments}}
-                                        
+                        
                                         {{^comments}}
-                                        <p class="text-muted text-center">Aún no hay comentarios</p>
+                                        <p class="text-muted text-center">No hay comentarios aún.</p>
                                         {{/comments}}
                                     </div>
-                                </div> 
+                                </div>
                             </div>
+                        </div>
                         {{/posts}}
+                        
 
                         {{^posts}}
                             <p class="text-muted">Aún no has publicado nada.</p>    
@@ -152,15 +149,6 @@
             </div>
         </div>
 
-        <!-- Contenedor de Toasts en la parte superior centrado -->
-        <div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1050;">
-            <div id="alertToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">Aún no implementado</div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
         {{> commons/footer}}
     </body>
 </html>
