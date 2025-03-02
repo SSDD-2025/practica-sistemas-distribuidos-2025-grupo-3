@@ -6,9 +6,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import jakarta.persistence.Entity;
 
 @Entity
@@ -36,11 +33,6 @@ public class Comment  {
         this.userName = user;
         this.post = post;
         //this.creation = formatDate(LocalDateTime.now());
-    }
-
-    private String formatDate(LocalDateTime date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        return date.format(formatter);
     }
 
     public String getCreation() {
