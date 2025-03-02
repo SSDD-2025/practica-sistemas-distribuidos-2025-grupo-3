@@ -147,7 +147,9 @@ public class WebController {
         return "registration_page";
     }
     @GetMapping("/edit_user_page")
-    public String editUser() {
+    public String editUser(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
         return "edit_user_page";
     }
 

@@ -214,6 +214,70 @@ header {
     background: rgba(0, 61, 90, 0.1); /* Sutil efecto hover */
 }
 
+/* -------- Specific Styles for the "Edit User" Page -------- */
+
+.edit-user {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.edit-user .content {
+    flex: 1;
+    margin-bottom: 50px; /* More space before the footer */
+}
+
+/* Card Styles */
+.edit-user .card {
+    max-width: 650px; /* Wider card */
+    width: 100%;
+    border-radius: 15px;
+}
+
+.edit-user .form-control {
+    border-radius: 10px;
+}
+
+.edit-user .form-control:focus {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Profile Image */
+.edit-user .profile-img-container {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 15px;
+}
+
+.edit-user .profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.edit-user .upload-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.edit-user .upload-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+
 
 /* COMUNIDADES */
 

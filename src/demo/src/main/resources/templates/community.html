@@ -17,9 +17,9 @@
                 <!-- Columna izquierda -->
                 <div class="col-md-2 col-12 flex-column">
                     {{^isGuest}}
-                    <form action="/community/delete/{{community.id}}" method="post" style="display:inline;">
-                        <button type="submit" class="btn btn-danger w-auto" onclick="return confirm('¿Estás seguro de que deseas eliminar esta comunidad? Esta acción no se puede deshacer.');">
-                            Eliminar comunidad
+                    <form action="/community/delete/{{community.id}}" method="post" style="display:inline;" onsubmit="confirmarEliminacionComunidad(event, this)">
+                        <button type="submit" class="btn btn-danger w-auto">
+                            <i class="bi bi-trash"></i> Eliminar comunidad
                         </button>
                     </form>
                     {{/isGuest}}
