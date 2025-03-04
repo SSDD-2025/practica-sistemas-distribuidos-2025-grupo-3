@@ -11,18 +11,18 @@
         <div class="container flex-grow-1 mt-4"> 
 
             <div class="row" class="mt-4">
-                <!-- Columna izquierda -->
+                <!-- Left column -->
                 <div class="col-md-3">
                     {{> commons/sidebar}}
                 </div>
     
-                <!-- Columna central -->
+                <!-- Central column -->
                 <div class="col-md-8 mb-4">
                     <h3 class="mb-3">Últimas publicaciones</h3>
                     {{#latestPosts}}
                     <div class="card post-card shadow-sm mb-4 rounded">
                         <div class="card-body">
-                            <!-- Encabezado de la publicación -->
+                            <!-- Post header -->
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div class="d-flex align-items-center gap-2">
                                     <img src="/user/image/{{user.id}}" class="rounded-circle shadow-sm" style="width: 40px; height: 40px; object-fit: cover;" alt="Foto usuario">
@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                     
-                            <!-- Contenido de la publicación -->
+                            <!-- Post content -->
                             <h5 class="card-title fw-bold">{{title}}</h5>
                             <p class="card-text">{{postContent}}</p>
                     
@@ -43,7 +43,7 @@
                             </div>
                             {{/image}}
                     
-                            <!-- Ver comunidad y comentarios -->
+                            <!-- Community and comments-->
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="/communities/{{community.id}}" class="btn btn-sm btn-primary">Ver en {{community.name}}</a>
                                 <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#comments-{{id}}">
@@ -51,7 +51,7 @@
                                 </button>
                             </div>
                     
-                            <!-- Comentarios (colapsables) -->
+                            <!-- Comments (Collapsibles) -->
                             <div class="collapse mt-3" id="comments-{{id}}">
                                 <div class="bg-light rounded p-3">
                                     {{#comments}}
@@ -83,7 +83,7 @@
                 
             </div>
         </div>
-        <!-- Contenedor de Toasts en la parte superior centrado -->
+        <!-- Not implemented yet alert -->
         <div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1050;">
             <div id="alertToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">

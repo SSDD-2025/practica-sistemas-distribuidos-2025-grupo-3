@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
-//Captura errores que se producen en el servidor antes de que puedan llegar al controlador
+//Catches errors that occur on the server before they can reach the controller
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

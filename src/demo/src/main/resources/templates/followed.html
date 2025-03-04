@@ -11,12 +11,12 @@
         <div class="container flex-grow-1 mt-4"> 
 
             <div class="row" class="mt-4">
-                <!-- Columna izquierda -->
+                <!-- Left column -->
                 <div class="col-md-3">
                     {{> commons/sidebar}}
                 </div>
     
-                <!-- Columna central -->
+                <!-- Central column -->
                 <div class="col-md-8 mb-4">
                     {{^followedUsers}}
                         <p>Aún no sigues a nadie</p>
@@ -24,7 +24,6 @@
                     {{#followedUsers}}
                     <div class="card mb-4 shadow-sm rounded">
                         <div class="card-body">
-                            <!-- Encabezado con foto y nombre de usuario enlazados a su perfil -->
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <a href="/profile/{{id}}" class="text-decoration-none">
                                     <img src="/user/image/{{id}}" class="rounded-circle shadow-sm border" 

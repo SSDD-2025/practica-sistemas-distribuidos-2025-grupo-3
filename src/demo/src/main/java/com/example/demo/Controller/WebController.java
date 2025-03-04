@@ -130,12 +130,12 @@ public class WebController {
         return "user_main_page";
     }
 
-    @GetMapping("/quienes_somos")
+    @GetMapping("/who_are_we")
     public String who(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
-        return "quienes_somos";
+        return "who_are_we";
     }
 
     @GetMapping("/registration_page")
