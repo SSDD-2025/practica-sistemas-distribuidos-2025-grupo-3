@@ -48,11 +48,11 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   5. [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/3efccc357124f58a097e896dd74fd04ee618172a)
 
 - **Ficheros con mayor participación:**
-  1. [Fichero 1](URL_DEL_FICHERO_1)
-  2. [Fichero 2](URL_DEL_FICHERO_2)
-  3. [Fichero 3](URL_DEL_FICHERO_3)
-  4. [Fichero 4](URL_DEL_FICHERO_4)
-  5. [Fichero 5](URL_DEL_FICHERO_5)
+  1. [CommunityController.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blame/main/src/demo/src/main/java/com/example/demo/Controller/CommunityController.java)
+  2. [community.html](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blame/main/src/demo/src/main/resources/templates/community.html)
+  3. [CommunityService.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/Service/CommunityService.java)
+  4. [CommentService.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/Service/CommentService.java)
+  5. [CommentController.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/Controller/CommentController.java)
 
   ###  NICOLAS VELEZ LEAL
 - **Tareas realizadas:**
