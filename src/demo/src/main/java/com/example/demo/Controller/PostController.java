@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.Repository.CommunityRepository;
+import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.model.Community;
 import com.example.demo.model.User;
@@ -21,9 +21,8 @@ public class PostController {
     
     @Autowired
     private PostService postService;
-
     @Autowired
-    private CommunityRepository communityRepository;
+    private CommunityService communityService;
 
 
 
@@ -36,9 +35,7 @@ public class PostController {
         HttpSession session
     ) {
         User user = (User) session.getAttribute("user");
-        Community community = communityRepository.findById(communityId)
-                .orElseThrow(() -> new RuntimeException("Comunidad no encontrada"));
-
+        Community community = communityService.findById(communityId);
         postService.createPost(title, content, imageFile, user, community);
 
         return "redirect:/communities/" + communityId;

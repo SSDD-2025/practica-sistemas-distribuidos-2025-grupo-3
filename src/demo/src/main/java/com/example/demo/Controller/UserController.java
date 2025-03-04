@@ -46,36 +46,10 @@ public class UserController {
             @RequestParam(required = false) String password,
             @RequestParam(value = "image", required = false) MultipartFile imageFile,
             HttpSession session,
-            Model model) {
+            Model model) throws IOException {
         User user = (User) session.getAttribute("user");
-        if (username != null && !username.trim().isEmpty()) {
-            if (!userService.usernamePresent(username)) {
-                user.setUsername(username);
-            }
-        }
-        if (password != null && !password.trim().isEmpty()) {
-            user.setPassword(password);
-        }
-        if (email != null && !email.trim().isEmpty()) {
-            if (!userService.emailPresent(email)) {
-                user.setEmail(email);
-            }
-        }
-
-        try {
-            if (imageFile != null && !imageFile.isEmpty()) {
-                user.setImage(imageFile.getOriginalFilename());
-                user.setImageData(imageFile.getBytes());
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Error al procesar la imagen", e);
-        }
-
-        /*
-         * We should later on add some custom error or success
-         * messages based on what we were able to change or not
-         */
-        userService.updateUser(user);
+        userService.editUser(user, username, email, password, imageFile);
+        
         session.setAttribute("user", user);
         return "redirect:/user_main_page";
 

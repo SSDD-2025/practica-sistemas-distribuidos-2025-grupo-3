@@ -69,5 +69,13 @@ public class PostService {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post no encontrado"));
     }
+
+    public List<Post> findByCommunityIdOrderByCreationDateDesc(Long id) {
+        return postRepository.findByCommunityIdOrderByCreationDateDesc(id);
+    }
+
+    public List<Post> findByUserNameOrderByCreationDateDesc(User user) {
+        return postRepository.findByUserNameOrderByCreationDateDesc(user);
+    }
 }
 

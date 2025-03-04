@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.FollowedUserDTO;
 import com.example.demo.Repository.PostRepository;
@@ -68,16 +69,6 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void updateUser(User user) {
-        userRepository.save(user);
-    }
-    
-    public boolean usernamePresent(String username) {
-        return userRepository.findByUsername(username) != null;
-    }
-    public boolean emailPresent(String email) {
-        return userRepository.findByEmail(email) != null;
-    }
 
     public ResponseEntity<byte[]> getUserImage(Long userId) {
         User user = userRepository.findById(userId)
@@ -135,5 +126,35 @@ public class UserService {
         ))
         .collect(Collectors.toList());
 }
+
+    public void editUser(User user, String username, String email, String password, MultipartFile imageFile) throws IOException {
+        if (username != null && !username.trim().isEmpty()) {
+            if (!(userRepository.findByUsername(username) != null)) {
+                user.setUsername(username);
+            }
+        }
+        if (password != null && !password.trim().isEmpty()) {
+            user.setPassword(password);
+        }
+        if (email != null && !email.trim().isEmpty()) {
+            if (!(userRepository.findByEmail(email) != null)) {
+                user.setEmail(email);
+            }
+        }
+        try {
+            if (imageFile != null && !imageFile.isEmpty()) {
+                user.setImage(imageFile.getOriginalFilename());
+                user.setImageData(imageFile.getBytes());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error al procesar la imagen", e);
+        }
+        /*
+         * We should later on add some custom error or success
+         * messages based on what we were able to change or not
+         */
+
+        userRepository.save(user);
+    }
     
 }

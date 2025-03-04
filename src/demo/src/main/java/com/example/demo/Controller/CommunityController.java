@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.Repository.CommunityRepository;
-import com.example.demo.Repository.PostRepository;
+import com.example.demo.Service.CommunityService;
+import com.example.demo.Service.PostService;
 import com.example.demo.model.Community;
 import com.example.demo.model.User;
 
@@ -19,53 +19,31 @@ import jakarta.servlet.http.HttpSession;
 public class CommunityController {
 
     @Autowired
-    private CommunityRepository communityRepository;
+    private CommunityService communityService;
+
     @Autowired
-    private PostRepository postRepository;
+    private PostService postService;
 
     @GetMapping("/communities/{id}")
     public String showCommunity(HttpSession session, Model model, @PathVariable Long id) {
         User user = (User) session.getAttribute("user");
-        communityRepository.findById(id).ifPresent(community -> model.addAttribute("community", community));
+        Community community = communityService.findById(id);
+        model.addAttribute("community", community);
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
-        model.addAttribute("posts", postRepository.findByCommunityIdOrderByCreationDateDesc(id));
+        model.addAttribute("posts", postService.findByCommunityIdOrderByCreationDateDesc(id));
         return "community";
     }
 
     @PostMapping("/community/create")
-    public String createCommunity(
-            @RequestParam String name,
-            HttpSession session) {
-        User user = (User) session.getAttribute("user");
-
-        if (user == null) {
-            return "redirect:/";
-        }
-
-        if (name == null || name.isEmpty()) {
-            return "redirect:/communities";
-        }
-
-        if (communityRepository.existsByName(name)) {
-            return "redirect:/communities";
-        }
-        Community community = new Community(name);
-        communityRepository.save(community);
-
+    public String createCommunity(@RequestParam String name) {
+        communityService.createCommunity(name);
         return "redirect:/communities";
     }
 
     @PostMapping("/community/delete/{communityId}")
-    public String deleteCommunity(@PathVariable Long communityId, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-
-        if (user == null) {
-            return "redirect:/communities";
-        }
-
-        communityRepository.deleteById(communityId);
-
+    public String deleteCommunity(@PathVariable Long communityId) {
+        communityService.deleteById(communityId);
         return "redirect:/communities";
     }
 

@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.DTO.FollowedUserDTO;
 import com.example.demo.DTO.UserDTO;
-import com.example.demo.Repository.CommentRepository;
-import com.example.demo.Repository.CommunityRepository;
-import com.example.demo.Repository.PostRepository;
+import com.example.demo.Service.CommentService;
+import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
 import com.example.demo.model.Post;
@@ -25,13 +24,10 @@ import jakarta.servlet.http.HttpSession;
 public class WebController {
 
     @Autowired
-    private CommentRepository commentRepository;
+    private CommunityService communityService;
 
     @Autowired
-    private CommunityRepository communityRepository;
-
-    @Autowired 
-    private PostRepository postRepository;
+    private CommentService commentService;
 
     @Autowired
     private PostService postService;
@@ -71,7 +67,7 @@ public class WebController {
 
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
-        model.addAttribute("comunities", communityRepository.findAll());
+        model.addAttribute("comunities", communityService.findAll());
         model.addAttribute("isCommunities", true);
         return "communities"; 
     }
@@ -114,7 +110,7 @@ public class WebController {
             return "redirect:/home";
         }
 
-        List<Post> userPosts = postRepository.findByUserNameOrderByCreationDateDesc(user);
+        List<Post> userPosts = postService.findByUserNameOrderByCreationDateDesc(user);
 
         model.addAttribute("isGuest", currentUser.getId() == 1);
         model.addAttribute("user", user);
@@ -129,8 +125,8 @@ public class WebController {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
-        model.addAttribute("posts", postRepository.findByUserNameOrderByCreationDateDesc(user));
-        model.addAttribute("comments", commentRepository.findByUserName(user));
+        model.addAttribute("posts", postService.findByUserNameOrderByCreationDateDesc(user));
+        model.addAttribute("comments", commentService.findByUserName(user));
         return "user_main_page";
     }
 
