@@ -50,8 +50,8 @@
 
 
 
-## **CLASS DIAGRAM**
-![Class Diagram](Images/class%20diagram.png)
+## **ENTITY DIAGRAM**
+![Entity Diagram](Images/entity%20diagram.png)
 
 
 
