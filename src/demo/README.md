@@ -13,16 +13,16 @@
 ## **NAVEGATION**
 
 ### Login
-![Login Image](Images/login.png)
+![Login Image](Images/Login.png)
 
 ### Register
 ![Register Image](Images/Register.png)
 
 ### Home
-![Home](Images/home.png)
+![Home](Images/Home.png)
 
 ### Communities
-![Communities](Images/communities.png)
+![Communities](Images/Communities.png)
 
 ### Incommunities
 ![Incommunities](Images/Incommunities.png)
@@ -31,13 +31,13 @@
 ![Followers](Images/Followers.png)
 
 ### People
-![People](Images/people.png)
+![People](Images/People.png)
 
 ### Profile
-![Profile](Images/profile.png)
+![Profile](Images/Profile.png)
 
 ### Edit
-![Edit](Images/edit.png)
+![Edit](Images/Edit.png)
 ## Navigation Diagram
 
 ![Navigation Diagram](Images/Navigation%20diagram.png)
@@ -51,7 +51,7 @@
 
 
 ## **ENTITY DIAGRAM**
-![Entity Diagram](Images/entity%20diagram.png)
+![Entity Diagram](Images/Entity%20diagram.png)
 
 
 
