@@ -56,21 +56,24 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
 
   ###  NICOLAS VELEZ LEAL
 - **Tareas realizadas:**
-  - [Descripción breve de las tareas realizadas]
+  + Creacion de la estructura básica de funcinamiento de la web. Mejora de la primera versión navegable.
+  + Navegavión del sitio a través del web controller.
+  + Creacion del sistema de subida de posts con sus imágenes.
+  + Constante mejora de estilos y creacion y reestructuración de los html.
 
 - **Commits más significativos:**
-  1. [Commit 1](URL_DEL_COMMIT_1)
-  2. [Commit 2](URL_DEL_COMMIT_2)
-  3. [Commit 3](URL_DEL_COMMIT_3)
-  4. [Commit 4](URL_DEL_COMMIT_4)
-  5. [Commit 5](URL_DEL_COMMIT_5)
+  1. [Posts and DB update](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/62bbd6473b29ddc5e8060771fccfedc9114fe4b4)
+  2. [Posts update](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/12efa023d02283a5bca94f90acb39ca13f14c107)
+  3. [Users update](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/7ef3ca1a62348911d09964b1e9d2601ff00517c1)
+  4. [Errors handler](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/d9a67669fecf0ced26332e87855a6539b28b598f)
+  5. [Followers update](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/fe1fdbfd5ec33beacd5845c0e8839bfe1fd0a532)
 
 - **Ficheros con mayor participación:**
-  1. [Fichero 1](URL_DEL_FICHERO_1)
-  2. [Fichero 2](URL_DEL_FICHERO_2)
-  3. [Fichero 3](URL_DEL_FICHERO_3)
-  4. [Fichero 4](URL_DEL_FICHERO_4)
-  5. [Fichero 5](URL_DEL_FICHERO_5)
+  1. [Web Controller (Java)](src/demo/src/main/java/com/example/demo/Controller/WebController.java)
+  2. [Post Controller (Java)](src/demo/src/main/java/com/example/demo/Service/PostService.java)
+  3. [Home (HTML)](src/demo/src/main/resources/templates/home.html)
+  4. [Community (HTML)](src/demo/src/main/resources/templates/community.html)
+  5. [Styles (CSS)](src/demo/src/main/resources/static/css/style.css)
 
   ###  SERGIO ESPINOSA ROBLES 
 - **Tareas realizadas:**
