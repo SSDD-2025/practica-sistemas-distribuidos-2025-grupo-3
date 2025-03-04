@@ -10,7 +10,6 @@
         alert("Usuario editado con exito") This little block was an idea to show a message when the user edited his profile, but it didn't work
         {{/exito}}                    we will try to implement it later -->  
 
-        <!-- Contenido principal -->
         <div class="container flex-grow-1 mt-1">
             <form action="/home" method="get" class="mb-3">
                 <button type="submit" class="btn btn-secondary align-items-center">
@@ -18,10 +17,9 @@
                 </button>
             </form>
             <div class="row">
-                <!-- Sección de perfil -->
+                <!-- Profile section -->
                 <div class="col-md-4">
                     <div class="card text-center shadow-sm position-relative">
-                        <!-- Dropdown en la esquina superior derecha con tres puntos verticales -->
                         <div class="dropdown position-absolute top-0 start-0 m-2">
                             <button class="btn btn-light btn-sm rounded-circle shadow-sm" type="button" id="userOptions" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-three-dots-vertical"></i>
@@ -55,7 +53,7 @@
                 </div>
                 
 
-                <!-- Sección de publicaciones -->
+                <!-- Posts section -->
                 <div class="col-md-8">
                     <h3 class="mb-3">Mis Publicaciones</h3>
                     <div id="post-container">
@@ -77,7 +75,7 @@
                         <p class="text-muted">Aún no has publicado nada.</p>
                         {{/posts}}
                     </div>
-                    <!-- Sección de Mis Comentarios -->
+                    <!-- My comments section -->
                     <h3 class="mb-3 mt-5">Mis Comentarios</h3>
                     <div id="comment-container">
                         {{#comments}}

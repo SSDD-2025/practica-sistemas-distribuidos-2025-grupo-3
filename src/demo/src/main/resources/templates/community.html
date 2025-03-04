@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Comunidad - {{community.name}}</title>
+        <title>Community - {{community.name}}</title>
         {{> commons/head}}
     </head>
     
@@ -9,55 +9,57 @@
         {{> commons/header}}
         <div class="container flex-grow-1 mt-4"> 
             <div class="d-flex justify-content-between align-items-center">
-                <h2><a href="/home"class="text-decoration-none text-reset"> Comunidades</a> > {{community.name}}</h2>
+                <h2><a href="/home"class="text-decoration-none text-reset"> Communities</a> > {{community.name}}</h2>
             </div>
             <hr>
 
             <div class="row">
-                <!-- Columna izquierda -->
+                <!-- Left column -->
                 <div class="col-md-2 col-12 flex-column">
                     {{^isGuest}}
                     <form action="/community/delete/{{community.id}}" method="post" style="display:inline;" onsubmit="confirmarEliminacionComunidad(event, this)">
                         <button type="submit" class="btn btn-danger w-auto">
-                            <i class="bi bi-trash"></i> Eliminar comunidad
+                            <i class="bi bi-trash"></i> Delete community
                         </button>
                     </form>
                     {{/isGuest}}
                 </div>
     
-                <!-- Columna central -->
+                <!-- Central column -->
                 <div class="col-md-8 col-12">
                     {{^isGuest}}
+
+                    <!-- Post form -->
                     <div class="card p-3 mb-4">
                         <form action="/savePost" method="post" enctype="multipart/form-data" class="d-flex flex-column">
-                            <!-- Título de la publicación-->
+                            <!-- Post title -->
                             <div class="w-100 d-flex align-items-center mb-2">
-                                <input type="text" id="title" name="title" placeholder="Título de la publicación" required class="form-control">
+                                <input type="text" id="title" name="title" placeholder="Post title" required class="form-control">
                             </div>
-                            <!-- Cuadro de texto -->
-                            <textarea name="content" class="form-control mb-2" placeholder="Escribe algo..." required></textarea>
+                            <!-- Text area -->
+                            <textarea name="content" class="form-control mb-2" placeholder="Write something..." required></textarea>
                     
-                            <!-- Campo oculto para el ID de la comunidad -->
+                            <!-- Hidden field for community ID -->
                             <input type="hidden" name="communityId" value="{{community.id}}">
 
-                            <!-- Subida de imagen y botón de envío -->
+                            <!-- Image upload and submit button -->
                             <div class="w-100 d-flex align-items-center gap-2">
                                 <input type="file" name="image" class="form-control" accept="image/*">
-                                <button type="submit" value="Save" class="btn btn-success">Publicar</button>
+                                <button type="submit" value="Save" class="btn btn-success">Post</button>
                             </div>
                         </form>
                     </div>
                     {{/isGuest}}
                     
-                    <!-- Feed de publicaciones -->
+                    <!-- Post feed -->
                     <div id="feed">
                         {{#posts}}
                         <div class="card mb-4 rounded">
                             <div class="card-body">
-                                <!-- Encabezado de la publicación -->
+                                <!-- Post header -->
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="/user/image/{{user.id}}" class="rounded-circle shadow-sm" style="width: 40px; height: 40px; object-fit: cover;" alt="Foto usuario">
+                                        <img src="/user/image/{{user.id}}" class="rounded-circle shadow-sm" style="width: 40px; height: 40px; object-fit: cover;" alt="User photo">
                                         <div>
                                             <h6 class="mb-0 fw-bold">{{user.username}}</h6>
                                             <small class="text-muted">{{creationDate}}</small>
@@ -75,7 +77,7 @@
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="communityId" value="{{community.id}}">
                                                     <button type="submit" class="dropdown-item text-danger">
-                                                        <i class="bi bi-trash me-2"></i>Eliminar
+                                                        <i class="bi bi-trash me-2"></i>Delete
                                                     </button>
                                                 </form>
                                             </li>
@@ -84,7 +86,7 @@
                                     {{/isGuest}}
                                 </div>
                         
-                                <!-- Contenido de la publicación -->
+                                <!-- Post content -->
                                 <h5 class="card-title fw-bold">{{title}}</h5>
                                 <p class="card-text">{{postContent}}</p>
                         
@@ -94,17 +96,17 @@
                                 </div>
                                 {{/image}}
                         
-                                <!-- Comentarios -->
+                                <!-- Comments -->
                                 {{^isGuest}}
                                 <form enctype="multipart/form-data" class="d-flex gap-2" action="/saveComment" method="post">
                                     <input type="hidden" name="postId" value="{{id}}">
-                                    <textarea name="content" class="form-control form-control-sm" placeholder="Comenta algo..." required></textarea>
+                                    <textarea name="content" class="form-control form-control-sm" placeholder="Write a comment..." required></textarea>
                                     <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-send"></i></button>
                                 </form>
                                 {{/isGuest}}
                         
                                 <button class="btn btn-outline-secondary btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#comments-{{id}}">
-                                    Ver comentarios ({{comments.size}})
+                                    View comments ({{comments.size}})
                                 </button>
                         
                                 <div class="collapse mt-3" id="comments-{{id}}">
@@ -127,7 +129,7 @@
                                         {{/comments}}
                         
                                         {{^comments}}
-                                        <p class="text-muted text-center">No hay comentarios aún.</p>
+                                        <p class="text-muted text-center">No comments yet.</p>
                                         {{/comments}}
                                     </div>
                                 </div>
@@ -137,12 +139,12 @@
                         
 
                         {{^posts}}
-                            <p class="text-muted">Aún no has publicado nada.</p>    
+                            <p class="text-muted">You haven't posted anything yet.</p>    
                         {{/posts}}
                     </div>
                 </div>
     
-                <!-- Columna derecha -->
+                <!-- Right column -->
                 <div class="col-md-2 col-12">
 
                 </div>
