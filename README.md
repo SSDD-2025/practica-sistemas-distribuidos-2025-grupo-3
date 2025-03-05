@@ -97,6 +97,22 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   5. [Fichero 5](src/demo/src/main/resources/templates/edit_user_page.html)
 
 
+## **EXECUTION INSTRUCTIONS**
+Antes de acceder a nuestro codigo deberán comprobar que tienen las versiones necesarias para poder utilizarlo, aqui se muestran las versiones utilizadas:
+- Java version "23.0.2"
+- Apache Maven 3.9.9
+- MySQL server 8.0.41
+- MySQL Workbench 8.0.41
+
+Ademas utilizamos el entrono de desarrollo de Visual Studio en la que utizamos las siguientes extensiones:
+- Extension Pack for Java  v0.29.0 
+- Debugger for Java  v0.58.1 
+
+
+Para poder descagar al codigo deberán acceder a nuestro repositorio de [github](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3) o clonarlo a partir de este link :
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3.git
+
+
 ## **NAVEGATION**
 
 ### Login
