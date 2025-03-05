@@ -93,6 +93,7 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   4. [Fichero 4](URL_DEL_FICHERO_4)
   5. [Fichero 5](URL_DEL_FICHERO_5)
 
+## **EXECUTION INSTRUCTIONS**
 
 ## **NAVEGATION**
 
@@ -131,3 +132,8 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
 
 ## **ENTITY DIAGRAM**
 ![Entity Diagram](src/demo/Images/Entity%20diagram.png)
+
+
+## **CLASS AND ENTITY DIAGRAM**
+![Class Diagram](src/demo/Images/Class%20diagram.png)
+
