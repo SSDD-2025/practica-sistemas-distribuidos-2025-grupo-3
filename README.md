@@ -99,15 +99,16 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
 
 ## **EXECUTION INSTRUCTIONS**
 Antes de acceder a nuestro codigo deberán comprobar que tienen las versiones necesarias para poder utilizarlo, aqui se muestran las versiones utilizadas:
-- Java version "23.0.2"
-- Apache Maven 3.9.9
-- MySQL server 8.0.41
-- MySQL Workbench 8.0.41
-- Git version 2.47.0
+- [Java version "23.0.2"](https://www.oracle.com/java/technologies/javase/jdk23-archive-downloads.html)
+- [Apache Maven 3.9.9](https://maven.apache.org/download.cgi?utm_source=chatgpt.com)
+- [MySQL server 8.0.41](https://dev.mysql.com/downloads/mysql/8.0.html?utm_source=chatgpt.com)
+- [MySQL Workbench 8.0.41](https://dev.mysql.com/downloads/workbench/?utm_source=chatgpt.com)
+- [Git version 2.47.0](https://github.com/git-for-windows/git/releases/tag/v2.47.0.windows.1)
 
 Ademas utilizamos el entrono de desarrollo de Visual Studio en la que utizamos las siguientes extensiones:
-- Extension Pack for Java  v0.29.0 
-- Debugger for Java  v0.58.1 
+- [Extension Pack for Java  v0.29.0](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
+- [Debugger for Java  v0.58.1](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-debug) 
+- [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack)
 
 
 Para poder descagar al codigo deberán acceder a nuestro repositorio de [github](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3) o clonarlo a partir de este link :
@@ -117,36 +118,39 @@ Aqui vamos a explicarles como poder acceder al proyecto desde su ordenador en un
 el siguiente comando que deberan copiar por consola(tecla windows + r  y escribir cmd), aqui deberan copiar el siguiente comando:
 git clone https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3.git
 
-Posterior a este paso deberan acceder a su MySQL ,para poder utilizar el proyecto deberan crear la base de datos llamada distribuidos mediante dando al + en create conection y crearse una conexion llamada distribuidos y con la contraseña llamada distribuidos aunque esta ultima se podria cambiar en el archivo del proyecto llamado application.properties. Ya dentro de la conexion al server distribuidos, crearemos un new schema llamado distribuidos y a partir de aqui podremos empezar a utilizar la aplicacion y ver en esta base de datos como se actualizan o eliminan los datos. 
+Posterior a este paso deberan acceder a su MySQL, para poder utilizar el proyecto deberan crear la base de datos llamada distribuidos mediante dando al + en create conection y crearse una conexion llamada distribuidos y con la contraseña llamada distribuidos aunque esta ultima se podria cambiar en el archivo del proyecto llamado application.properties. Ya dentro de la conexion al server distribuidos, crearemos un new schema llamado distribuidos y a partir de aqui podremos empezar a utilizar la aplicacion y ver en esta base de datos como se actualizan o eliminan los datos. 
+
+Con todo esto ya podrias utilizar nuestro codigo a partir de lo anteriormente mencionado, solo faltaria que utilizaras el entorno de desarrollo que prefieras pero nosotros recomendamos Visual Studios que es el que hemos utilizado nosotros. 
+
 ## **NAVEGATION**
 
-### Login
+### **Login**
 ![Login Image](src/demo/Images/Login.png)
 
-### Register
+### **Register**
 ![Register Image](src/demo/Images/Register.png)
 
-### Home
+### **Home**
 ![Home](src/demo/Images/Home.png)
 
-### Communities
+### **Communities**
 ![Communities](src/demo/Images/Communities.png)
 
-### Incommunities
+### **Incommunities**
 ![Incommunities](src/demo/Images/Incommunities.png)
 
-### Followers
+### **Followers**
 ![Followers](src/demo/Images/Followers.png)
 
-### People
+### **People**
 ![People](src/demo/Images/People.png)
 
-### Profile
+### **Profile**
 ![Profile](src/demo/Images/Profile.png)
 
-### Edit
+### **Edit**
 ![Edit](src/demo/Images/Edit.png)
-## Navigation Diagram
+## **NAVIGATION DIAGRAM**
 
 ![Navigation Diagram](src/demo/Images/Navigation%20diagram.png)
 
