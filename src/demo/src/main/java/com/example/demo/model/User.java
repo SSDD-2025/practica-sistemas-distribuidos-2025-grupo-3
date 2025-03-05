@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 @Entity
 public class User {
 
@@ -29,23 +30,13 @@ public class User {
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "user_community",
-        joinColumns = @JoinColumn(name = "username"),
-        inverseJoinColumns = @JoinColumn(name = "community_id")
-    )
+    @JoinTable(name = "user_community", joinColumns = @JoinColumn(name = "username"), inverseJoinColumns = @JoinColumn(name = "community_id"))
     private List<Community> communities = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-        name = "user_friends",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "friend_id"),
-        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "friend_id"})
-    )
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "user_friends", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "friend_id"), uniqueConstraints = @UniqueConstraint(columnNames = {
+            "user_id", "friend_id" }))
     private Set<User> friends = new HashSet<>();
-    
-
 
     protected User() {
         // Used by JPA
@@ -104,7 +95,7 @@ public class User {
     public void setId(long id) {
         this.id = id;
     }
-    
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -116,7 +107,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public void setImage(String image) {
         this.image = image;
     }
@@ -124,7 +115,7 @@ public class User {
     public void setImageData(byte[] imageData) {
         this.imageData = imageData;
     }
-    
+
     public void setDateJoined(Date dateJoined) {
         this.dateJoined = dateJoined;
     }

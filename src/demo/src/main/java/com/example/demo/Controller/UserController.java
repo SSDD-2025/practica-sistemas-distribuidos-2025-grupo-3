@@ -49,7 +49,7 @@ public class UserController {
             Model model) throws IOException {
         User user = (User) session.getAttribute("user");
         userService.editUser(user, username, email, password, imageFile);
-        
+
         session.setAttribute("user", user);
         return "redirect:/user_main_page";
 

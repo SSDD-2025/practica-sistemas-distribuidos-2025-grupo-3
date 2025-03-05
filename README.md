@@ -1,19 +1,22 @@
+# SSDD
+
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/D1C1HU9V)
 
 ## **GROUP: 3**
+
 | Name                   | Email                                |
 |:------------------------:|:------------------------------------:|
-| PABLO MARINAS BARBA      | p.marinas.2019@alumnos.urjc.es      |
-| ALONSO DÍAZ SERRANO      | a.diaz.2019@alumnos.urjc.es        |
-| NICOLAS VELEZ LEAL       | n.velez.2017@alumnos.urjc.es       |
-| SERGIO ESPINOSA ROBLES   | s.espinosa.2020@alumnos.urjc.es    |
-
+| PABLO MARINAS BARBA      | <p.marinas.2019@alumnos.urjc.es>      |
+| ALONSO DÍAZ SERRANO      | <a.diaz.2019@alumnos.urjc.es>        |
+| NICOLAS VELEZ LEAL       | <n.velez.2017@alumnos.urjc.es>       |
+| SERGIO ESPINOSA ROBLES   | <s.espinosa.2020@alumnos.urjc.es>    |
 
 ## **MEMBERS PARTICIPATION**
 
 Cada miembro del equipo debe documentar su contribución a la práctica, incluyendo:
 
-###  PABLO MARINAS BARBA 
+### PABLO MARINAS BARBA
+
 - **Tareas realizadas:**
   
 El proyecto ha sido desarrollado en equipo, organizándonos de manera paralela para avanzar de forma coordinada. En mi caso, me centré en la gestión del borrado de elementos, incluyendo usuarios, publicaciones y comunidades. Además, trabajé en el diseño y funcionamiento de la base de datos para garantizar que, al insertar datos, las tablas y relaciones se generaran correctamente. También me aseguré de que al eliminar un usuario, sus publicaciones y comunidades se eliminaran adecuadamente, basandome en la integracion de las relaciones entre entidades.
@@ -34,12 +37,12 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   4. [Community.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/model/Community.java)
   5. [application.properties](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/resources/application.properties)
 
+  ### ALONSO DIAZ SERRANO
 
-  ###  ALONSO DIAZ SERRANO 
 - **Tareas realizadas:**
   - [Estructura básica (estilo) de como orientar la página, entidad comentario hecha, refactorizacion sobre logica de controlador-servicio-repositorio]
   - [Extra: hay algun tipo de problema con mi cuenta y los commits que hago desde el portatil y los commits que hago desde mi ordenador de escritorio de casa, hay como dos cuentas distintas de Alonso haciendo commits]
-    
+
 - **Commits más significativos:**
   1. [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/d58b4fee87292581ce1ac6d53d1b774d35c75608)
   2. [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/e321b5d59fb92dfbc49cbe1889b3d5ec9dd2a6a1)
@@ -54,12 +57,13 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   4. [CommentService.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/Service/CommentService.java)
   5. [CommentController.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/Controller/CommentController.java)
 
-  ###  NICOLAS VELEZ LEAL
+  ### NICOLAS VELEZ LEAL
+
 - **Tareas realizadas:**
-  + Creacion de la estructura básica de funcinamiento de la web. Mejora de la primera versión navegable.
-  + Navegavión del sitio a través del web controller.
-  + Creacion del sistema de subida de posts con sus imágenes.
-  + Constante mejora de estilos y creacion y reestructuración de los html.
+  - Creacion de la estructura básica de funcinamiento de la web. Mejora de la primera versión navegable.
+  - Navegavión del sitio a través del web controller.
+  - Creacion del sistema de subida de posts con sus imágenes.
+  - Constante mejora de estilos y creacion y reestructuración de los html.
 
 - **Commits más significativos:**
   1. [Posts and DB update](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/62bbd6473b29ddc5e8060771fccfedc9114fe4b4)
@@ -75,7 +79,8 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   4. [Community (HTML)](src/demo/src/main/resources/templates/community.html)
   5. [Styles (CSS)](src/demo/src/main/resources/static/css/style.css)
 
-  ###  SERGIO ESPINOSA ROBLES 
+  ### SERGIO ESPINOSA ROBLES
+
 - **Tareas realizadas:**
   - Principalmente me centre en el trabajo sobre usuarios, tanto la parte de registro como la parte de edición
   de manera que tuvieramos asegurado un correcto funcionamiento de usuarios que pudiera reflejarse en el resto
@@ -96,9 +101,10 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   4. [Fichero 4](src/demo/src/main/resources/templates/registration_page.html)
   5. [Fichero 5](src/demo/src/main/resources/templates/edit_user_page.html)
 
-
 ## **EXECUTION INSTRUCTIONS**
+
 Antes de acceder a nuestro codigo deberán comprobar que tienen las versiones necesarias para poder utilizarlo, aqui se muestran las versiones utilizadas:
+
 - [Java version "23.0.2"](https://www.oracle.com/java/technologies/javase/jdk23-archive-downloads.html)
 - [Apache Maven 3.9.9](https://maven.apache.org/download.cgi?utm_source=chatgpt.com)
 - [MySQL server 8.0.41](https://dev.mysql.com/downloads/mysql/8.0.html?utm_source=chatgpt.com)
@@ -106,56 +112,68 @@ Antes de acceder a nuestro codigo deberán comprobar que tienen las versiones ne
 - [Git version 2.47.0](https://github.com/git-for-windows/git/releases/tag/v2.47.0.windows.1)
 
 Ademas utilizamos el entrono de desarrollo de Visual Studio en la que utizamos las siguientes extensiones:
+
 - [Extension Pack for Java  v0.29.0](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
-- [Debugger for Java  v0.58.1](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-debug) 
+- [Debugger for Java  v0.58.1](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-debug)
 - [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack)
 
-
 Para poder descagar al codigo deberán acceder a nuestro repositorio de [github](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3) o clonarlo a partir de este link :
-https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3.git
+<https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3.git>
 
-Aqui vamos a explicarles como poder acceder al proyecto desde su ordenador en unos simple pasos, primero deberan clonar el repositorio a partir de 
+Aqui vamos a explicarles como poder acceder al proyecto desde su ordenador en unos simple pasos, primero deberan clonar el repositorio a partir de
 el siguiente comando que deberan copiar por consola(tecla windows + r  y escribir cmd), aqui deberan copiar el siguiente comando:
-git clone https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3.git
+git clone <https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3.git>
 
-Posterior a este paso deberan acceder a su MySQL, para poder utilizar el proyecto deberan crear la base de datos llamada distribuidos mediante dando al + en create conection y crearse una conexion llamada distribuidos y con la contraseña llamada distribuidos aunque esta ultima se podria cambiar en el archivo del proyecto llamado application.properties. Ya dentro de la conexion al server distribuidos, crearemos un new schema llamado distribuidos y a partir de aqui podremos empezar a utilizar la aplicacion y ver en esta base de datos como se actualizan o eliminan los datos. 
+Posterior a este paso deberan acceder a su MySQL, para poder utilizar el proyecto deberan crear la base de datos llamada distribuidos mediante dando al + en create conection y crearse una conexion llamada distribuidos y con la contraseña llamada distribuidos aunque esta ultima se podria cambiar en el archivo del proyecto llamado application.properties. Ya dentro de la conexion al server distribuidos, crearemos un new schema llamado distribuidos y a partir de aqui podremos empezar a utilizar la aplicacion y ver en esta base de datos como se actualizan o eliminan los datos.
 
-Con todo esto ya podrias utilizar nuestro codigo a partir de lo anteriormente mencionado, solo faltaria que utilizaras el entorno de desarrollo que prefieras pero nosotros recomendamos Visual Studios que es el que hemos utilizado nosotros. 
+Con todo esto ya podrias utilizar nuestro codigo a partir de lo anteriormente mencionado, solo faltaria que utilizaras el entorno de desarrollo que prefieras pero nosotros recomendamos Visual Studios que es el que hemos utilizado nosotros.
 
 ## **NAVEGATION**
 
 ### **Login**
+
 ![Login Image](src/demo/Images/Login.png)
 
 ### **Register**
+
 ![Register Image](src/demo/Images/Register.png)
 
 ### **Home**
+
 ![Home](src/demo/Images/Home.png)
 
 ### **Communities**
+
 ![Communities](src/demo/Images/Communities.png)
 
 ### **Incommunities**
+
 ![Incommunities](src/demo/Images/Incommunities.png)
 
 ### **Followers**
+
 ![Followers](src/demo/Images/Followers.png)
 
 ### **People**
+
 ![People](src/demo/Images/People.png)
 
 ### **Profile**
+
 ![Profile](src/demo/Images/Profile.png)
 
 ### **Edit**
+
 ![Edit](src/demo/Images/Edit.png)
+
 ## **NAVIGATION DIAGRAM**
 
 ![Navigation Diagram](src/demo/Images/Navigation%20diagram.png)
 
 ## **ENTITY DIAGRAM**
+
 ![Entity Diagram](src/demo/Images/Entity%20diagram.png)
 
 ## **CLASSES DIAGRAM**
+
 ![Entity Diagram](src/demo/Images/Classes%20diagram.png)

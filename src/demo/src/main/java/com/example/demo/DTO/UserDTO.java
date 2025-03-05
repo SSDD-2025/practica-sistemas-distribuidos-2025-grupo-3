@@ -11,7 +11,15 @@ public class UserDTO {
         this.isFollowing = isFollowing;
     }
 
-    public Long getId() { return id; }
-    public String getUsername() { return username; }
-    public boolean isFollowing() { return isFollowing; }
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public boolean isFollowing() {
+        return isFollowing;
+    }
 }

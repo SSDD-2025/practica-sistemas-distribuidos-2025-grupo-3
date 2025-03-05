@@ -78,4 +78,3 @@ public class PostService {
         return postRepository.findByUserNameOrderByCreationDateDesc(user);
     }
 }
-

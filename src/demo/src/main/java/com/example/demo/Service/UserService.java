@@ -30,12 +30,18 @@ public class UserService {
     private PostRepository postRepository;
 
     public User authenticateUser(String logger, String password) {
-        if (logger.matches("^[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\\.[a-zA-Z]+)*$"))  { //If the logger has an email format, then check for it in the database by email
+        if (logger.matches("^[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\\.[a-zA-Z]+)*$")) { /*
+                                                                                               * If the logger has an
+                                                                                               * email format, then
+                                                                                               * check for it in the
+                                                                                               * database by email
+                                                                                               */
             User user = userRepository.findByEmail(logger);
             if (user != null && user.getPassword().equals(password)) {
                 return user;
             }
-        }else { //If the logger does not have an email format, then check for it in the database by username
+        } else { // If the logger does not have an email format, then check for it in the
+                 // database by username
             User user = userRepository.findByUsername(logger);
             if (user != null && user.getPassword().equals(password)) {
                 return user;
@@ -48,7 +54,8 @@ public class UserService {
         return userRepository.findById(1L).orElse(null);
     }
 
-    public User registerUser(String username, String email, String password, boolean[] errorUserMail) throws IOException {
+    public User registerUser(String username, String email, String password, boolean[] errorUserMail)
+            throws IOException {
         if (userRepository.findByEmail(email) != null | userRepository.findByUsername(username) != null) {
             if (userRepository.findByEmail(email) != null) {
                 errorUserMail[1] = true;
@@ -69,10 +76,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-
     public ResponseEntity<byte[]> getUserImage(Long userId) {
         User user = userRepository.findById(userId)
-        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         byte[] imageData = user.getImageData();
         if (imageData == null) {
@@ -99,13 +105,12 @@ public class UserService {
     public boolean isFollowing(User currentUser, User otherUser) {
         return userRepository.existsFriendship(currentUser.getId(), otherUser.getId());
     }
-    
 
     @Transactional
     public void toggleFollow(Long userId, Long friendId) {
         User user = userRepository.findById(userId).orElseThrow();
         User friend = userRepository.findById(friendId).orElseThrow();
-    
+
         if (user.getFriends().contains(friend)) {
             user.getFriends().remove(friend);
         } else {
@@ -115,19 +120,20 @@ public class UserService {
     }
 
     public List<FollowedUserDTO> getFollowedUsersWithPosts(Long currentUserId) {
-    User currentUser = userRepository.findByIdWithFriends(currentUserId);
+        User currentUser = userRepository.findByIdWithFriends(currentUserId);
 
-    return currentUser.getFriends().stream()
-        .map(friend -> new FollowedUserDTO(
-            friend.getId(),
-            friend.getUsername(),
-            friend.getImageData(), // Asegúrate de tener este campo en tu entidad
-            postRepository.findTop3ByuserNameOrderByCreationDateDesc(friend) // Últimos 3 posts
-        ))
-        .collect(Collectors.toList());
-}
+        return currentUser.getFriends().stream()
+                .map(friend -> new FollowedUserDTO(
+                        friend.getId(),
+                        friend.getUsername(),
+                        friend.getImageData(), // Asegúrate de tener este campo en tu entidad
+                        postRepository.findTop3ByuserNameOrderByCreationDateDesc(friend) // Últimos 3 posts
+                ))
+                .collect(Collectors.toList());
+    }
 
-    public void editUser(User user, String username, String email, String password, MultipartFile imageFile) throws IOException {
+    public void editUser(User user, String username, String email, String password, MultipartFile imageFile)
+            throws IOException {
         if (username != null && !username.trim().isEmpty()) {
             if (!(userRepository.findByUsername(username) != null)) {
                 user.setUsername(username);
@@ -156,5 +162,5 @@ public class UserService {
 
         userRepository.save(user);
     }
-    
+
 }

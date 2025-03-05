@@ -12,16 +12,16 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     private String title;
 
     @Lob
     private String postContent;
-    
+
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP) // Indica que es una fecha con hora
     private LocalDateTime creationDate;
-    
+
     private String image;
     @Lob
     @Column(length = 1048576)
@@ -40,92 +40,92 @@ public class Post {
 
     protected Post() {
         // Used by JPA
-        }
+    }
 
-        public Post(String title, String postContent, String image, byte[] imageData, User user, Community community) {
-            this.title = title;
-            this.postContent = postContent;
-            this.image = image;
-            this.imageData = imageData;
-            this.userName = user;
-            this.community = community;
-            this.creationDate = LocalDateTime.now();
-        }
+    public Post(String title, String postContent, String image, byte[] imageData, User user, Community community) {
+        this.title = title;
+        this.postContent = postContent;
+        this.image = image;
+        this.imageData = imageData;
+        this.userName = user;
+        this.community = community;
+        this.creationDate = LocalDateTime.now();
+    }
 
-        public String getPostContent() {
-            return this.postContent;
-        }
-    
-        public void setPostContent(String postContent) {
-            this.postContent = postContent;
-        }
+    public String getPostContent() {
+        return this.postContent;
+    }
 
-        public String getTitle() {
-            return this.title;
-        }
-    
-        public void setTitle(String title) {
-            this.title = title;
-        }
+    public void setPostContent(String postContent) {
+        this.postContent = postContent;
+    }
 
-        public Long getId() {
-            return this.id;
-        }
-    
-        public void setId(Long id) {
-            this.id = id;
-        }
+    public String getTitle() {
+        return this.title;
+    }
 
-        public User getUser() {
-            return userName;
-        }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-        public void setUser(User user) {
-            this.userName = user;
-        }
+    public Long getId() {
+        return this.id;
+    }
 
-        public Community getCommunity() {
-            return community;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        public void setCommunity(Community community) {
-            this.community = community;
-        }
+    public User getUser() {
+        return userName;
+    }
 
-        public List<Comment> getComments() {
-            return comments;
-        }
+    public void setUser(User user) {
+        this.userName = user;
+    }
 
-        public void setComments(List<Comment> comments) {
-            this.comments = comments;
-        }
+    public Community getCommunity() {
+        return community;
+    }
 
-        public LocalDateTime getCreationDate() {
-            return creationDate;
-        }
+    public void setCommunity(Community community) {
+        this.community = community;
+    }
 
-        public void setCreationDate(LocalDateTime creationDate) {
-            this.creationDate = creationDate;
-        }
+    public List<Comment> getComments() {
+        return comments;
+    }
 
-        public String getImage() {
-            return image;
-        }
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
-        public void setImage(String image) {
-            this.image = image;
-        }
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
 
-        public byte[] getImageData() {
-            return imageData;
-        }
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
 
-        public void setImageData(byte[] imageData) {
-            this.imageData = imageData;
-        }
+    public String getImage() {
+        return image;
+    }
 
-        @Override
-        public String toString() {
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
+    @Override
+    public String toString() {
         return String.format("Post[id=%d, title='%s', postContent='%s']", id, title, postContent);
     }
 }

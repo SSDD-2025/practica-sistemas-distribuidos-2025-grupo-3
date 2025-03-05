@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Comment  {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +22,7 @@ public class Comment  {
 
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
-    private Post post;  
+    private Post post;
 
     protected Comment() {
         // Used by JPA
@@ -32,12 +32,13 @@ public class Comment  {
         this.comment = comment;
         this.userName = user;
         this.post = post;
-        //this.creation = formatDate(LocalDateTime.now());
+        // this.creation = formatDate(LocalDateTime.now());
     }
 
     public String getCreation() {
         return this.creation;
     }
+
     public String getComment() {
         return this.comment;
     }
@@ -49,7 +50,6 @@ public class Comment  {
     public Long getId() {
         return this.id;
     }
-   
 
     public void setComment(String comment) {
         this.comment = comment;
@@ -58,15 +58,14 @@ public class Comment  {
     public void SetUser(User user) {
         this.userName = user;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
 
     @Override
-	public String toString() {
-		return String.format("Comment[id=%d, comment='%s', user='%s']",
-				id, comment);
-	}
+    public String toString() {
+        return String.format("Comment[id=%d, comment='%s', user='%s']",
+                id, comment);
+    }
 }

@@ -14,19 +14,20 @@ public class CommunityService {
     private CommunityRepository communityRepository;
 
     public Community findById(Long id) {
-            return communityRepository.findById(id).orElse(null);
+        return communityRepository.findById(id).orElse(null);
     }
 
     public List<Community> findAll() {
-            return communityRepository.findAll();
+        return communityRepository.findAll();
     }
 
-    public void createCommunity(String name){
-        if((name != null && name.length() < 50) &&(!communityRepository.existsByName(name))){
+    public void createCommunity(String name) {
+        if ((name != null && name.length() < 50) && (!communityRepository.existsByName(name))) {
             Community community = new Community(name);
             communityRepository.save(community);
         }
     }
+
     public void deleteById(Long id) {
         communityRepository.deleteById(id);
     }

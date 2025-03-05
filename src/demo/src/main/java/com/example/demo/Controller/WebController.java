@@ -54,7 +54,7 @@ public class WebController {
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
         model.addAttribute("isHome", true);
-        return "home"; 
+        return "home";
     }
 
     @GetMapping("/communities")
@@ -69,7 +69,7 @@ public class WebController {
         model.addAttribute("isGuest", user.getId() == 1);
         model.addAttribute("comunities", communityService.findAll());
         model.addAttribute("isCommunities", true);
-        return "communities"; 
+        return "communities";
     }
 
     @GetMapping("/followed")
@@ -80,7 +80,7 @@ public class WebController {
         model.addAttribute("isFriends", true);
         return "followed";
     }
-        
+
     @GetMapping("/people")
     public String peoplePage(Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("user");
@@ -90,17 +90,16 @@ public class WebController {
         }
 
         List<UserDTO> userList = userService.getAllUsers().stream()
-            .filter(user -> !user.getId().equals(currentUser.getId()))
-            .filter(user -> user.getId() != 1)
-            .map(user -> new UserDTO(user.getId(), user.getUsername(), userService.isFollowing(currentUser, user)))
-            .collect(Collectors.toList());
+                .filter(user -> !user.getId().equals(currentUser.getId()))
+                .filter(user -> user.getId() != 1)
+                .map(user -> new UserDTO(user.getId(), user.getUsername(), userService.isFollowing(currentUser, user)))
+                .collect(Collectors.toList());
 
         model.addAttribute("isGuest", currentUser.getId() == 1);
         model.addAttribute("isPeople", true);
         model.addAttribute("users", userList);
         return "people";
     }
-
 
     @GetMapping("/profile/{id}")
     public String userProfile(@PathVariable Long id, Model model, HttpSession session) {
@@ -115,10 +114,9 @@ public class WebController {
         model.addAttribute("isGuest", currentUser.getId() == 1);
         model.addAttribute("user", user);
         model.addAttribute("posts", userPosts);
-        
+
         return "profile";
     }
-
 
     @GetMapping("/user_main_page")
     public String login(HttpSession session, Model model) {
@@ -142,6 +140,7 @@ public class WebController {
     public String register() {
         return "registration_page";
     }
+
     @GetMapping("/edit_user_page")
     public String editUser(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
