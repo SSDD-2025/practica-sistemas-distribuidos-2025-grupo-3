@@ -103,6 +103,7 @@ Antes de acceder a nuestro codigo deberán comprobar que tienen las versiones ne
 - Apache Maven 3.9.9
 - MySQL server 8.0.41
 - MySQL Workbench 8.0.41
+- Git version 2.47.0
 
 Ademas utilizamos el entrono de desarrollo de Visual Studio en la que utizamos las siguientes extensiones:
 - Extension Pack for Java  v0.29.0 
@@ -112,7 +113,11 @@ Ademas utilizamos el entrono de desarrollo de Visual Studio en la que utizamos l
 Para poder descagar al codigo deberán acceder a nuestro repositorio de [github](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3) o clonarlo a partir de este link :
 https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3.git
 
+Aqui vamos a explicarles como poder acceder al proyecto desde su ordenador en unos simple pasos, primero deberan clonar el repositorio a partir de 
+el siguiente comando que deberan copiar por consola(tecla windows + r  y escribir cmd), aqui deberan copiar el siguiente comando:
+git clone https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3.git
 
+Posterior a este paso deberan acceder a su MySQL ,para poder utilizar el proyecto deberan crear la base de datos llamada distribuidos mediante dando al + en create conection y crearse una conexion llamada distribuidos y con la contraseña llamada distribuidos aunque esta ultima se podria cambiar en el archivo del proyecto llamado application.properties. Ya dentro de la conexion al server distribuidos, crearemos un new schema llamado distribuidos y a partir de aqui podremos empezar a utilizar la aplicacion y ver en esta base de datos como se actualizan o eliminan los datos. 
 ## **NAVEGATION**
 
 ### Login
