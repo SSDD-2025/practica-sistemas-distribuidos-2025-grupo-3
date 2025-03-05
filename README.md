@@ -44,11 +44,11 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   - [Extra: hay algun tipo de problema con mi cuenta y los commits que hago desde el portatil y los commits que hago desde mi ordenador de escritorio de casa, hay como dos cuentas distintas de Alonso haciendo commits]
 
 - **Commits más significativos:**
-  1. [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/d58b4fee87292581ce1ac6d53d1b774d35c75608)
-  2. [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/e321b5d59fb92dfbc49cbe1889b3d5ec9dd2a6a1)
-  3. [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/0109b6195b8995777e9520fdbda85b114708f2bc)
-  4. [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/283aab639907cd3da04bfb45f08ee8c318826d56)
-  5. [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/3efccc357124f58a097e896dd74fd04ee618172a)
+  1. [Create a comment](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/d58b4fee87292581ce1ac6d53d1b774d35c75608)
+  2. [Show Comments and Delete](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/e321b5d59fb92dfbc49cbe1889b3d5ec9dd2a6a1)
+  3. [Refactor Controller-Service-Repository](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/0109b6195b8995777e9520fdbda85b114708f2bc)
+  4. [DataLoader added, added model Post and Comunity with their service, hall and post controller modified](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/283aab639907cd3da04bfb45f08ee8c318826d56)
+  5. [New "Home" page with basic structure and created the  styles.css file.](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/3efccc357124f58a097e896dd74fd04ee618172a)
 
 - **Ficheros con mayor participación:**
   1. [CommunityController.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blame/main/src/demo/src/main/java/com/example/demo/Controller/CommunityController.java)
@@ -88,18 +88,18 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   mayormente desarrollado por Nico).
 
 - **Commits más significativos:**
-  1. [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/b6159eea70383881fefcc01a386193852786db6d)
-  2. [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/16ee1e318aa71413d5e9f5ac328d4f0329410313)
-  3. [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/ed0a8aa1662ec35ee60133ef5dc760898ca0b303)
-  4. [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/0f193128f85eaef47293b625ae3b32d14baa7ca6)
-  5. [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/1d74f5988c130377aa9b679656cd7e2c8948f30c)
+  1. [Merging branchs from Pablo and myself](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/b6159eea70383881fefcc01a386193852786db6d)
+  2. [User registration fully implemented, customized existing (email or user) error pending](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/16ee1e318aa71413d5e9f5ac328d4f0329410313)
+  3. [Added the possibility to edit the user's profile](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/ed0a8aa1662ec35ee60133ef5dc760898ca0b303)
+  4. [Now its possible to log in either with the email or the username](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/0f193128f85eaef47293b625ae3b32d14baa7ca6)
+  5. [Now editing the profiles will not be able to create collisions between users.](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/1d74f5988c130377aa9b679656cd7e2c8948f30c)
 
 - **Ficheros con mayor participación:**
-  1. [Fichero 1](src/demo/src/main/java/com/example/demo/Controller/UserController.java)
-  2. [Fichero 2](src/demo/src/main/java/com/example/demo/Service/UserService.java)
-  3. [Fichero 3](src/demo/src/main/resources/templates/user_main_page.html)
-  4. [Fichero 4](src/demo/src/main/resources/templates/registration_page.html)
-  5. [Fichero 5](src/demo/src/main/resources/templates/edit_user_page.html)
+  1. [User Controller (Java)](src/demo/src/main/java/com/example/demo/Controller/UserController.java)
+  2. [User Service (Java)](src/demo/src/main/java/com/example/demo/Service/UserService.java)
+  3. [User Main Page (HTML)](src/demo/src/main/resources/templates/user_main_page.html)
+  4. [Registration Page (HTML)](src/demo/src/main/resources/templates/registration_page.html)
+  5. [Edit User Page (HTML)](src/demo/src/main/resources/templates/edit_user_page.html)
 
 ## **EXECUTION INSTRUCTIONS**
 
