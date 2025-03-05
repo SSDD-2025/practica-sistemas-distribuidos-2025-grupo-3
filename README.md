@@ -17,7 +17,7 @@ Cada miembro del equipo debe documentar su contribución a la práctica, incluye
 - **Tareas realizadas:**
   
 El proyecto ha sido desarrollado en equipo, organizándonos de manera paralela para avanzar de forma coordinada. En mi caso, me centré en la gestión del borrado de elementos, incluyendo usuarios, publicaciones y comunidades. Además, trabajé en el diseño y funcionamiento de la base de datos para garantizar que, al insertar datos, las tablas y relaciones se generaran correctamente. También me aseguré de que al eliminar un usuario, sus publicaciones y comunidades se eliminaran adecuadamente, basandome en la integracion de las relaciones entre entidades.
- 
+
 Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un solo integrante, todos participamos activamente en la mayoría de los cambios. En varias ocasiones, trabajamos juntos desde uno o dos ordenadores para facilitar la comunicación y comprensión de las modificaciones en el código. Por ello, también colaboré en la creación de clases, configuración de servidores, archivos de configuración, plantillas y otros elementos clave del proyecto.
 
 - **Commits más significativos:**
@@ -77,21 +77,24 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
 
   ###  SERGIO ESPINOSA ROBLES 
 - **Tareas realizadas:**
-  - [Descripción breve de las tareas realizadas]
+  - Principalmente me centre en el trabajo sobre usuarios, tanto la parte de registro como la parte de edición
+  de manera que tuvieramos asegurado un correcto funcionamiento de usuarios que pudiera reflejarse en el resto
+  de aspectos, como la correcta visualización de los usuarios en sus posts de una comunidad(siendo esto ultimo
+  mayormente desarrollado por Nico).
 
 - **Commits más significativos:**
-  1. [Commit 1](URL_DEL_COMMIT_1)
-  2. [Commit 2](URL_DEL_COMMIT_2)
-  3. [Commit 3](URL_DEL_COMMIT_3)
-  4. [Commit 4](URL_DEL_COMMIT_4)
-  5. [Commit 5](URL_DEL_COMMIT_5)
+  1. [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/b6159eea70383881fefcc01a386193852786db6d)
+  2. [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/16ee1e318aa71413d5e9f5ac328d4f0329410313)
+  3. [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/ed0a8aa1662ec35ee60133ef5dc760898ca0b303)
+  4. [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/0f193128f85eaef47293b625ae3b32d14baa7ca6)
+  5. [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/1d74f5988c130377aa9b679656cd7e2c8948f30c)
 
 - **Ficheros con mayor participación:**
-  1. [Fichero 1](URL_DEL_FICHERO_1)
-  2. [Fichero 2](URL_DEL_FICHERO_2)
-  3. [Fichero 3](URL_DEL_FICHERO_3)
-  4. [Fichero 4](URL_DEL_FICHERO_4)
-  5. [Fichero 5](URL_DEL_FICHERO_5)
+  1. [Fichero 1](src/demo/src/main/java/com/example/demo/Controller/UserController.java)
+  2. [Fichero 2](src/demo/src/main/java/com/example/demo/Service/UserService.java)
+  3. [Fichero 3](src/demo/src/main/resources/templates/user_main_page.html)
+  4. [Fichero 4](src/demo/src/main/resources/templates/registration_page.html)
+  5. [Fichero 5](src/demo/src/main/resources/templates/edit_user_page.html)
 
 
 ## **NAVEGATION**
@@ -126,8 +129,8 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
 
 ![Navigation Diagram](src/demo/Images/Navigation%20diagram.png)
 
-
-
-
 ## **ENTITY DIAGRAM**
 ![Entity Diagram](src/demo/Images/Entity%20diagram.png)
+
+## **CLASSES DIAGRAM**
+![Entity Diagram](src/demo/Images/Classes%20diagram.png)
