@@ -1,5 +1,7 @@
 package com.example.demo.Repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     @Query("SELECT COUNT(f) > 0 FROM User u JOIN u.friends f WHERE u.id = :currentUserId AND f.id = :otherUserId")
     boolean existsFriendship(@Param("currentUserId") Long currentUserId, @Param("otherUserId") Long otherUserId);

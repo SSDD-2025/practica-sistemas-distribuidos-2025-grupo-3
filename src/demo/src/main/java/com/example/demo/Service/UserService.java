@@ -3,6 +3,7 @@ package com.example.demo.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,9 @@ public class UserService {
             }
         } else { // If the logger does not have an email format, then check for it in the
                  // database by username
-            User user = userRepository.findByUsername(logger);
-            if (user != null && user.getPassword().equals(password)) {
-                return user;
+            Optional<User> user = userRepository.findByUsername(logger);
+            if (user != null && user.get().getPassword().equals(password)) {
+                return user.get();
             }
         }
         return null;
