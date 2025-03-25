@@ -10,13 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
+import com.example.demo.Service.UserService;
 import com.example.demo.model.Community;
 import com.example.demo.model.User;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class CommunityController {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private CommunityService communityService;
@@ -25,8 +29,9 @@ public class CommunityController {
     private PostService postService;
 
     @GetMapping("/communities/{id}")
-    public String showCommunity(HttpSession session, Model model, @PathVariable Long id) {
-        User user = (User) session.getAttribute("user");
+    public String showCommunity(Model model, @PathVariable Long id, HttpServletRequest request) {
+        String name = request.getUserPrincipal().getName();
+        User user = userService.getUserByUsername(name);
         Community community = communityService.findById(id);
         model.addAttribute("community", community);
         model.addAttribute("user", user);

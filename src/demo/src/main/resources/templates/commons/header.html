@@ -23,7 +23,8 @@
                 </form>
             {{/isGuest}}
 
-            <form action="/logout" method="get">
+            <form action="/logout" method="post">
+                <input type="hidden" name="_csrf" value="{{token}}"/>
                 <button type="submit" class="btn-logout">
                     Salir<span class="ms-2"></span><i class="bi bi-box-arrow-left"></i>
                 </button>

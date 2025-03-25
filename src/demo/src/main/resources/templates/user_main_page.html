@@ -32,6 +32,7 @@
                                 </li>
                                 <li>
                                     <form id="eliminarUsuarioForm" action="/user/delete" method="POST">
+                                        <input type="hidden" name="_csrf" value="{{token}}"/>
                                         <button type="button" class="dropdown-item d-flex align-items-center text-danger" onclick="confirmarEliminacion()">
                                             <i class="bi bi-trash me-2"></i> Eliminar Perfil
                                         </button>

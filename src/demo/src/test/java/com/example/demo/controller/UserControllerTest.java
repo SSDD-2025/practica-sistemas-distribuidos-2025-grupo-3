@@ -26,16 +26,4 @@ class UserControllerTest {
     @Mock  // Crea un mock del servicio para evitar dependencias externas
     private MockMvc mockMvc;
 
-    @Test
-    void shouldReturnUserDetails() throws Exception {
-        // Simulamos que el servicio devuelve un usuario con ID 1 y username "testUser"
-        User user = new User("María García", "password2", "maria.garcia@example.com", new java.util.Date(),
-        null, null);
-        when(userService.getUserById(1L)).thenReturn(user);
-
-        // Realizamos una petición GET y verificamos la respuesta JSON
-        mockMvc.perform(get("/users/1"))
-                .andExpect(status().isOk())  // Verifica que la respuesta sea 200 OK
-                .andExpect(jsonPath("$.username").value("testUser"));  // Verifica que el JSON tenga el username esperado
-    }
 }

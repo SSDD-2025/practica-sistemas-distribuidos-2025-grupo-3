@@ -1,11 +1,7 @@
 package com.example.demo.Data;
 
-import java.nio.file.Files;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-
 import com.example.demo.Repository.CommentRepository;
 import com.example.demo.Repository.CommunityRepository;
 import com.example.demo.Repository.PostRepository;
@@ -35,8 +31,6 @@ public class DataLoader {
     @PostConstruct
     public void run() throws Exception {
 
-        ClassPathResource imgFile;
-
         /* COMMUNITIES */
         communityRepository.save(new Community("Java"));
         communityRepository.save(new Community("Futbol"));
@@ -46,51 +40,10 @@ public class DataLoader {
         communityRepository.save(new Community("Libros"));
         communityRepository.save(new Community("Fotografía"));
 
-        /* USERS */
-        /* Guest user */
-        imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
-        userRepository.save(new User("Invitado", "-", "-", new java.util.Date(), imgFile.getFilename(),
-                Files.readAllBytes(imgFile.getFile().toPath())));
-        /* Users */
-        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview1.webp");
-        userRepository.save(new User("Juan Pérez", "password1", "juan.perez@example.com", new java.util.Date(),
-                imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
-        imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
-        userRepository.save(new User("María García", "password2", "maria.garcia@example.com", new java.util.Date(),
-                imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
-        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview2.webp");
-        userRepository.save(new User("Carlos Rodríguez", "password3", "carlos.rodriguez@example.com",
-                new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
-        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview3.webp");
-        userRepository.save(new User("Ana Martínez", "password4", "ana.martinez@example.com", new java.util.Date(),
-                imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
-        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview4.webp");
-        userRepository.save(new User("Luis Hernández", "password5", "luis.hernandez@example.com", new java.util.Date(),
-                imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
-        imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
-        userRepository.save(new User("Laura López", "password6", "laura.lopez@example.com", new java.util.Date(),
-                imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
-        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview5.webp");
-        userRepository.save(new User("José González", "password7", "jose.gonzalez@example.com", new java.util.Date(),
-                imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
-        imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
-        userRepository.save(new User("Marta Sánchez", "password8", "marta.sanchez@example.com", new java.util.Date(),
-                imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
-        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview6.webp");
-        userRepository.save(new User("David Fernández", "password9", "david.fernandez@example.com",
-                new java.util.Date(), imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
-        imgFile = new ClassPathResource("static/assets/img/profilePictures/preview7.webp");
-        userRepository.save(new User("Elena Ruiz", "password10", "elena.ruiz@example.com", new java.util.Date(),
-                imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
-        /* Developer users */
-        imgFile = new ClassPathResource("static/assets/img/imagensergio.gif");
-        userRepository.save(new User("Sergio", "454548", "s.espinosa.2020@alumnos.urjc.es", new java.util.Date(),
-                imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath())));
-
-        User user1 = userRepository.findByEmail("juan.perez@example.com");
-        User user2 = userRepository.findByEmail("maria.garcia@example.com");
-        User user3 = userRepository.findByEmail("carlos.rodriguez@example.com");
-        User user4 = userRepository.findByEmail("ana.martinez@example.com");
+        User user1 = userRepository.findByEmail("juan.perez@example.com").get();
+        User user2 = userRepository.findByEmail("maria.garcia@example.com").get();
+        User user3 = userRepository.findByEmail("carlos.rodriguez@example.com").get();
+        User user4 = userRepository.findByEmail("ana.martinez@example.com").get();
 
         /* POSTS */
         Community javaCommunity = communityRepository.findByName("Java");

@@ -3,7 +3,6 @@ package com.example.demo.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +10,15 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.DTO.FollowedUserDTO;
+import com.example.demo.DTO.user.FollowedUserDTO;
 import com.example.demo.Repository.PostRepository;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.model.User;
+import com.example.demo.model.User.Role;
 
 import jakarta.transaction.Transactional;
 
@@ -25,53 +26,36 @@ import jakarta.transaction.Transactional;
 public class UserService {
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private PostRepository postRepository;
 
-    public User authenticateUser(String logger, String password) {
-        if (logger.matches("^[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\\.[a-zA-Z]+)*$")) { /*
-                                                                                               * If the logger has an
-                                                                                               * email format, then
-                                                                                               * check for it in the
-                                                                                               * database by email
-                                                                                               */
-            User user = userRepository.findByEmail(logger);
-            if (user != null && user.getPassword().equals(password)) {
-                return user;
-            }
-        } else { // If the logger does not have an email format, then check for it in the
-                 // database by username
-            Optional<User> user = userRepository.findByUsername(logger);
-            if (user != null && user.get().getPassword().equals(password)) {
-                return user.get();
-            }
-        }
-        return null;
-    }
-
     public User getGuestUser() {
-        return userRepository.findById(1L).orElse(null);
+        return userRepository.findByUsername("Invitado").orElseThrow();
     }
 
-    public User registerUser(String username, String email, String password, boolean[] errorUserMail)
-            throws IOException {
-        if (userRepository.findByEmail(email) != null | userRepository.findByUsername(username) != null) {
-            if (userRepository.findByEmail(email) != null) {
-                errorUserMail[1] = true;
-            }
-            if (userRepository.findByUsername(username) != null) {
-                errorUserMail[0] = true;
-            }
+    public User registerUser(String username, String email, String password, boolean[] errorUserMail) throws IOException {
+        boolean emailExists = userRepository.findByEmail(email).isPresent();
+        boolean usernameExists = userRepository.findByUsername(username).isPresent();
+    
+        if (emailExists || usernameExists) {
+            errorUserMail[1] = emailExists;
+            errorUserMail[0] = usernameExists;
             return null;
         }
+    
         ClassPathResource imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
         byte[] imageData = Files.readAllBytes(imgFile.getFile().toPath());
         String imageName = imgFile.getFilename();
-        User user = new User(username, password, email, new java.util.Date(), imageName, imageData);
+    
+        User user = new User(username, passwordEncoder.encode(password), email, new java.util.Date(), imageName, imageData, List.of(Role.ROLE_USER));
         return userRepository.save(user);
     }
+    
 
     public void deleteUser(long id) {
         userRepository.deleteById(id);
@@ -93,6 +77,10 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public User getUserByUsername(String username){
+        return userRepository.findByUsername(username).orElse(null);
     }
 
     public User getUserById(Long id) {
@@ -127,8 +115,8 @@ public class UserService {
                 .map(friend -> new FollowedUserDTO(
                         friend.getId(),
                         friend.getUsername(),
-                        friend.getImageData(), // Asegúrate de tener este campo en tu entidad
-                        postRepository.findTop3ByuserNameOrderByCreationDateDesc(friend) // Últimos 3 posts
+                        friend.getImageData(),
+                        postRepository.findTop3ByuserNameOrderByCreationDateDesc(friend) 
                 ))
                 .collect(Collectors.toList());
     }
@@ -136,15 +124,15 @@ public class UserService {
     public void editUser(User user, String username, String email, String password, MultipartFile imageFile)
             throws IOException {
         if (username != null && !username.trim().isEmpty()) {
-            if (!(userRepository.findByUsername(username) != null)) {
+            if (userRepository.findByUsername(username).isPresent()) {
                 user.setUsername(username);
             }
         }
         if (password != null && !password.trim().isEmpty()) {
-            user.setPassword(password);
+            user.setPassword(passwordEncoder.encode(password));
         }
         if (email != null && !email.trim().isEmpty()) {
-            if (!(userRepository.findByEmail(email) != null)) {
+            if (!userRepository.findByEmail(email).isPresent()) {
                 user.setEmail(email);
             }
         }
@@ -154,12 +142,8 @@ public class UserService {
                 user.setImageData(imageFile.getBytes());
             }
         } catch (IOException e) {
-            throw new RuntimeException("Error al procesar la imagen", e);
+            throw new RuntimeException("Error processing the image", e);
         }
-        /*
-         * We should later on add some custom error or success
-         * messages based on what we were able to change or not
-         */
 
         userRepository.save(user);
     }

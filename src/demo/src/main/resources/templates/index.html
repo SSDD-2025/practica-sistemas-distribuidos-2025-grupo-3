@@ -27,13 +27,14 @@
                     {{/errorUser}}
                     <form action="/login" method="post">
                         <div class="mb-3">
-                            <label for="logger" class="form-label">Usuario o email</label>
-                            <input type="text" id="logger" name="logger" class="form-control" placeholder="Ingrese su email o su usuario" required>
+                            <label for="username" class="form-label">Usuario o email</label>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Ingrese su usuario o email" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Contraseña</label>
                             <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese su contraseña" required>
                         </div>
+                        <input type="hidden" name="_csrf" value="{{token}}"/>
                         <button type="submit" class="btn btn-primary w-100">Ingresar</button>
                     </form>
                     <div class="mb-3 text-center d-flex flex-row gap-2 m-auto justify-content-center">

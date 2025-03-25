@@ -18,6 +18,7 @@
                 <div class="col-md-2 col-12 flex-column">
                     {{^isGuest}}
                     <form action="/community/delete/{{community.id}}" method="post" style="display:inline;" onsubmit="confirmarEliminacionComunidad(event, this)">
+                        <input type="hidden" name="_csrf" value="{{token}}"/>
                         <button type="submit" class="btn btn-danger w-auto">
                             <i class="bi bi-trash"></i> Delete community
                         </button>
@@ -39,8 +40,9 @@
                             <!-- Text area -->
                             <textarea name="content" class="form-control mb-2" placeholder="Write something..." required></textarea>
                     
-                            <!-- Hidden field for community ID -->
+                            <!-- Hidden field for community ID and token-->
                             <input type="hidden" name="communityId" value="{{community.id}}">
+                            <input type="hidden" name="_csrf" value="{{token}}"/>
 
                             <!-- Image upload and submit button -->
                             <div class="w-100 d-flex align-items-center gap-2">
@@ -74,6 +76,7 @@
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <form action="/post/delete/{{id}}" method="post">
+                                                    <input type="hidden" name="_csrf" value="{{token}}"/>
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="communityId" value="{{community.id}}">
                                                     <button type="submit" class="dropdown-item text-danger">
@@ -99,6 +102,7 @@
                                 <!-- Comments -->
                                 {{^isGuest}}
                                 <form enctype="multipart/form-data" class="d-flex gap-2" action="/saveComment" method="post">
+                                    <input type="hidden" name="_csrf" value="{{token}}"/>
                                     <input type="hidden" name="postId" value="{{id}}">
                                     <textarea name="content" class="form-control form-control-sm" placeholder="Write a comment..." required></textarea>
                                     <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-send"></i></button>
@@ -120,6 +124,7 @@
                                             {{^isGuest}}
                                             <form action="/comment/deleteComment/{{id}}" method="post" style="display:inline;">
                                                 <input type="hidden" name="communityId" value="{{community.id}}">
+                                                <input type="hidden" name="_csrf" value="{{token}}"/>
                                                 <button type="submit" class="btn btn-danger btn-sm">
                                                     <i class="bi bi-trash"></i>
                                                 </button>

@@ -12,9 +12,12 @@ import com.example.demo.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     Optional<User> findByUsername(String username);
+
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 
     @Query("SELECT COUNT(f) > 0 FROM User u JOIN u.friends f WHERE u.id = :currentUserId AND f.id = :otherUserId")
     boolean existsFriendship(@Param("currentUserId") Long currentUserId, @Param("otherUserId") Long otherUserId);

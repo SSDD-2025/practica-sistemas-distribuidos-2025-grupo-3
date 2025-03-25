@@ -6,14 +6,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.Service.CommentService;
 import com.example.demo.Service.PostService;
+import com.example.demo.Service.UserService;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class CommentController {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private CommentService commentService;
@@ -22,9 +26,10 @@ public class CommentController {
     private PostService postService;
 
     @PostMapping("/saveComment")
-    public String createComment(String content, Long postId, HttpSession session) {
+    public String createComment(String content, Long postId, HttpServletRequest request) {
 
-        User user = (User) session.getAttribute("user");
+        String name = request.getUserPrincipal().getName();
+        User user = userService.getUserByUsername(name);
         Post post = postService.findPostById(postId);
 
         commentService.createComment(content, user, post);
@@ -33,7 +38,7 @@ public class CommentController {
     }
 
     @PostMapping("/comment/deleteComment/{commentId}")
-    public String deleteComment(@PathVariable Long commentId, HttpSession session, Long communityId) {
+    public String deleteComment(@PathVariable Long commentId, Long communityId) {
 
         commentService.deleteComment(commentId);
 

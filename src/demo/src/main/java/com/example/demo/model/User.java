@@ -10,6 +10,10 @@ import java.util.Set;
 @Entity
 public class User {
 
+    public enum Role {
+        ROLE_USER, ROLE_ADMIN, ROLE_GUEST
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -17,6 +21,10 @@ public class User {
     private String password;
     private String email;
     private Date dateJoined;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private List<Role> roles;
 
     private String image;
     @Lob
@@ -42,13 +50,14 @@ public class User {
         // Used by JPA
     }
 
-    public User(String username, String password, String email, Date dateJoined, String image, byte[] imageData) {
+    public User(String username, String password, String email, Date dateJoined, String image, byte[] imageData, List<Role> roles) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.dateJoined = dateJoined;
         this.image = image;
         this.imageData = imageData;
+        this.roles = roles;
     }
 
     public User(String username, String password, String email, Date dateJoined) {
@@ -89,6 +98,10 @@ public class User {
 
     public Date getDateJoined() {
         return dateJoined;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 
     // Setters

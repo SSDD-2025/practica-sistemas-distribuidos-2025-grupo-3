@@ -27,6 +27,8 @@
                         <label for="password" class="form-label">Contraseña:</label>
                         <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required class="form-control" autocomplete="new-password">
                     </div>
+
+                    <input type="hidden" name="_csrf" value="{{token}}"/>
         
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary w-100" onclick="mostrarAlerta()">Registrarse</button>

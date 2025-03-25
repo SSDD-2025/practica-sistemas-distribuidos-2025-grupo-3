@@ -11,16 +11,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
+import com.example.demo.Service.UserService;
 import com.example.demo.model.Community;
 import com.example.demo.model.User;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class PostController {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private PostService postService;
+
     @Autowired
     private CommunityService communityService;
 
@@ -30,8 +35,11 @@ public class PostController {
             String content,
             @RequestParam(value = "image", required = false) MultipartFile imageFile,
             Long communityId,
-            HttpSession session) {
-        User user = (User) session.getAttribute("user");
+            HttpServletRequest request) {
+
+        String name = request.getUserPrincipal().getName();
+        User user = userService.getUserByUsername(name);
+
         Community community = communityService.findById(communityId);
         postService.createPost(title, content, imageFile, user, community);
 
@@ -44,16 +52,7 @@ public class PostController {
     }
 
     @PostMapping("/post/delete/{postId}")
-    public String deletePost(
-            @PathVariable Long postId,
-            HttpSession session,
-            Long communityId) {
-        User user = (User) session.getAttribute("user");
-
-        if (user == null) {
-            return "redirect:/";
-        }
-
+    public String deletePost(@PathVariable Long postId, Long communityId) {
         postService.deletePost(postId);
         return "redirect:/communities/" + communityId;
     }

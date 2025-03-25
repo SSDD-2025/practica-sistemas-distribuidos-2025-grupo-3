@@ -42,6 +42,7 @@
                                             <i class="bi bi-check-circle"></i> Siguiendo
                                         </button>
                                         <form action="/follow/{{id}}" method="post">
+                                            <input type="hidden" name="_csrf" value="{{token}}"/>
                                             <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center gap-1">
                                                 <i class="bi bi-person-dash-fill"></i> Dejar de seguir
                                             </button>
@@ -50,6 +51,7 @@
                     
                                     {{^isFollowing}}
                                         <form action="/follow/{{id}}" method="post">
+                                            <input type="hidden" name="_csrf" value="{{token}}"/>
                                             <button type="submit" class="btn btn-primary btn-sm d-flex align-items-center gap-1">
                                                 <i class="bi bi-person-plus-fill"></i> Seguir
                                             </button>
