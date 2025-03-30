@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.DTO.Community.CommunityDTO;
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
-import com.example.demo.model.Community;
 import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,7 +32,7 @@ public class CommunityController {
     public String showCommunity(Model model, @PathVariable Long id, HttpServletRequest request) {
         String name = request.getUserPrincipal().getName();
         User user = userService.getUserByUsername(name);
-        Community community = communityService.findById(id);
+        CommunityDTO community = communityService.findById(id);
         model.addAttribute("community", community);
         model.addAttribute("user", user);
         model.addAttribute("isGuest", user.getId() == 1);
