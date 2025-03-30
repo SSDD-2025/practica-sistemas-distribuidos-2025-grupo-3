@@ -1,6 +1,5 @@
 package com.example.demo.Controller;
 
-import org.aspectj.internal.lang.annotation.ajcITD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.DTO.Community.CommunityDTO;
 import com.example.demo.DTO.Community.CommunityMapper;
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;

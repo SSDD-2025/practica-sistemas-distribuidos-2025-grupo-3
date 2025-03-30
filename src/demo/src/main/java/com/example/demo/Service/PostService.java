@@ -2,6 +2,7 @@ package com.example.demo.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpHeaders;
 
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.DTO.Post.PostDTO;
+import com.example.demo.DTO.Post.PostMapper;
 import com.example.demo.Repository.PostRepository;
 import com.example.demo.model.Community;
 import com.example.demo.model.Post;
@@ -21,8 +24,10 @@ public class PostService {
 
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private PostMapper mapper;
 
-    public void createPost(String title, String content, MultipartFile imageFile, User user, Community community) {
+    public PostDTO createPost(String title, String content, MultipartFile imageFile, User user, Community community) {
         byte[] imageData = null;
         String imageName = null;
 
@@ -37,6 +42,7 @@ public class PostService {
 
         Post post = new Post(title, content, imageName, imageData, user, community);
         postRepository.save(post);
+        return mapper.toDTO(post);
     }
 
     public ResponseEntity<byte[]> getPostImage(Long postId) {
@@ -76,5 +82,22 @@ public class PostService {
 
     public List<Post> findByUserNameOrderByCreationDateDesc(User user) {
         return postRepository.findByUserNameOrderByCreationDateDesc(user);
+    }
+
+    public List<Post> findAll(){
+        return postRepository.findAll();
+    }
+
+    public PostDTO replacePost(Long id, PostDTO updatedPostDTO) {
+                if(postRepository.existsById(id)){
+           Post updatedPost = mapper.toDomain(updatedPostDTO);
+           updatedPost.setId(id);
+
+           postRepository.save(updatedPost);
+
+           return mapper.toDTO(updatedPost);
+        }else{
+            throw new NoSuchElementException();
+        }
     }
 }
