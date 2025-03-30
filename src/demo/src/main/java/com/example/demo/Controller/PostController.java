@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import org.aspectj.internal.lang.annotation.ajcITD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.DTO.Community.CommunityDTO;
+import com.example.demo.DTO.Community.CommunityMapper;
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
@@ -29,6 +32,9 @@ public class PostController {
     @Autowired
     private CommunityService communityService;
 
+    @Autowired
+    private CommunityMapper mapper;
+
     @PostMapping("/savePost")
     public String newPost(
             String title,
@@ -40,7 +46,7 @@ public class PostController {
         String name = request.getUserPrincipal().getName();
         User user = userService.getUserByUsername(name);
 
-        Community community = communityService.findById(communityId);
+        Community community = mapper.toDomain(communityService.findById(communityId));
         postService.createPost(title, content, imageFile, user, community);
 
         return "redirect:/communities/" + communityId;
