@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 
 import com.example.demo.model.Post;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface PostMapper {
     PostDTO toDTO(Post post);
 
