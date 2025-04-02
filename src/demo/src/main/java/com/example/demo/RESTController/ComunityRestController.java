@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
-@RequestMapping("/api/comunities")
+@RequestMapping("/api/communities")
 public class ComunityRestController {
     @Autowired
     private CommunityService communityService;
@@ -42,9 +42,9 @@ public class ComunityRestController {
     
     @PostMapping("/")
     public ResponseEntity<CommunityDTO> postCommumnnity(@RequestBody CommunityDTO communityDTO) {
-        communityDTO = communityService.createCommunity(communityDTO.getName());
+        communityDTO = communityService.createCommunity(communityDTO.name());
 
-        URI location = fromCurrentRequest().path("/{id}").buildAndExpand(communityDTO.getId()).toUri();
+        URI location = fromCurrentRequest().path("/{id}").buildAndExpand(communityDTO.id()).toUri();
 
         return ResponseEntity.created(location).body(communityDTO);
     }

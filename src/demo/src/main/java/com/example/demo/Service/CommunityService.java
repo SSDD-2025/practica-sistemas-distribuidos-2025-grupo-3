@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -23,7 +24,7 @@ public class CommunityService {
         return mapper.toDTO(communityRepository.findById(id).orElse(null));
     }
 
-    public List<CommunityDTO> findAll() {
+    public Collection<CommunityDTO> findAll() {
         return mapper.toDTOs(communityRepository.findAll());
     }
 

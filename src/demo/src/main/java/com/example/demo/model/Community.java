@@ -66,6 +66,6 @@ public class Community {
 
     @Override
     public String toString() {
-        return String.format("Community[id=%d, name='%s']", id, name);
+        return "Community [id=" + id + ", name=" + name + "]";
     }
 }
