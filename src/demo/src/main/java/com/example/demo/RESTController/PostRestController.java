@@ -21,8 +21,6 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 
 
-
-
 @RestController
 @RequestMapping("/api/posts")
 public class PostRestController {
@@ -44,7 +42,7 @@ public class PostRestController {
 
     @PostMapping("/")
     public ResponseEntity<PostDTO> createPostDTO(@RequestBody PostDTO postDTO) {
-        postDTO = postService.createPost(postDTO.title(), postDTO.postContent(), null, postDTO.userName(), postDTO.community());
+        postDTO = postService.createPost(postDTO.title(), postDTO.postContent(), null, null,null);
         
 		URI location = fromCurrentRequest().path("/{id}").buildAndExpand(postDTO.id()).toUri();
 
