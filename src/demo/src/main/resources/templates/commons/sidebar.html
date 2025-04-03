@@ -15,7 +15,6 @@
             <i class="bi bi-person-lines-fill me-2"></i> Seguidos
         </button>
     </form>
-    {{/isGuest}}
     <form action="/people" method="get">
         <button type="submit" class="list-group-item list-group-item-action d-flex align-items-center w-100 border-0 {{#isPeople}}active{{/isPeople}}">
             <i class="bi bi-person-fill me-2"></i> Personas
@@ -26,4 +25,5 @@
             <i class="bi bi-tools me-2"></i> Panel de admin
         </button>
     </form>
+    {{/isGuest}}
 </div>

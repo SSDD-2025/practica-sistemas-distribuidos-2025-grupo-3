@@ -1,9 +1,12 @@
 package com.example.demo.Controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,22 +23,34 @@ import jakarta.servlet.http.HttpServletRequest;
 public class CommunityController {
 
     @Autowired
-    private UserService userService;
+    private CommunityService communityService;
 
     @Autowired
-    private CommunityService communityService;
+    private UserService userService;
 
     @Autowired
     private PostService postService;
 
+   @ModelAttribute
+	public void addAttributes(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+		if(principal != null) {
+
+            User user = userService.getUserByUsername(principal.getName());
+            model.addAttribute("user", user);
+            model.addAttribute("isGuest", false);
+        } else {
+            model.addAttribute("isGuest", true);
+        }
+	}
+
     @GetMapping("/communities/{id}")
-    public String showCommunity(Model model, @PathVariable Long id, HttpServletRequest request) {
-        String name = request.getUserPrincipal().getName();
-        User user = userService.getUserByUsername(name);
+    public String showCommunity(Model model, @PathVariable Long id) {
+
         CommunityDTO community = communityService.findById(id);
         model.addAttribute("community", community);
-        model.addAttribute("user", user);
-        model.addAttribute("isGuest", user.getId() == 1);
         model.addAttribute("posts", postService.findByCommunityIdOrderByCreationDateDesc(id));
         return "community";
     }

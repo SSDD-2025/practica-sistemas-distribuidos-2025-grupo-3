@@ -1,5 +1,4 @@
-package com.example.demo.security.jwt; 
-
+package com.example.demo.security.jwt;
 import java.time.Duration;
 
 public enum TokenType {

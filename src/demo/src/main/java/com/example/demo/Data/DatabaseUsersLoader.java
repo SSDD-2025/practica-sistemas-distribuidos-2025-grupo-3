@@ -29,11 +29,6 @@ public class DatabaseUsersLoader {
         ClassPathResource imgFile;
 
         /* USERS */
-        /* Guest user */
-        imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
-        userRepository.save(new User("Invitado", "-", "-", new java.util.Date(), imgFile.getFilename(),
-                Files.readAllBytes(imgFile.getFile().toPath()), List.of(Role.ROLE_GUEST)));
-        /* Users */
         imgFile = new ClassPathResource("static/assets/img/profilePictures/preview1.webp");
         userRepository.save(new User("Juan Pérez", passwordEncoder.encode("password1"), "juan.perez@example.com", new java.util.Date(),
                 imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath()), List.of(Role.ROLE_USER)));

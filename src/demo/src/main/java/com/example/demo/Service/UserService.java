@@ -34,17 +34,13 @@ public class UserService {
     @Autowired
     private PostRepository postRepository;
 
-    public User getGuestUser() {
-        return userRepository.findByUsername("Invitado").orElseThrow();
-    }
-
-    public User registerUser(String username, String email, String password, boolean[] errorUserMail) throws IOException {
+    public User registerUser(String username, String email, String password, boolean[] registrationStatus) throws IOException {
         boolean emailExists = userRepository.findByEmail(email).isPresent();
         boolean usernameExists = userRepository.findByUsername(username).isPresent();
     
         if (emailExists || usernameExists) {
-            errorUserMail[1] = emailExists;
-            errorUserMail[0] = usernameExists;
+            registrationStatus[1] = emailExists;
+            registrationStatus[0] = usernameExists;
             return null;
         }
     
@@ -53,6 +49,9 @@ public class UserService {
         String imageName = imgFile.getFilename();
     
         User user = new User(username, passwordEncoder.encode(password), email, new java.util.Date(), imageName, imageData, List.of(Role.ROLE_USER));
+        
+        registrationStatus[2] = true;
+
         return userRepository.save(user);
     }
     
@@ -121,13 +120,9 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public void editUser(User user, String username, String email, String password, MultipartFile imageFile)
+    public void editUser(User user, String email, String password, MultipartFile imageFile)
             throws IOException {
-        if (username != null && !username.trim().isEmpty()) {
-            if (userRepository.findByUsername(username).isPresent()) {
-                user.setUsername(username);
-            }
-        }
+
         if (password != null && !password.trim().isEmpty()) {
             user.setPassword(passwordEncoder.encode(password));
         }
