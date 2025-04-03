@@ -10,7 +10,7 @@
 
         <div class="header-buttons d-flex">
             {{^isGuest}}
-                <form action="/user_main_page" method="get">
+                <form action="/userMainPage" method="get">
                     <button type="submit" class="btn-account">
                         <i class="bi bi-person"></i><span class="ms-1"></span>Mi cuenta
                     </button>
@@ -18,7 +18,7 @@
             {{/isGuest}}
 
             {{#isGuest}}
-                <form action="/registration_page" method="get">
+                <form action="/registrationPage" method="get">
                     <button type="submit" class="btn-register">Registrarse</button>
                 </form>
             {{/isGuest}}

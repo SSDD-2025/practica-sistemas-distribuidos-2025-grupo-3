@@ -97,7 +97,6 @@ public class WebController {
         User currentUser = userService.getUserByUsername(principal.getName());
         List<UserDTO> userList = userService.getAllUsers().stream()
                 .filter(user -> !user.getId().equals(currentUser.getId()))
-                .filter(user -> user.getId() != 1)
                 .map(user -> new UserDTO(user.getId(), user.getUsername(), userService.isFollowing(currentUser, user)))
                 .collect(Collectors.toList());
         model.addAttribute("isPeople", true);
@@ -114,18 +113,18 @@ public class WebController {
         return "profile";
     }
 
-    @GetMapping("/user_main_page")
+    @GetMapping("/userMainPage")
     public String userMainPage(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         User user = userService.getUserByUsername(principal.getName());
         model.addAttribute("posts", postService.findByUserNameOrderByCreationDateDesc(user));
         model.addAttribute("comments", commentService.findByUserName(user));
-        return "user_main_page";
+        return "userMainPage";
     }
 
-    @GetMapping("/who_are_we")
+    @GetMapping("/whoAreWe")
     public String who(Model model, HttpServletRequest request) {
-        return "who_are_we";
+        return "whoAreWe";
     }
 
     @GetMapping("/guest")
@@ -134,9 +133,15 @@ public class WebController {
         return "redirect:/home";
     }
 
-    @GetMapping("/registration_page")
+    @GetMapping("/registrationPage")
     public String register() {
-        return "registration_page";
+        return "registrationPage";
+    }
+
+    @GetMapping("/admin")
+    public String adminPage(Model model) {
+        model.addAttribute("isAdminPage", true);
+        return "adminPage";
     }
 
 }

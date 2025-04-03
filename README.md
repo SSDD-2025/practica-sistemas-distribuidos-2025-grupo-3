@@ -97,9 +97,9 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
 - **Ficheros con mayor participación:**
   1. [User Controller (Java)](src/demo/src/main/java/com/example/demo/Controller/UserController.java)
   2. [User Service (Java)](src/demo/src/main/java/com/example/demo/Service/UserService.java)
-  3. [User Main Page (HTML)](src/demo/src/main/resources/templates/user_main_page.html)
-  4. [Registration Page (HTML)](src/demo/src/main/resources/templates/registration_page.html)
-  5. [Edit User Page (HTML)](src/demo/src/main/resources/templates/edit_user_page.html)
+  3. [User Main Page (HTML)](src/demo/src/main/resources/templates/userMainPage.html)
+  4. [Registration Page (HTML)](src/demo/src/main/resources/templates/registrationPage.html)
+  5. [Edit User Page (HTML)](src/demo/src/main/resources/templates/editUserPage.html)
 
 ## **EXECUTION INSTRUCTIONS**
 

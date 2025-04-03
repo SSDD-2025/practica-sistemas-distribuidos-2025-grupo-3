@@ -40,16 +40,16 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping("/edit_user_page")
+    @GetMapping("/editUserPage")
     public String editUser(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         User user = userService.getUserByUsername(principal.getName());
         model.addAttribute("user", user);
-        return "edit_user_page";
+        return "editUserPage";
     }
 
 
-    @PostMapping("/edit_user")
+    @PostMapping("/editUser")
     public String editUser(
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String password,
@@ -61,7 +61,7 @@ public class UserController {
 
         userService.editUser(user, email, password, imageFile);
 
-        return "redirect:/user_main_page";
+        return "redirect:/userMainPage";
 
     }
 

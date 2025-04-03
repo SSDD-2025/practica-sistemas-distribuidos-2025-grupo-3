@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Admin</title>
+        {{> commons/head}}
+    </head>
+
+
+    <body class="bg-light d-flex flex-column min-vh-100">
+
+        {{> commons/header}}
+
+        <div class="container flex-grow-1 mt-4">
+            <div class="row">
+                <!-- Left column -->
+                <div class="col-md-3">
+                    {{> commons/sidebar}}
+                </div>
+
+                <!-- Central column -->
+                <div class="col-md-6 mb-4 align-items-center">
+                    <h1 class="text-center">Panel de administración</h1>
+                </div>
+                
+                <!-- Right column -->
+                <div class="col-md-3">
+
+                </div>
+            </div>
+        </div>
+        {{> commons/footer}}
+    </body>
+
+</html>
