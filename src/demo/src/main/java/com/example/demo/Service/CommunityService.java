@@ -1,6 +1,5 @@
 package com.example.demo.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.DTO.Community.CommunityDTO;
+import com.example.demo.DTO.Community.CommunityDTOBasic;
 import com.example.demo.DTO.Community.CommunityMapper;
 import com.example.demo.Repository.CommunityRepository;
 import com.example.demo.model.Community;
@@ -24,8 +24,9 @@ public class CommunityService {
         return mapper.toDTO(communityRepository.findById(id).orElse(null));
     }
 
-    public Collection<CommunityDTO> findAll() {
-        return mapper.toDTOs(communityRepository.findAll());
+    public List<CommunityDTOBasic> findAll() {
+       return mapper.toDTOsBasic(communityRepository.findAll());
+       
     }
 
     public CommunityDTO createCommunity(String name) {
