@@ -1,7 +1,7 @@
 package com.example.demo.RESTController;
 
 import java.net.URI;
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.Community.CommunityDTO;
+import com.example.demo.DTO.Community.CommunityDTOBasic;
 import com.example.demo.Service.CommunityService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,7 +32,7 @@ public class ComunityRestController {
     private CommunityService communityService;
 
     @GetMapping("/")
-    public Collection<CommunityDTO> getComunities() {
+    public List<CommunityDTOBasic> getComunities() {
         return communityService.findAll();
     }
 
