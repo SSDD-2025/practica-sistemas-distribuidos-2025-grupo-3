@@ -14,13 +14,13 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findByCommunityId(Long id);
 
-    List<Post> findByUserName(User userName);
+    List<Post> findByOwner(User owner);
 
     List<Post> findByCommunityIdOrderByCreationDateDesc(Long id);
 
-    List<Post> findByUserNameOrderByCreationDateDesc(User userName);
+    List<Post> findByOwnerOrderByCreationDateDesc(User owner);
 
-    List<Post> findTop3ByuserNameOrderByCreationDateDesc(User user);
+    List<Post> findTop3ByOwnerOrderByCreationDateDesc(User user);
 
     List<Post> findTop5ByOrderByCreationDateDesc();
 

@@ -74,6 +74,13 @@ public class UserController {
         return "redirect:/";
     }
 
+    @PostMapping("/user/delete/{userId}")
+    public String deleteUser(@PathVariable Long userId) {
+        userService.deleteById(userId);
+
+        return "redirect:/admin?mensaje=Usuario eliminado correctamente";
+}
+
     @PostMapping("/follow/{id}")
     public String toggleFollow(@PathVariable Long id, HttpServletRequest request) {
         

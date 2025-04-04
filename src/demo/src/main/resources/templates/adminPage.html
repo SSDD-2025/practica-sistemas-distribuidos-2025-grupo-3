@@ -1,34 +1,113 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>Admin</title>
-        {{> commons/head}}
-    </head>
+
+<head>
+  <title>Admin</title>
+  {{> commons/head}}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('deleteUserForm').addEventListener('submit', function (event) {
+        const userId = document.getElementById('userSelect').value;
+        this.action = '/user/delete/' + userId;
+      });
+
+      document.getElementById('deleteCommunityForm').addEventListener('submit', function (event) {
+        const communityId = document.getElementById('communitySelect').value;
+        this.action = '/community/delete/' + communityId;
+      });
+    });                         
+  </script>
+</head>
 
 
-    <body class="bg-light d-flex flex-column min-vh-100">
+<body class="bg-light d-flex flex-column min-vh-100">
 
-        {{> commons/header}}
+  {{> commons/header}}
 
-        <div class="container flex-grow-1 mt-4">
-            <div class="row">
-                <!-- Left column -->
-                <div class="col-md-3">
-                    {{> commons/sidebar}}
-                </div>
+  <div class="container flex-grow-1 mt-4">
+    <div class="row">
+      <!-- Left column -->
+      <div class="col-md-3">
+        {{> commons/sidebar}}
+      </div>
 
-                <!-- Central column -->
-                <div class="col-md-6 mb-4 align-items-center">
-                    <h1 class="text-center">Panel de administración</h1>
-                </div>
-                
-                <!-- Right column -->
-                <div class="col-md-3">
-
-                </div>
-            </div>
+      <!-- Central column -->
+      <div class="col-md-6 mb-4">
+        <h1 class="text-center mb-4">Panel de administración</h1>
+        {{#mensaje}}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{mensaje}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        {{> commons/footer}}
-    </body>
+        {{/mensaje}}
+
+        <!-- Delete user -->
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header bg-danger text-white">
+            <h5 class="mb-0">Eliminación de usuario</h5>
+          </div>
+          <div class="card-body">
+            {{^usersLeft}}
+            <form id="deleteUserForm" action="/user/delete/" method="post">
+              <input type="hidden" name="_csrf" value="{{token}}" />
+              <div class="mb-3">
+                <label for="userSelect" class="form-label">Selecciona un usuario</label>
+                <select id="userSelect" name="userId" class="form-select">
+                  {{#users}}
+                  <option value="{{id}}">{{username}}</option>
+                  {{/users}}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Eliminar usuario
+              </button>
+            </form>
+            {{/usersLeft}}
+            {{#usersLeft}}
+            <p> No quedan usuarios para eliminar</p>
+            {{/usersLeft}}
+          </div>
+        </div>
+
+        <!-- Delete community -->
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header bg-danger text-white">
+            <h5 class="mb-0">Eliminación de comunidad</h5>
+          </div>
+          <div class="card-body">
+
+            {{^communitiesLeft}}
+            <form id="deleteCommunityForm" action="/community/delete/" method="post">
+              <input type="hidden" name="_csrf" value="{{token}}" />
+              <div class="mb-3">
+                <label for="communitySelect" class="form-label">Selecciona una comunidad</label>
+                <select id="communitySelect" name="communityId" class="form-select">
+                  {{#communities}}
+                  <option value="{{id}}">{{name}}</option>
+                  {{/communities}}
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Eliminar comunidad
+              </button>
+            </form>
+            {{/communitiesLeft}}
+            {{#communitiesLeft}}
+            <p> No quedan comunidades para eliminar</p>
+            {{/communitiesLeft}}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right column -->
+      <div class="col-md-3">
+        <!-- Espacio para contenido adicional -->
+      </div>
+    </div>
+  </div>
+  {{> commons/footer}}
+</body>
 
 </html>

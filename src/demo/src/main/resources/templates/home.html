@@ -25,13 +25,18 @@
                             <!-- Post header -->
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="/user/image/{{user.id}}" class="rounded-circle shadow-sm" style="width: 40px; height: 40px; object-fit: cover;" alt="Foto usuario">
-                                    <div>
-                                        <h6 class="mb-0 fw-bold">{{user.username}}</h6>
-                                        <small class="text-muted">{{creationDate}}</small>
-                                    </div>
+                                    <form action="/profile/{{owner.id}}" method="get" class="d-flex align-items-center gap-2 w-100">
+                                        <button type="submit" class="border-0 bg-transparent p-0 d-flex align-items-center gap-2 w-100">
+                                            <img src="/user/image/{{owner.id}}" class="rounded-circle shadow-sm" style="width: 40px; height: 40px; object-fit: cover;" alt="Foto usuario">
+                                            <div class="text-start">
+                                                <h6 class="mb-0 fw-bold">{{owner.username}}</h6>
+                                                <small class="text-muted">{{creationDate}}</small>
+                                            </div>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
+                            
                     
                             <!-- Post content -->
                             <h5 class="card-title fw-bold">{{title}}</h5>
@@ -58,7 +63,7 @@
                                     <div class="d-flex align-items-start mb-2 p-2 bg-white shadow-sm rounded">
                                         <img src="/user/image/{{user.id}}" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
                                         <div class="flex-grow-1">
-                                            <strong>{{userName.username}}</strong> {{comment}}
+                                            <strong>{{owner.username}}</strong> {{comment}}
                                         </div>
                                     </div>
                                     {{/comments}}

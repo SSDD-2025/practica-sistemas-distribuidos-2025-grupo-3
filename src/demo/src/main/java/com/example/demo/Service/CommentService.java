@@ -3,13 +3,19 @@ package com.example.demo.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTO.user.UserDTOBasic;
 import com.example.demo.Repository.CommentRepository;
+import com.example.demo.Repository.UserRepository;
 import com.example.demo.model.Comment;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
 
 @Service
 public class CommentService {
+
+    
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -32,8 +38,8 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
-    public Object findByUserName(User user) {
-        return commentRepository.findByUserName(user);
+    public Object findByUserName(UserDTOBasic user) {
+        return commentRepository.findByOwner(userRepository.findByUsername(user.username()).orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
     }
 
 }

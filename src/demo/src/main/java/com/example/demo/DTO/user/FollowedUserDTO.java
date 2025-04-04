@@ -2,16 +2,16 @@ package com.example.demo.DTO.user;
 
 import java.util.List;
 
-import com.example.demo.model.Post;
+import com.example.demo.DTO.Post.PostDTO;
 
 public class FollowedUserDTO {
     private Long id;
     private String username;
     private byte[] imageData;
-    private List<Post> recentPosts;
+    private List<PostDTO> recentPosts;
 
     // Constructor, getters y setters
-    public FollowedUserDTO(Long id, String username, byte[] imageData, List<Post> recentPosts) {
+    public FollowedUserDTO(Long id, String username, byte[] imageData, List<PostDTO> recentPosts) {
         this.id = id;
         this.username = username;
         this.imageData = imageData;
@@ -42,11 +42,11 @@ public class FollowedUserDTO {
         this.imageData = imageData;
     }
 
-    public List<Post> getRecentPosts() {
+    public List<PostDTO> getRecentPosts() {
         return recentPosts;
     }
 
-    public void setRecentPosts(List<Post> recentPosts) {
+    public void setRecentPosts(List<PostDTO> recentPosts) {
         this.recentPosts = recentPosts;
     }
 }

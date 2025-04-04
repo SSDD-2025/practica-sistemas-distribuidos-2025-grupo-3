@@ -1,33 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>Linked Community</title>
-        {{> commons/head}}
-    </head>
-    <body class="bg-light d-flex flex-column min-vh-100">
 
-        {{> commons/header}}
+<head>
+    <title>Linked Community - Error</title>
+    {{> commons/head}}
+    <style>
+        /* Estilos adicionales para la página de error */
+        .error-container {
+            position: relative;
+            min-height: 300px;
+            /* Asegura algo de altura para posicionar los detalles */
+        }
 
-        <div class="container flex-grow-1 mt-5">
-            <div class="row">
-                <!-- Left column -->
-                <div class="col-md-3">
+        .error-card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-                </div>
+        .error-details {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
 
-                <!-- Central column -->
-                <div class="col-md-6 mb-4 align-items-center">
-                    <h1 class="text-center">Error {{errorCode}}</h1>
-                    <p class="text-center">{{errorMessage}}</p>
-                </div>
-                
-                <!-- Right column -->
-                <div class="col-md-3">
-
+<body class="bg-light d-flex flex-column min-vh-100">
+    {{> commons/header}}
+    <div class="container flex-grow-1 mt-5 error-container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card error-card">
+                    <div class="card-body text-center">
+                        <h2 class="card-title">¡Ups! Algo salió mal</h2>
+                        <p class="card-text">
+                            Lo sentimos, se ha producido un error inesperado. Esto podría deberse a un problema temporal
+                            o a un fallo interno. Por favor, vuelve al inicio y vuelve a intentarlo.
+                        </p>
+                        <a href="/home" class="btn btn-primary">Volver al Home</a>
+                    </div>
                 </div>
             </div>
         </div>
-        {{> commons/footer}}
-    </body>
+        <div class="error-details">
+            Error {{errorCode}}: {{errorMessage}}
+        </div>
+    </div>
+    {{> commons/footer}}
+</body>
 
 </html>

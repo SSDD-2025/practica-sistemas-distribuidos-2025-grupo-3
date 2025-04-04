@@ -1,103 +1,125 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>LC-Mi cuenta</title>
-        {{> commons/head}}
-    </head>
-    <body class="bg-light d-flex flex-column min-vh-100">
-        {{> commons/header}}
-        <!--{{#exito}}
-        alert("Usuario editado con exito") This little block was an idea to show a message when the user edited his profile, but it didn't work
-        {{/exito}}                    we will try to implement it later -->  
 
-        <div class="container flex-grow-1 mt-1">
-            <form action="/home" method="get" class="mb-3">
-                <button type="submit" class="btn btn-secondary align-items-center">
-                    <i class="bi bi-arrow-left me-2"></i> Volver a home
-                </button>
-            </form>
-            <div class="row">
-                <!-- Profile section -->
-                <div class="col-md-4">
-                    <div class="card text-center shadow-sm position-relative">
-                        <div class="dropdown position-absolute top-0 start-0 m-2">
-                            <button class="btn btn-light btn-sm rounded-circle shadow-sm" type="button" id="userOptions" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-start shadow-sm p-2 rounded">
-                                <li>
-                                    <a class="dropdown-item d-flex align-items-center" href="/editUserPage">
-                                        <i class="bi bi-pencil text-primary me-2"></i> Editar Perfil
-                                    </a>
-                                </li>
-                                <li>
-                                    <form id="eliminarUsuarioForm" action="/user/delete" method="POST">
-                                        <input type="hidden" name="_csrf" value="{{token}}"/>
-                                        <button type="button" class="dropdown-item d-flex align-items-center text-danger" onclick="confirmarEliminacion()">
-                                            <i class="bi bi-trash me-2"></i> Eliminar Perfil
-                                        </button>
-                                    </form>
-                               
-                                </li>
-                            </ul>
-                        </div>
-                
-                        <div class="card-body">
-                            <img src="/user/image/{{user.id}}" alt="Foto de perfil" class="rounded-circle img-fluid mb-3 mt-5" style="width: 150px; height: 150px; object-fit: cover;">
-                            <h4 class="card-title">{{user.username}}</h4>
-                            <p class="text-muted">Correo: {{user.email}}</p>
-                            {{#user.dateJoined}}
-                            <p class="text-muted">Miembro desde: {{user.dateJoined}}</p>
-                            {{/user.dateJoined}}
-                        </div>
-                    </div>
-                </div>
-                
+<head>
+    <title>LC-Mi cuenta</title>
+    {{> commons/head}}
+</head>
 
-                <!-- Posts section -->
-                <div class="col-md-8">
-                    <h3 class="mb-3">Mis Publicaciones</h3>
-                    <div id="post-container">
-                        {{#posts}}
-                        <div class="card mb-3 shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">{{title}}</h5>
-                                <p class="card-text">{{postContent}}</p>
-                                {{#image}}
-                                <img src="/post/image/{{id}}" class="img-fluid rounded" style="max-width: 100%; max-height: 100px;">
-                                {{/image}}
-                                <div class="d-flex justify-content-end">
-                                    <small class="text-muted">Publicado el {{creationDate}} en {{community.name}}</small>
-                                </div>
-                            </div>
-                        </div>
-                        {{/posts}}
-                        {{^posts}}
-                        <p class="text-muted">Aún no has publicado nada.</p>
-                        {{/posts}}
+<body class="bg-light d-flex flex-column min-vh-100">
+    {{> commons/header}}
+    <!--{{#exito}}
+alert("Usuario editado con exito") This little block was an idea to show a message when the user edited his profile, but it didn't work
+{{/exito}}                    we will try to implement it later -->
+
+    <div class="container flex-grow-1 mt-1">
+        <form action="/home" method="get" class="mb-3">
+            <button type="submit" class="btn btn-secondary align-items-center">
+                <i class="bi bi-arrow-left me-2"></i> Volver a home
+            </button>
+        </form>
+        <div class="row">
+            <!-- Profile section -->
+            <div class="col-md-4">
+                <div class="card text-center shadow-sm position-relative">
+                    <div class="dropdown position-absolute top-0 start-0 m-2">
+                        <button class="btn btn-light btn-sm rounded-circle shadow-sm" type="button" id="userOptions"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-start shadow-sm p-2 rounded">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="/editUserPage">
+                                    <i class="bi bi-pencil text-primary me-2"></i> Editar Perfil
+                                </a>
+                            </li>
+                            <li>
+                                <form id="eliminarUsuarioForm" action="/user/delete" method="POST">
+                                    <input type="hidden" name="_csrf" value="{{token}}" />
+                                    <button type="button" class="dropdown-item d-flex align-items-center text-danger"
+                                        onclick="confirmarEliminacion()">
+                                        <i class="bi bi-trash me-2"></i> Eliminar Perfil
+                                    </button>
+                                </form>
+
+                            </li>
+                        </ul>
                     </div>
-                    <!-- My comments section -->
-                    <h3 class="mb-3 mt-5">Mis Comentarios</h3>
-                    <div id="comment-container">
-                        {{#comments}}
-                        <div class="card mb-3 shadow-sm">
-                            <div class="card-body">
-                                <p class="card-text">{{comment}}</p>
-                                <div class="d-flex flex-column align-items-end">
-                                    <small class="text-muted">Comentado en el post: "{{post.title}}"</small>
-                                    <small class="text-muted">De la comunidad: "{{post.community.name}}"</small>
-                                </div>
-                            </div>
-                        </div>
-                        {{/comments}}
-                        {{^comments}}
-                        <p class="text-muted">Aún no has comentado nada.</p>
-                        {{/comments}}
+
+                    <div class="card-body">
+                        <img src="/user/image/{{user.id}}" alt="Foto de perfil"
+                            class="rounded-circle img-fluid mb-3 mt-5"
+                            style="width: 150px; height: 150px; object-fit: cover;">
+                        <h4 class="card-title">{{user.username}}</h4>
+                        <p class="text-muted">Correo: {{user.email}}</p>
+                        {{#user.date}}
+                        <p class="text-muted">Miembro desde: {{user.date}}</p>
+                        {{/user.date}}
                     </div>
                 </div>
             </div>
-        </div>
 
-        {{> commons/footer}}
-    </body>
+
+            <!-- Posts section -->
+            <div class="col-md-8">
+                <h3 class="mb-3">Mis Publicaciones</h3>
+                <div id="post-container">
+                    {{#posts}}
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{title}}</h5>
+                            <p class="card-text">{{postContent}}</p>
+                            {{#image}}
+                            <img src="/post/image/{{id}}" class="img-fluid rounded"
+                                style="max-width: 100%; max-height: 100px;">
+                            {{/image}}
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted">Publicado el {{creationDate}} en {{community.name}}</small>
+                                <form action="/post/delete/{{id}}" method="post" class="d-inline"
+                                    onsubmit="return confirm('¿Seguro que deseas eliminar este post?')">
+                                    <input type="hidden" name="_csrf" value="{{token}}">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash"></i> Eliminar post
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{/posts}}
+                    {{^posts}}
+                    <p class="text-muted">Aún no has publicado nada.</p>
+                    {{/posts}}
+                </div>
+                <!-- My comments section -->
+                <h3 class="mb-3 mt-5">Mis Comentarios</h3>
+                <div id="comment-container">
+                    {{#comments}}
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text">{{comment}}</p>
+                            <div class="d-flex flex-column align-items-end">
+                                <small class="text-muted">Comentado en el post: "{{post.title}}"</small>
+                                <small class="text-muted">De la comunidad: "{{post.community.name}}"</small>
+                                <form action="/comment/deleteComment/{{id}}" method="post" class="d-inline mt-2"
+                                    onsubmit="return confirm('¿Seguro que deseas eliminar este comentario?')">
+                                    <input type="hidden" name="_csrf" value="{{token}}">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash"></i> Eliminar comentario
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{/comments}}
+                    {{^comments}}
+                    <p class="text-muted">Aún no has comentado nada.</p>
+                    {{/comments}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{> commons/footer}}
+</body>
+
 </html>

@@ -16,6 +16,7 @@ import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
 import com.example.demo.model.User;
+import com.example.demo.model.User.Role;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -31,20 +32,23 @@ public class CommunityController {
     @Autowired
     private PostService postService;
 
-   @ModelAttribute
-	public void addAttributes(Model model, HttpServletRequest request) {
+    @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request) {
 
         Principal principal = request.getUserPrincipal();
 
-		if(principal != null) {
+        if (principal != null) {
 
             User user = userService.getUserByUsername(principal.getName());
+            boolean isAdmin = user.getRoles().contains(Role.ROLE_ADMIN);
             model.addAttribute("user", user);
+            model.addAttribute("isAdmin", isAdmin);
             model.addAttribute("isGuest", false);
         } else {
+            model.addAttribute("isAdmin", false);
             model.addAttribute("isGuest", true);
         }
-	}
+    }
 
     @GetMapping("/communities/{id}")
     public String showCommunity(Model model, @PathVariable Long id) {
@@ -52,6 +56,7 @@ public class CommunityController {
         CommunityDTO community = communityService.findById(id);
         model.addAttribute("community", community);
         model.addAttribute("posts", postService.findByCommunityIdOrderByCreationDateDesc(id));
+
         return "community";
     }
 
@@ -64,7 +69,8 @@ public class CommunityController {
     @PostMapping("/community/delete/{communityId}")
     public String deleteCommunity(@PathVariable Long communityId) {
         communityService.deleteById(communityId);
-        return "redirect:/communities";
+
+        return "redirect:/admin?mensaje=Comunidad eliminada correctamente";
     }
 
 }

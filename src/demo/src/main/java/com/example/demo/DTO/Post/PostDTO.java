@@ -1,8 +1,19 @@
 package com.example.demo.DTO.Post;
 
-public record PostDTO(
-                Long id,
-                String title,
-                String postContent) {
+import java.util.List;
 
+import com.example.demo.model.Comment;
+import com.example.demo.model.Community;
+import com.example.demo.model.User;
+
+public record PostDTO(
+                User owner,
+                Community community,
+                Long id,
+                String creationDate,
+                String title,
+                String postContent,
+                String image,
+                Byte[] imageData,
+                List<Comment> comments) {
         }

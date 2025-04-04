@@ -14,9 +14,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.DTO.Post.PostDTO;
+import com.example.demo.DTO.Post.PostMapper;
 import com.example.demo.DTO.user.FollowedUserDTO;
+import com.example.demo.DTO.user.FollowingUserDTO;
+import com.example.demo.DTO.user.UserDTOBasic;
+import com.example.demo.DTO.user.UserMapper;
 import com.example.demo.Repository.PostRepository;
 import com.example.demo.Repository.UserRepository;
+import com.example.demo.model.Post;
 import com.example.demo.model.User;
 import com.example.demo.model.User.Role;
 
@@ -33,6 +39,12 @@ public class UserService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private PostMapper postMapper;
 
     public User registerUser(String username, String email, String password, boolean[] registrationStatus) throws IOException {
         boolean emailExists = userRepository.findByEmail(email).isPresent();
@@ -74,16 +86,19 @@ public class UserService {
         return new ResponseEntity<byte[]>(imageData, headers, HttpStatus.OK);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<FollowingUserDTO> getAllUsersExceptUser(User user) {
+        List<User> users = userRepository.findAll();
+        users.remove(user);
+        return userMapper.toDTOs(users, user);
+
     }
 
     public User getUserByUsername(String username){
         return userRepository.findByUsername(username).orElse(null);
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public UserDTOBasic getUserById(Long id) {
+        return userMapper.toDTO(userRepository.findById(id).orElse(null));
     }
 
     public void saveUser(User currentUser) {
@@ -108,17 +123,24 @@ public class UserService {
     }
 
     public List<FollowedUserDTO> getFollowedUsersWithPosts(Long currentUserId) {
-        User currentUser = userRepository.findByIdWithFriends(currentUserId);
+    User currentUser = userRepository.findByIdWithFriends(currentUserId);
 
-        return currentUser.getFriends().stream()
-                .map(friend -> new FollowedUserDTO(
+    return currentUser.getFriends().stream()
+            .map(friend -> {
+
+                List<Post> posts = postRepository.findTop3ByOwnerOrderByCreationDateDesc(friend);
+                List<PostDTO> postDTOs = postMapper.toDTOs(posts);
+
+                return new FollowedUserDTO(
                         friend.getId(),
                         friend.getUsername(),
                         friend.getImageData(),
-                        postRepository.findTop3ByuserNameOrderByCreationDateDesc(friend) 
-                ))
-                .collect(Collectors.toList());
-    }
+                        postDTOs
+                );
+            })
+            .collect(Collectors.toList());
+}
+
 
     public void editUser(User user, String email, String password, MultipartFile imageFile)
             throws IOException {
@@ -141,6 +163,15 @@ public class UserService {
         }
 
         userRepository.save(user);
+    }
+
+    public void deleteById(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+
+    public boolean isAdmin(String username) {
+        return userRepository.findByUsername(username).get().getRoles().contains(Role.ROLE_ADMIN);
     }
 
 }

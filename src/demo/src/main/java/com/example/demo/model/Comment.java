@@ -18,7 +18,7 @@ public class Comment {
     private String creation;
     @ManyToOne
     @JoinColumn(name = "userName", nullable = false)
-    private User userName;
+    private User owner;
 
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
@@ -28,9 +28,9 @@ public class Comment {
         // Used by JPA
     }
 
-    public Comment(String comment, User user, Post post) {
+    public Comment(String comment, User owner, Post post) {
         this.comment = comment;
-        this.userName = user;
+        this.owner = owner;
         this.post = post;
         // this.creation = formatDate(LocalDateTime.now());
     }
@@ -43,8 +43,8 @@ public class Comment {
         return this.comment;
     }
 
-    public User getUser() {
-        return this.userName;
+    public User getOwner() {
+        return this.owner;
     }
 
     public Long getId() {
@@ -55,8 +55,8 @@ public class Comment {
         this.comment = comment;
     }
 
-    public void SetUser(User user) {
-        this.userName = user;
+    public void SetOwner(User owner) {
+        this.owner = owner;
     }
 
     public void setId(Long id) {

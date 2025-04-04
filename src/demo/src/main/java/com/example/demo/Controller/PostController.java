@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -56,9 +58,18 @@ public class PostController {
     }
 
     @PostMapping("/post/delete/{postId}")
-    public String deletePost(@PathVariable Long postId, Long communityId) {
-        postService.deletePost(postId);
-        return "redirect:/communities/" + communityId;
+    public String deletePost(@PathVariable Long postId,
+            @RequestParam(required = false) Long communityId,
+            Principal principal) {
+
+        postService.deletePost(postId, principal.getName());
+
+        if (communityId != null) {
+            return "redirect:/communities/" + communityId;
+        } else {
+            return "redirect:/userMainPage";
+        }
+
     }
 
 }

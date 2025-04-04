@@ -1,8 +1,13 @@
 package com.example.demo.Controller;
 
+import java.security.Principal;
+
+import com.example.demo.model.User.Role;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Service.CommentService;
 import com.example.demo.Service.PostService;
@@ -38,11 +43,19 @@ public class CommentController {
     }
 
     @PostMapping("/comment/deleteComment/{commentId}")
-    public String deleteComment(@PathVariable Long commentId, Long communityId) {
+    public String deleteComment(@PathVariable Long commentId,
+                                @RequestParam(required = false) Long communityId,
+                                Principal principal) {
 
         commentService.deleteComment(commentId);
 
-        return "redirect:/communities/" + communityId;
+        User currentUser = userService.getUserByUsername(principal.getName());
+        
+        if (currentUser.getRoles().contains(Role.ROLE_ADMIN) && communityId != null) {
+            return "redirect:/communities/" + communityId;
+        } else {
+            return "redirect:/userMainPage";
+        }
     }
 
 }

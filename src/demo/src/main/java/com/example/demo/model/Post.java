@@ -24,12 +24,12 @@ public class Post {
 
     private String image;
     @Lob
-    @Column(length = 1048576)
+    @Column(length = 10485760)
     private byte[] imageData;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User userName;
+    private User owner;
 
     @ManyToOne
     @JoinColumn(name = "community_id", nullable = false)
@@ -42,12 +42,12 @@ public class Post {
         // Used by JPA
     }
 
-    public Post(String title, String postContent, String image, byte[] imageData, User user, Community community) {
+    public Post(String title, String postContent, String image, byte[] imageData, User owner, Community community) {
         this.title = title;
         this.postContent = postContent;
         this.image = image;
         this.imageData = imageData;
-        this.userName = user;
+        this.owner = owner;
         this.community = community;
         this.creationDate = LocalDateTime.now();
     }
@@ -76,12 +76,12 @@ public class Post {
         this.id = id;
     }
 
-    public User getUser() {
-        return userName;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setUser(User user) {
-        this.userName = user;
+    public void setOwner(User user) {
+        this.owner = user;
     }
 
     public Community getCommunity() {

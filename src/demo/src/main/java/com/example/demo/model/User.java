@@ -27,14 +27,15 @@ public class User {
     private List<Role> roles;
 
     private String image;
+
     @Lob
-    @Column(length = 1048576)
+    @Column(length = 10485760)
     private byte[] imageData;
 
-    @OneToMany(mappedBy = "userName", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userName", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -46,11 +47,12 @@ public class User {
             "user_id", "friend_id" }))
     private Set<User> friends = new HashSet<>();
 
-    protected User() {
+    public User() {
         // Used by JPA
     }
 
-    public User(String username, String password, String email, Date dateJoined, String image, byte[] imageData, List<Role> roles) {
+    public User(String username, String password, String email, Date dateJoined, String image, byte[] imageData,
+            List<Role> roles) {
         this.username = username;
         this.password = password;
         this.email = email;

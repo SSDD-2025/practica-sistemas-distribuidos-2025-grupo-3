@@ -25,23 +25,23 @@ import com.example.demo.security.jwt.UnauthorizedHandlerJwt;
 public class SecurityConfig {
 
     @Autowired
-	private JwtRequestFilter jwtRequestFilter;
+    private JwtRequestFilter jwtRequestFilter;
 
     @Autowired
     private RepositoryUserDetailsService userDetailService;
 
     @Autowired
-  	private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
-    
+    private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-		return authConfig.getAuthenticationManager();
-	}
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -54,23 +54,20 @@ public class SecurityConfig {
     }
 
     @Bean
-	@Order(1)
-	public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
-
+    @Order(1)
+    public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
 
         http.authenticationProvider(authenticationProvider())
-            .securityMatcher("/api/**")
-            .exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
+                .securityMatcher("/api/**")
+                .exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
 
         http.securityMatcher("/api/**") // Aplica esta configuración solo a rutas "/api/**"
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(HttpMethod.POST, "/api/**").hasRole("USER")
-                .requestMatchers(HttpMethod.PUT, "/api/**").hasRole("USER")
-                .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
-                .anyRequest().permitAll());
-           
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.POST, "/api/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.PUT, "/api/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
+                        .anyRequest().permitAll());
 
-                    
         // Disable Form login Authentication
         http.formLogin(formLogin -> formLogin.disable());
 
@@ -84,43 +81,47 @@ public class SecurityConfig {
         // Stateless session
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-		// Add JWT Token filter
-		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        // Add JWT Token filter
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
-		return http.build();
-	}
+        return http.build();
+    }
 
     @Bean
     @Order(2)
     public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
         http.authenticationProvider(authenticationProvider());
         http
-            .authorizeHttpRequests(authorize -> authorize
-                // PUBLIC PAGES
-                    // Static resources
-                .requestMatchers( "/css/**", "/js/**", "/assets/**").permitAll()
-                    // Website pages
-                .requestMatchers("/", "/login", "/logout").permitAll()
-                .requestMatchers("/registrationPage", "/register", "/error", "/guest", "/home").permitAll()
-                .requestMatchers("/communities", "communities/*").permitAll()
-                .requestMatchers("/whoAreWe").permitAll()
-                .requestMatchers("/user/image/*").permitAll()
-                 // PRIVATE PAGES
-                .requestMatchers("/userMainPage", "/editUser").hasRole("USER")
-                .requestMatchers("/community/delete/*").hasRole("ADMIN")
-                .requestMatchers("/admin").hasRole("ADMIN")
-                .anyRequest().authenticated())
-            .formLogin(formLogin -> formLogin
-                .loginPage("/")
-                .loginProcessingUrl("/login")
-                .failureUrl("/")
-                .defaultSuccessUrl("/home")
-                .permitAll())
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .permitAll());
-                
+                .authorizeHttpRequests(authorize -> authorize
+                        // PUBLIC PAGES
+                        // Static resources
+                        .requestMatchers("/css/**", "/js/**", "/assets/**").permitAll()
+                        // Website pages
+                        .requestMatchers("/", "/login", "/logout").permitAll()
+                        .requestMatchers("/registrationPage", "/register", "/error", "/guest", "/home").permitAll()
+                        .requestMatchers("/profile/*").permitAll()
+                        .requestMatchers("/communities", "/communities/*").permitAll()
+                        .requestMatchers("/whoAreWe").permitAll()
+                        .requestMatchers("/user/image/*").permitAll()
+                        .requestMatchers("/post/image/*").permitAll()
+                        // PRIVATE PAGES
+                        .requestMatchers("/userMainPage", "/editUser").hasRole("USER")
+                        .requestMatchers("/community/delete/*").hasRole("ADMIN")
+                        .requestMatchers("/user/delete/*").hasRole("ADMIN")
+                        .requestMatchers("/post/delete/*").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/comment/deleteComment/*").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .anyRequest().authenticated())
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/")
+                        .loginProcessingUrl("/login")
+                        .failureUrl("/")
+                        .defaultSuccessUrl("/home")
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll());
 
         return http.build();
     }

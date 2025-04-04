@@ -23,7 +23,7 @@ class CSRFHandlerInterceptor implements HandlerInterceptor {
 
 	@Override
 	public void postHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler,
-			final ModelAndView modelAndView) throws Exception {
+			ModelAndView modelAndView) throws Exception {
 
 		if (modelAndView != null) {
 
