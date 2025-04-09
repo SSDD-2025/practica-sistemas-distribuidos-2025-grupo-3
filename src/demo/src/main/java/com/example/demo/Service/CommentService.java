@@ -1,5 +1,7 @@
 package com.example.demo.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,6 @@ import com.example.demo.model.User;
 @Service
 public class CommentService {
 
-    
     @Autowired
     private UserRepository userRepository;
 
@@ -26,20 +27,12 @@ public class CommentService {
     }
 
     public void deleteComment(Long commentId) {
-        /*
-         * Comment comment = commentRepository.findById(commentId)
-         * .orElseThrow(() -> new RuntimeException("Comentario no encontrado"));
-         * 
-         * if (comment.getUser().getId() != user.getId()) {
-         * throw new RuntimeException("No puedes borrar un comentario que no es tuyo");
-         * para que no se pueda borrar un comentario que no sea del usuario
-         * }
-         */
         commentRepository.deleteById(commentId);
     }
 
-    public Object findByUserName(UserDTOBasic user) {
-        return commentRepository.findByOwner(userRepository.findByUsername(user.username()).orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
+    public List<Comment> findByUserName(UserDTOBasic user) {
+        return commentRepository.findByOwner(userRepository.findByUsername(user.username())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
     }
 
 }
