@@ -49,6 +49,8 @@ public class ComunityRestController {
 
         return ResponseEntity.created(location).body(communityDTO);
     }
+
+    
     
     @PutMapping("/{id}")
     public CommunityDTO replaceCommunity(@PathVariable Long id, @RequestBody CommunityDTO communityDTO) {

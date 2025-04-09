@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.Post.PostDTO;
+import com.example.demo.DTO.Post.PostDTOBasic;
 import com.example.demo.DTO.Post.PostMapper;
 import com.example.demo.Service.PostService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,8 +37,8 @@ public class PostRestController {
     }
 
     @GetMapping("/{id}")
-    public PostDTO getPost(@PathVariable Long id) {
-        return mapper.toDTO(postService.findPostById(id));
+    public PostDTOBasic getPost(@PathVariable Long id) {
+        return mapper.toDTOBasic(postService.findPostById(id));
     }
 
     @PostMapping("/")
