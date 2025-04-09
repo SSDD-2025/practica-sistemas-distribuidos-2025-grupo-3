@@ -18,5 +18,7 @@ public interface CommunityMapper {
     List<CommunityDTO> toDTOs(Collection<Community> communities);
     List<CommunityDTOBasic> toDTOsBasic(Collection<Community> communities);
     
+    Community toDomain(CommunityDTOBasic communityDTO);
+    
     
 } 

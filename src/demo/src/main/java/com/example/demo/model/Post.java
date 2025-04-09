@@ -19,7 +19,7 @@ public class Post {
     private String postContent;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP) // Indica que es una fecha con hora
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creationDate;
 
     private String image;
@@ -50,6 +50,12 @@ public class Post {
         this.owner = owner;
         this.community = community;
         this.creationDate = LocalDateTime.now();
+    }
+
+    public Post(String title, String postContent, Community community) {
+        this.title = title;
+        this.postContent = postContent;
+        this.community = community;
     }
 
     public String getPostContent() {

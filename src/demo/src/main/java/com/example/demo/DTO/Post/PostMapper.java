@@ -21,4 +21,8 @@ public interface PostMapper {
 
     PostDTOBasic toDTOBasic(Post postById);
 
+    Post toDomain(PostDTOBasic postDTOBasic);
+
+    PostDTORest toDTORest(Post post);
+
 }

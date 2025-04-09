@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.Community.CommunityDTO;
 import com.example.demo.DTO.Community.CommunityDTOBasic;
+import com.example.demo.DTO.Post.PostDTOBasic;
 import com.example.demo.Service.CommunityService;
+import com.example.demo.Service.PostService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,9 @@ public class ComunityRestController {
     @Autowired
     private CommunityService communityService;
 
+    @Autowired
+    private PostService postService;
+
     @GetMapping("/")
     public List<CommunityDTOBasic> getComunities() {
         return communityService.findAll();
@@ -49,7 +54,6 @@ public class ComunityRestController {
 
         return ResponseEntity.created(location).body(communityDTO);
     }
-
     
     
     @PutMapping("/{id}")

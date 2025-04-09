@@ -13,7 +13,12 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.DTO.Community.CommunityDTO;
+import com.example.demo.DTO.Community.CommunityDTOBasic;
+import com.example.demo.DTO.Community.CommunityMapper;
 import com.example.demo.DTO.Post.PostDTO;
+import com.example.demo.DTO.Post.PostDTOBasic;
+import com.example.demo.DTO.Post.PostDTORest;
 import com.example.demo.DTO.Post.PostMapper;
 import com.example.demo.DTO.user.UserDTOBasic;
 import com.example.demo.Repository.PostRepository;
@@ -21,6 +26,7 @@ import com.example.demo.Repository.UserRepository;
 import com.example.demo.model.Community;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
+import com.fasterxml.jackson.databind.node.POJONode;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -37,7 +43,10 @@ public class PostService {
     private UserRepository userRepository;
 
     @Autowired
-    private PostMapper mapper;
+    private PostMapper mapperPost;
+
+    @Autowired
+    private CommunityMapper mapperCommunity;
 
     public PostDTO createPost(String title, String content, MultipartFile imageFile, User user, Community community) {
         byte[] imageData = null;
@@ -54,7 +63,7 @@ public class PostService {
 
         Post post = new Post(title, content, imageName, imageData, user, community);
         postRepository.save(post);
-        return mapper.toDTO(post);
+        return mapperPost.toDTO(post);
     }
 
     public ResponseEntity<byte[]> getPostImage(Long postId) {
@@ -90,15 +99,14 @@ public class PostService {
         postRepository.delete(post);
     }
 
-
     public List<PostDTO> findByUserOrderByCreationDateDesc(User user) {
         List<Post> posts = postRepository.findByOwnerOrderByCreationDateDesc(user);
-        return mapper.toDTOs(posts);
+        return mapperPost.toDTOs(posts);
     }
 
     public List<PostDTO> findTop5ByOrderByCreationDateDesc() {
         List<Post> posts = postRepository.findTop5ByOrderByCreationDateDesc();
-        return mapper.toDTOs(posts);
+        return mapperPost.toDTOs(posts);
     }
 
     public Post findPostById(Long postId) {
@@ -108,29 +116,44 @@ public class PostService {
 
     public List<PostDTO> findByCommunityIdOrderByCreationDateDesc(Long id) {
         List<Post> posts = postRepository.findByCommunityIdOrderByCreationDateDesc(id);
-        return mapper.toDTOs(posts);
+        return mapperPost.toDTOs(posts);
     }
 
     public List<PostDTO> findByUserNameOrderByCreationDateDesc(UserDTOBasic user) {
-        List<Post> posts = postRepository.findByOwnerOrderByCreationDateDesc(userRepository.findByUsername(user.username())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
-        return mapper.toDTOs(posts);
+        List<Post> posts = postRepository
+                .findByOwnerOrderByCreationDateDesc(userRepository.findByUsername(user.username())
+                        .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
+        return mapperPost.toDTOs(posts);
     }
 
-    public List<Post> findAll(){
+    public List<Post> findAll() {
         return postRepository.findAll();
     }
 
     public PostDTO replacePost(Long id, PostDTO updatedPostDTO) {
-                if(postRepository.existsById(id)){
-           Post updatedPost = mapper.toDomain(updatedPostDTO);
-           updatedPost.setId(id);
+        if (postRepository.existsById(id)) {
+            Post updatedPost = mapperPost.toDomain(updatedPostDTO);
+            updatedPost.setId(id);
 
-           postRepository.save(updatedPost);
+            postRepository.save(updatedPost);
 
-           return mapper.toDTO(updatedPost);
-        }else{
+            return mapperPost.toDTO(updatedPost);
+        } else {
             throw new NoSuchElementException();
         }
+    }
+
+    public PostDTOBasic createPostDTOBasic(String title, String postContent, CommunityDTO communityDTO) {
+        Community community = mapperCommunity.toDomain(communityDTO);
+        Post post = new Post(title, postContent, community);
+        postRepository.save(post);
+        return mapperPost.toDTOBasic(post);
+    }
+
+    public PostDTORest createPostDTORest(String title, String postContent, CommunityDTOBasic communityDTO) {
+        Community community = mapperCommunity.toDomain(communityDTO);
+        Post post = new Post(title, postContent, community);
+        postRepository.save(post);
+        return mapperPost.toDTORest(post);
     }
 }
