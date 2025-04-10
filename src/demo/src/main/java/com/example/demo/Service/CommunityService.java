@@ -16,7 +16,7 @@ import com.example.demo.model.Community;
 public class CommunityService {
     @Autowired
     private CommunityRepository communityRepository;
-    
+
     @Autowired
     private CommunityMapper mapper;
 
@@ -25,8 +25,8 @@ public class CommunityService {
     }
 
     public List<CommunityDTOBasic> findAll() {
-       return mapper.toDTOsBasic(communityRepository.findAll());
-       
+        return mapper.toDTOsBasic(communityRepository.findAll());
+
     }
 
     public CommunityDTO createCommunity(String name) {
@@ -38,15 +38,15 @@ public class CommunityService {
         return null;
     }
 
-    public CommunityDTO replaceCommunity(Long id, CommunityDTO updaCommunityDTO){
-        if(communityRepository.existsById(id)){
-           Community updatedCommunity = mapper.toDomain(updaCommunityDTO);
-           updatedCommunity.setId(id);
+    public CommunityDTOBasic replaceCommunity(Long id, CommunityDTOBasic updaCommunityDTO) {
+        if (communityRepository.existsById(id)) {
+            Community updatedCommunity = mapper.toDomain(updaCommunityDTO);
+            updatedCommunity.setId(id);
 
-           communityRepository.save(updatedCommunity);
+            communityRepository.save(updatedCommunity);
 
-           return mapper.toDTO(updatedCommunity);
-        }else{
+            return mapper.toDTOBasic(updatedCommunity);
+        } else {
             throw new NoSuchElementException();
         }
     }
