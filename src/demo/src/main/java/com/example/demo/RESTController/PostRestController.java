@@ -2,6 +2,7 @@ package com.example.demo.RESTController;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
-
-
 @RestController
 @RequestMapping("/api/posts")
 public class PostRestController {
@@ -38,8 +37,8 @@ public class PostRestController {
     private PostMapper mapper;
 
     @GetMapping("/")
-    public Collection<PostDTO> getAllPosts(){
-        return mapper.toDTOs(postService.findAll());
+    public List<PostDTOBasic> getAllPosts() {
+        return mapper.toDTOBasic(postService.findAll());
     }
 
     @GetMapping("/{id}")
@@ -47,10 +46,10 @@ public class PostRestController {
         return mapper.toDTOBasic(postService.findPostById(id));
     }
 
-
     @PostMapping("/")
     public ResponseEntity<PostDTORest> postCommumnnityBasic(@RequestBody PostDTORest PostDTORest) {
-        PostDTORest = postService.createPostDTORest(PostDTORest.title(), PostDTORest.postContent(), PostDTORest.community());
+        PostDTORest = postService.createPostDTORest(PostDTORest.title(), PostDTORest.postContent(),
+                PostDTORest.community());
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(PostDTORest.id()).toUri();
 
         return ResponseEntity.created(location).body(PostDTORest);
@@ -58,16 +57,16 @@ public class PostRestController {
 
     @PutMapping("/{id}")
     public PostDTO replacePost(@PathVariable Long id, @RequestBody PostDTO post) {
-        return postService.replacePost(id,post);
+        return postService.replacePost(id, post);
     }
 
     @DeleteMapping("/{id}")
-    public PostDTO deletePost(@PathVariable Long id){
+    public PostDTO deletePost(@PathVariable Long id) {
         PostDTO postDTO = mapper.toDTO(postService.findPostById(id));
-    
+
         postService.deletePost(id);
 
         return postDTO;
     }
-    
+
 }
