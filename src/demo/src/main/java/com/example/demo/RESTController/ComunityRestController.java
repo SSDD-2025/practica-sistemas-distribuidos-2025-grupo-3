@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.Community.CommunityDTO;
 import com.example.demo.DTO.Community.CommunityDTOBasic;
-import com.example.demo.DTO.Post.PostDTOBasic;
 import com.example.demo.Service.CommunityService;
-import com.example.demo.Service.PostService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,18 +21,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
-
 @RestController
 @RequestMapping("/api/communities")
 public class ComunityRestController {
     @Autowired
     private CommunityService communityService;
-
-    @Autowired
-    private PostService postService;
 
     @GetMapping("/")
     public List<CommunityDTOBasic> getComunities() {
@@ -45,7 +36,7 @@ public class ComunityRestController {
     public CommunityDTO getCommunity(@PathVariable Long id) {
         return communityService.findById(id);
     }
-    
+
     @PostMapping("/")
     public ResponseEntity<CommunityDTO> postCommumnnity(@RequestBody CommunityDTO communityDTO) {
         communityDTO = communityService.createCommunity(communityDTO.name());
@@ -54,18 +45,15 @@ public class ComunityRestController {
 
         return ResponseEntity.created(location).body(communityDTO);
     }
-    
-    
+
     @PutMapping("/{id}")
-    public CommunityDTO replaceCommunity(@PathVariable Long id, @RequestBody CommunityDTO communityDTO) {
+    public CommunityDTOBasic replaceCommunity(@PathVariable Long id, @RequestBody CommunityDTOBasic communityDTO) {
         return communityService.replaceCommunity(id, communityDTO);
     }
 
     @DeleteMapping("/{id}")
-    public CommunityDTO deleteCommunity(@PathVariable Long id){
+    public CommunityDTO deleteCommunity(@PathVariable Long id) {
         return communityService.deleteById(id);
     }
-    
 
-    
 }

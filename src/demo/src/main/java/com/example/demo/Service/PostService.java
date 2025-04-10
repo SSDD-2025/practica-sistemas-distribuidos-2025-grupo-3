@@ -26,7 +26,6 @@ import com.example.demo.Repository.UserRepository;
 import com.example.demo.model.Community;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
-import com.fasterxml.jackson.databind.node.POJONode;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -150,10 +149,14 @@ public class PostService {
         return mapperPost.toDTOBasic(post);
     }
 
-    public PostDTORest createPostDTORest(String title, String postContent, CommunityDTOBasic communityDTO) {
+    public PostDTORest createPostDTORest(String title, String postContent, User owner, CommunityDTOBasic communityDTO) {
+
         Community community = mapperCommunity.toDomain(communityDTO);
-        Post post = new Post(title, postContent, community);
+
+        Post post = new Post(title, postContent, null, null, owner, community);
+
         postRepository.save(post);
+
         return mapperPost.toDTORest(post);
     }
 }
