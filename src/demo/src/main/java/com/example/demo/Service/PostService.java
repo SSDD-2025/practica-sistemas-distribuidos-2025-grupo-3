@@ -13,11 +13,9 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.DTO.Community.CommunityDTO;
 import com.example.demo.DTO.Community.CommunityDTOBasic;
 import com.example.demo.DTO.Community.CommunityMapper;
 import com.example.demo.DTO.Post.PostDTO;
-import com.example.demo.DTO.Post.PostDTOBasic;
 import com.example.demo.DTO.Post.PostDTORest;
 import com.example.demo.DTO.Post.PostMapper;
 import com.example.demo.DTO.user.UserDTOBasic;
@@ -47,7 +45,8 @@ public class PostService {
     @Autowired
     private CommunityMapper mapperCommunity;
 
-    public PostDTO createPost(String title, String content, MultipartFile imageFile, User user, Community community) {
+    public PostDTO createPost(String title, String content, MultipartFile imageFile, User user,
+            CommunityDTOBasic communityDTObasic) {
         byte[] imageData = null;
         String imageName = null;
 
@@ -60,6 +59,7 @@ public class PostService {
             throw new RuntimeException("Error al procesar la imagen", e);
         }
 
+        Community community = mapperCommunity.toDomain(communityDTObasic);
         Post post = new Post(title, content, imageName, imageData, user, community);
         postRepository.save(post);
         return mapperPost.toDTO(post);
@@ -79,17 +79,13 @@ public class PostService {
         return new ResponseEntity<byte[]>(imageData, headers, HttpStatus.OK);
     }
 
-    public void deletePost(Long postId) {
-        postRepository.deleteById(postId);
-    }
-
-    public void deletePost(Long postId, String username) {
+    public void deletePost(Long postId, User user) {
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("Post no encontrado"));
 
-        boolean isOwner = post.getOwner().getUsername().equals(username);
-        boolean isAdmin = userService.isAdmin(username);
+        boolean isOwner = post.getOwner().equals(user);
+        boolean isAdmin = userService.isAdmin(user);
 
         if (!isOwner && !isAdmin) {
             throw new AccessDeniedException("No tienes permiso para eliminar este post");
@@ -142,16 +138,10 @@ public class PostService {
         }
     }
 
-    public PostDTOBasic createPostDTOBasic(String title, String postContent, CommunityDTO communityDTO) {
-        Community community = mapperCommunity.toDomain(communityDTO);
-        Post post = new Post(title, postContent, community);
-        postRepository.save(post);
-        return mapperPost.toDTOBasic(post);
-    }
+    public PostDTORest createPostDTORest(String title, String postContent, User owner,
+            CommunityDTOBasic communityDTObasic) {
 
-    public PostDTORest createPostDTORest(String title, String postContent, User owner, CommunityDTOBasic communityDTO) {
-
-        Community community = mapperCommunity.toDomain(communityDTO);
+        Community community = mapperCommunity.toDomain(communityDTObasic);
 
         Post post = new Post(title, postContent, null, null, owner, community);
 

@@ -19,13 +19,9 @@ public interface PostMapper {
     @Mapping(target = "creationDate", source = "creationDate", dateFormat = "dd/MM/yyyy HH:mm")
     List<PostDTO> toDTOs(Collection<Post> posts);
 
-    PostDTOBasic toDTOBasic(Post postById);
+    List<PostDTORest> toDTORest(Collection<Post> posts);
 
-    List<PostDTOBasic> toDTOBasic(Collection<Post> posts);
-
-    Post toDomain(PostDTOBasic postDTOBasic);
+    Post toDomain(PostDTORest postDTORest);
 
     PostDTORest toDTORest(Post post);
-
-
 }

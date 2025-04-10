@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.DTO.Community.CommunityDTO;
+import com.example.demo.DTO.Community.CommunityDTOBasic;
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
@@ -53,8 +53,8 @@ public class CommunityController {
     @GetMapping("/communities/{id}")
     public String showCommunity(Model model, @PathVariable Long id) {
 
-        CommunityDTO community = communityService.findById(id);
-        model.addAttribute("community", community);
+        CommunityDTOBasic communityDTOBasic = communityService.findDTOBasicById(id);
+        model.addAttribute("community", communityDTOBasic);
         model.addAttribute("posts", postService.findByCommunityIdOrderByCreationDateDesc(id));
 
         return "community";

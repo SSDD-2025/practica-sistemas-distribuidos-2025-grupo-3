@@ -44,18 +44,18 @@ public class WebController {
     private UserMapper mapper;
 
     @ModelAttribute
-	public void addAttributes(Model model, HttpServletRequest request) {
+    public void addAttributes(Model model, HttpServletRequest request) {
 
         Principal principal = request.getUserPrincipal();
 
-		if(principal != null) {
+        if (principal != null) {
             User user = userService.getUserByUsername(principal.getName());
             model.addAttribute("user", mapper.toDTO(user));
             model.addAttribute("isGuest", false);
         } else {
             model.addAttribute("isGuest", true);
         }
-	}
+    }
 
     @GetMapping("/")
     public String index(Model model, HttpServletRequest request) {
@@ -68,13 +68,12 @@ public class WebController {
 
         List<PostDTO> latestPosts;
         latestPosts = postService.findTop5ByOrderByCreationDateDesc();
-    
+
         model.addAttribute("latestPosts", latestPosts);
         model.addAttribute("isHome", true);
 
         return "home";
     }
-    
 
     @GetMapping("/communities")
     public String communities(Model model) {
@@ -141,7 +140,7 @@ public class WebController {
     }
 
     @GetMapping("/admin")
-    public String adminPage(Model model, HttpServletRequest request,  @RequestParam(required = false) String mensaje) {
+    public String adminPage(Model model, HttpServletRequest request, @RequestParam(required = false) String mensaje) {
         Principal principal = request.getUserPrincipal();
         User currentUser = userService.getUserByUsername(principal.getName());
         List<FollowingUserDTO> userList = userService.getAllUsersExceptUser(currentUser);
@@ -153,7 +152,7 @@ public class WebController {
         model.addAttribute("communities", communities);
         model.addAttribute("isAdminPage", true);
 
-        if(mensaje != null && !mensaje.isEmpty()){
+        if (mensaje != null && !mensaje.isEmpty()) {
             model.addAttribute("mensaje", mensaje);
         }
 
@@ -161,6 +160,3 @@ public class WebController {
     }
 
 }
-
-
-

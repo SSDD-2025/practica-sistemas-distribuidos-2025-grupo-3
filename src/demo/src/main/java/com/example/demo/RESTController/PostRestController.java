@@ -3,15 +3,12 @@ package com.example.demo.RESTController;
 import java.net.URI;
 import java.security.Principal;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.DTO.Post.PostDTO;
-import com.example.demo.DTO.Post.PostDTOBasic;
 import com.example.demo.DTO.Post.PostDTORest;
 import com.example.demo.DTO.Post.PostMapper;
 import com.example.demo.Service.PostService;
@@ -41,17 +38,17 @@ public class PostRestController {
     private PostMapper mapper;
 
     @GetMapping("/")
-    public Collection<PostDTOBasic> getAllPosts() {
-        return mapper.toDTOBasic(postService.findAll());
+    public Collection<PostDTORest> getAllPosts() {
+        return mapper.toDTORest(postService.findAll());
     }
 
     @GetMapping("/{id}")
-    public PostDTOBasic getPost(@PathVariable Long id) {
-        return mapper.toDTOBasic(postService.findPostById(id));
+    public PostDTORest getPost(@PathVariable Long id) {
+        return mapper.toDTORest(postService.findPostById(id));
     }
 
     @PostMapping("/")
-    public ResponseEntity<PostDTORest> postCommumnnityBasic(@RequestBody PostDTORest PostDTORest,
+    public ResponseEntity<PostDTORest> postCommumnnity(@RequestBody PostDTORest PostDTORest,
             HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         User currentUser = userService.getUserByUsername(principal.getName());
@@ -63,10 +60,12 @@ public class PostRestController {
     }
 
     @DeleteMapping("/{id}")
-    public PostDTORest deletePost(@PathVariable Long id) {
+    public PostDTORest deletePost(@PathVariable Long id, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        User currentUser = userService.getUserByUsername(principal.getName());
         PostDTORest postDTORest = mapper.toDTORest(postService.findPostById(id));
 
-        postService.deletePost(id);
+        postService.deletePost(id, currentUser);
 
         return postDTORest;
     }

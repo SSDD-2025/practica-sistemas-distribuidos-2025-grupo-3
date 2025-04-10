@@ -20,13 +20,16 @@ public class CommunityService {
     @Autowired
     private CommunityMapper mapper;
 
-    public CommunityDTO findById(Long id) {
+    public CommunityDTOBasic findDTOBasicById(Long id) {
+        return mapper.toDTOBasic(communityRepository.findById(id).orElse(null));
+    }
+
+    public CommunityDTO findDTOById(Long id) {
         return mapper.toDTO(communityRepository.findById(id).orElse(null));
     }
 
     public List<CommunityDTOBasic> findAll() {
         return mapper.toDTOsBasic(communityRepository.findAll());
-
     }
 
     public CommunityDTO createCommunity(String name) {

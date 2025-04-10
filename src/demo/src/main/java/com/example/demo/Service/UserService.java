@@ -46,27 +46,28 @@ public class UserService {
     @Autowired
     private PostMapper postMapper;
 
-    public User registerUser(String username, String email, String password, boolean[] registrationStatus) throws IOException {
+    public User registerUser(String username, String email, String password, boolean[] registrationStatus)
+            throws IOException {
         boolean emailExists = userRepository.findByEmail(email).isPresent();
         boolean usernameExists = userRepository.findByUsername(username).isPresent();
-    
+
         if (emailExists || usernameExists) {
             registrationStatus[1] = emailExists;
             registrationStatus[0] = usernameExists;
             return null;
         }
-    
+
         ClassPathResource imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
         byte[] imageData = Files.readAllBytes(imgFile.getFile().toPath());
         String imageName = imgFile.getFilename();
-    
-        User user = new User(username, passwordEncoder.encode(password), email, new java.util.Date(), imageName, imageData, List.of(Role.ROLE_USER));
-        
+
+        User user = new User(username, passwordEncoder.encode(password), email, new java.util.Date(), imageName,
+                imageData, List.of(Role.ROLE_USER));
+
         registrationStatus[2] = true;
 
         return userRepository.save(user);
     }
-    
 
     public void deleteUser(long id) {
         userRepository.deleteById(id);
@@ -93,7 +94,7 @@ public class UserService {
 
     }
 
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         return userRepository.findByUsername(username).orElse(null);
     }
 
@@ -123,24 +124,22 @@ public class UserService {
     }
 
     public List<FollowedUserDTO> getFollowedUsersWithPosts(Long currentUserId) {
-    User currentUser = userRepository.findByIdWithFriends(currentUserId);
+        User currentUser = userRepository.findByIdWithFriends(currentUserId);
 
-    return currentUser.getFriends().stream()
-            .map(friend -> {
+        return currentUser.getFriends().stream()
+                .map(friend -> {
 
-                List<Post> posts = postRepository.findTop3ByOwnerOrderByCreationDateDesc(friend);
-                List<PostDTO> postDTOs = postMapper.toDTOs(posts);
+                    List<Post> posts = postRepository.findTop3ByOwnerOrderByCreationDateDesc(friend);
+                    List<PostDTO> postDTOs = postMapper.toDTOs(posts);
 
-                return new FollowedUserDTO(
-                        friend.getId(),
-                        friend.getUsername(),
-                        friend.getImageData(),
-                        postDTOs
-                );
-            })
-            .collect(Collectors.toList());
-}
-
+                    return new FollowedUserDTO(
+                            friend.getId(),
+                            friend.getUsername(),
+                            friend.getImageData(),
+                            postDTOs);
+                })
+                .collect(Collectors.toList());
+    }
 
     public void editUser(User user, String email, String password, MultipartFile imageFile)
             throws IOException {
@@ -169,9 +168,8 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-
-    public boolean isAdmin(String username) {
-        return userRepository.findByUsername(username).get().getRoles().contains(Role.ROLE_ADMIN);
+    public boolean isAdmin(User user) {
+        return user.getRoles().contains(Role.ROLE_ADMIN);
     }
 
 }

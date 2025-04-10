@@ -34,7 +34,7 @@ public class ComunityRestController {
 
     @GetMapping("/{id}")
     public CommunityDTO getCommunity(@PathVariable Long id) {
-        return communityService.findById(id);
+        return communityService.findDTOById(id);
     }
 
     @PostMapping("/")

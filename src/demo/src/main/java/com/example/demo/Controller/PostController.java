@@ -1,7 +1,5 @@
 package com.example.demo.Controller;
 
-import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,11 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.DTO.Community.CommunityMapper;
+import com.example.demo.DTO.Community.CommunityDTOBasic;
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
-import com.example.demo.model.Community;
 import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,9 +29,6 @@ public class PostController {
     @Autowired
     private CommunityService communityService;
 
-    @Autowired
-    private CommunityMapper mapper;
-
     @PostMapping("/savePost")
     public String newPost(
             String title,
@@ -46,8 +40,8 @@ public class PostController {
         String name = request.getUserPrincipal().getName();
         User user = userService.getUserByUsername(name);
 
-        Community community = mapper.toDomain(communityService.findById(communityId));
-        postService.createPost(title, content, imageFile, user, community);
+        CommunityDTOBasic communityDTOBasic = communityService.findDTOBasicById(communityId);
+        postService.createPost(title, content, imageFile, user, communityDTOBasic);
 
         return "redirect:/communities/" + communityId;
     }
@@ -58,11 +52,15 @@ public class PostController {
     }
 
     @PostMapping("/post/delete/{postId}")
-    public String deletePost(@PathVariable Long postId,
+    public String deletePost(
+            @PathVariable Long postId,
             @RequestParam(required = false) Long communityId,
-            Principal principal) {
+            HttpServletRequest request) {
 
-        postService.deletePost(postId, principal.getName());
+        String name = request.getUserPrincipal().getName();
+        User currentUser = userService.getUserByUsername(name);
+
+        postService.deletePost(postId, currentUser);
 
         if (communityId != null) {
             return "redirect:/communities/" + communityId;

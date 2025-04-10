@@ -65,7 +65,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/**").hasRole("USER")
                         .requestMatchers(HttpMethod.PUT, "/api/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest().permitAll());
 
         // Disable Form login Authentication
