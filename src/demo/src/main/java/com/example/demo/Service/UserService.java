@@ -172,4 +172,8 @@ public class UserService {
         return user.getRoles().contains(Role.ROLE_ADMIN);
     }
 
+    public List<UserDTOBasic> findAllDTOBasic() {
+        return userMapper.toDTOsBasic(userRepository.findAll());
+    }
+
 }

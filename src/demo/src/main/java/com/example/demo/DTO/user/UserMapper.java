@@ -18,6 +18,9 @@ public interface UserMapper {
     @Mapping(target = "date", source = "dateJoined", dateFormat = "dd/MM/yyyy HH:mm")
     UserDTOBasic toDTO(User user);
 
+    @Mapping(target = "date", source = "dateJoined", dateFormat = "dd/MM/yyyy HH:mm")
+    List<UserDTOBasic> toDTOsBasic(Collection<User> users);
+
     User toDomain(FollowingUserDTO userDTO);
 
     List<FollowingUserDTO> toDTOs(Collection<User> users, @Context User currentUser);

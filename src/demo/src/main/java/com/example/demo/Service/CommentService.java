@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTO.Comment.CommentDTO;
+import com.example.demo.DTO.Comment.CommentMapper;
 import com.example.demo.DTO.user.UserDTOBasic;
 import com.example.demo.Repository.CommentRepository;
 import com.example.demo.Repository.UserRepository;
@@ -21,6 +23,9 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private CommentMapper commentMapper;
+
     public void createComment(String content, User user, Post post) {
         Comment comment = new Comment(content, user, post);
         commentRepository.save(comment);
@@ -33,6 +38,10 @@ public class CommentService {
     public List<Comment> findByUserName(UserDTOBasic user) {
         return commentRepository.findByOwner(userRepository.findByUsername(user.username())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
+    }
+
+    public List<CommentDTO> findAll() {
+        return commentMapper.toDTOs(commentRepository.findAll());
     }
 
 }
