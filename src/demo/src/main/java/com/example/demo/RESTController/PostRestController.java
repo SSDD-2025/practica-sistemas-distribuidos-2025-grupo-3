@@ -41,8 +41,8 @@ public class PostRestController {
     private PostMapper mapper;
 
     @GetMapping("/")
-    public Collection<PostDTO> getAllPosts() {
-        return mapper.toDTOs(postService.findAll());
+    public Collection<PostDTOBasic> getAllPosts() {
+        return mapper.toDTOBasic(postService.findAll());
     }
 
     @GetMapping("/{id}")
