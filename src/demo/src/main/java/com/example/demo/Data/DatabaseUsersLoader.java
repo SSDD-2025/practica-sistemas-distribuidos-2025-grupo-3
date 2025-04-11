@@ -60,7 +60,7 @@ public class DatabaseUsersLoader {
         userRepository.save(new User("Elena Ruiz", passwordEncoder.encode("password10"), "elena.ruiz@example.com", new java.util.Date(),
                 imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath()), List.of(Role.ROLE_USER)));
         /* Developer users */
-        imgFile = new ClassPathResource("static/assets/img/imagensergio.gif");
+        imgFile = new ClassPathResource("static/assets/img/admin.jpg");
         userRepository.save(new User("Sergio", passwordEncoder.encode("454548"), "s.espinosa.2020@alumnos.urjc.es", new java.util.Date(),
                 imgFile.getFilename(), Files.readAllBytes(imgFile.getFile().toPath()), List.of(Role.ROLE_USER, Role.ROLE_ADMIN)));
     }
