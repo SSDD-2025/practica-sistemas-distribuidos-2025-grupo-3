@@ -35,10 +35,19 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
+
     public List<Comment> findByUserName(UserDTOBasic user) {
         return commentRepository.findByOwner(userRepository.findByUsername(user.username())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
     }
+
+    public List<CommentDTO> findByUserId(Long id) {
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        List<Comment> comments = commentRepository.findByOwner(user);
+        return commentMapper.toDTOs(comments);
+    }
+    
 
     public List<CommentDTO> findAll() {
         return commentMapper.toDTOs(commentRepository.findAll());

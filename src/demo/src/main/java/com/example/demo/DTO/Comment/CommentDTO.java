@@ -1,7 +1,10 @@
 package com.example.demo.DTO.Comment;
 
-public record CommentDTO(Long id,
-        String commentContent,
-        Long postId) {
+import com.example.demo.DTO.user.UserDTORest;
 
+public record CommentDTO(
+                Long id,
+                String commentContent,
+                Long postId,
+                UserDTORest owner) {
 }

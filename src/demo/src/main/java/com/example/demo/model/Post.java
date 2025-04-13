@@ -134,4 +134,6 @@ public class Post {
     public String toString() {
         return String.format("Post[id=%d, title='%s', postContent='%s']", id, title, postContent);
     }
+
+    
 }

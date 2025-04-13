@@ -68,4 +68,11 @@ public class Comment {
         return String.format("Comment[id=%d, comment='%s', user='%s']",
                 id, comment);
     }
+
+    public Post getPost() {
+        return this.post;
+    }
+
+    
+
 }
