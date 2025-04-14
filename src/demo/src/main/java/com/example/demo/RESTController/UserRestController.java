@@ -1,5 +1,8 @@
 package com.example.demo.RESTController;
 
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
+
+import java.net.URI;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,9 @@ import com.example.demo.DTO.user.UserMapper;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Service.UserService;
 import com.example.demo.model.User;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -34,6 +40,16 @@ public class UserRestController {
     public Collection<UserDTOBasic> getAllUsers() {
         return userService.findAllDTOBasic();
     }
+
+    @PostMapping("/")
+    public ResponseEntity<UserDTOBasic> postUser(@RequestBody UserDTOBasic userDTOBasic) {
+        userDTOBasic = userService.createUserDTOBasic(userDTOBasic.username(), userDTOBasic.email(), userDTOBasic.password());
+
+        URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userDTOBasic.id()).toUri();
+
+        return ResponseEntity.created(location).body(userDTOBasic);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<UserDTOBasic> deleteUser(@PathVariable Long id) {

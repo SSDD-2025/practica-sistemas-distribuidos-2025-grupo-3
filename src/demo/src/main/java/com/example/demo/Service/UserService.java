@@ -187,4 +187,9 @@ public class UserService {
                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
     }
 
+    public UserDTOBasic createUserDTOBasic(String username, String email, String password) {
+        User user = new User(username, email, passwordEncoder.encode(password), new java.util.Date());
+        userRepository.save(user);
+        return userMapper.toDTO(user);
+    }
 }
