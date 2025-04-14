@@ -26,6 +26,7 @@ import com.example.demo.model.Post;
 import com.example.demo.model.User;
 import com.example.demo.model.User.Role;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -174,6 +175,16 @@ public class UserService {
 
     public List<UserDTOBasic> findAllDTOBasic() {
         return userMapper.toDTOsBasic(userRepository.findAll());
+    }
+
+    public UserDTOBasic findById(Long id) {
+        return userRepository.findById(id)
+            .map(userMapper::toDTO)  
+            .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con id: " + id));
+    }
+    public User findByIdOrThrow(Long id) {
+        return userRepository.findById(id)
+               .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
     }
 
 }
