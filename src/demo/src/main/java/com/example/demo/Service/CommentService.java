@@ -31,8 +31,10 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public void deleteComment(Long commentId) {
+    public CommentDTO deleteComment(Long commentId) {
+        CommentDTO commentDTO = commentMapper.toDTO(commentRepository.findById(commentId).orElseThrow());
         commentRepository.deleteById(commentId);
+        return commentDTO;
     }
 
 
