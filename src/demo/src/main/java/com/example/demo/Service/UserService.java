@@ -192,4 +192,8 @@ public class UserService {
         userRepository.save(user);
         return userMapper.toDTO(user);
     }
+
+    public void editUserRest(User userToUpdate, String username, String email, String password) throws IOException {
+        editUser(userToUpdate, email, password, null);
+    }
 }
