@@ -26,6 +26,10 @@ public class CommentService {
     @Autowired
     private CommentMapper commentMapper;
 
+    @Autowired
+    private PostService postService;
+
+
     public void createComment(String content, User user, Post post) {
         Comment comment = new Comment(content, user, post);
         commentRepository.save(comment);
@@ -53,6 +57,13 @@ public class CommentService {
 
     public List<CommentDTO> findAll() {
         return commentMapper.toDTOs(commentRepository.findAll());
+    }
+
+    public CommentDTO createCommentDTO(String commentContent, User currentUser, Long postId) {
+        Post post = postService.findPostById(postId);
+        Comment comment = new Comment(commentContent, currentUser, post);
+        commentRepository.save(comment);
+        return commentMapper.toDTO(comment);
     }
 
 }
