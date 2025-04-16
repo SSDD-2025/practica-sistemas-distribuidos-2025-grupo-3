@@ -3,6 +3,9 @@ package com.example.demo.Controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.DTO.Community.CommunityDTOBasic;
+import com.example.demo.DTO.Post.PostDTO;
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
@@ -51,11 +55,19 @@ public class CommunityController {
     }
 
     @GetMapping("/communities/{id}")
-    public String showCommunity(Model model, @PathVariable Long id) {
+    public String showCommunity(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,  Model model, @PathVariable Long id) {
+
+        
+        Pageable pageable = PageRequest.of(page, size);
+        Page<PostDTO> postsPage = postService.findByCommunityIdWithPagination(id, pageable);
 
         CommunityDTOBasic communityDTOBasic = communityService.findDTOBasicById(id);
         model.addAttribute("community", communityDTOBasic);
-        model.addAttribute("posts", postService.findByCommunityIdOrderByCreationDateDesc(id));
+        model.addAttribute("posts", postsPage.getContent());
+        model.addAttribute("currentPage", postsPage.getNumber());
+        model.addAttribute("totalPages", postsPage.getTotalPages());
+        model.addAttribute("previousPage", postsPage.hasPrevious() ? postsPage.getNumber() - 1 : 0);
+        model.addAttribute("nextPage", postsPage.hasNext() ? postsPage.getNumber() + 1 : postsPage.getTotalPages() - 1);
 
         return "community";
     }

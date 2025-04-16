@@ -7,6 +7,8 @@ import java.util.NoSuchElementException;
 import org.springframework.http.HttpHeaders;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -112,6 +114,11 @@ public class PostService {
     public List<PostDTO> findByCommunityIdOrderByCreationDateDesc(Long id) {
         List<Post> posts = postRepository.findByCommunityIdOrderByCreationDateDesc(id);
         return mapperPost.toDTOs(posts);
+    }
+
+    public Page<PostDTO> findByCommunityIdWithPagination(Long communityId, Pageable pageable) {
+        Page<Post> postsPage = postRepository.findByCommunityIdOrderByCreationDateDesc(communityId, pageable);
+        return postsPage.map(mapperPost::toDTO);
     }
 
     public List<PostDTO> findByUserNameOrderByCreationDateDesc(UserDTOBasic user) {
