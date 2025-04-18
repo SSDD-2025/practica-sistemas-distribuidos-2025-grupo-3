@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import com.example.demo.CustomExceptions.UserRegistrationProblemException;
 import com.example.demo.DTO.Post.PostDTO;
 import com.example.demo.DTO.Post.PostMapper;
 import com.example.demo.DTO.user.FollowedUserDTO;
@@ -188,7 +190,30 @@ public class UserService {
     }
 
     public UserDTOBasic createUserDTOBasic(String username, String email, String password) {
-        User user = new User(username, email, passwordEncoder.encode(password), new java.util.Date());
+        String message;
+        if (userRepository.findByUsername(username).isPresent()) {
+            message = "El nombre de usuario ya existe";
+            throw new UserRegistrationProblemException(message);
+        } else if (!email.matches("^[^@\\s]+@[^@\\s]+$")) {
+            message = "El formato del email no es válido";
+            throw new UserRegistrationProblemException(message);
+        } else if (userRepository.findByEmail(email).isPresent()) {
+            message = "El email ya existe";
+            throw new UserRegistrationProblemException(message);
+        }
+        
+        ClassPathResource imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
+        byte[] imageData;
+        try {
+            imageData = Files.readAllBytes(imgFile.getFile().toPath());
+        } catch (IOException e) {
+            imageData = null; //Will probably never happen, but just in case better to take care of it
+        }
+        String imageName = imgFile.getFilename();
+
+        User user = new User(username, passwordEncoder.encode(password), email, new java.util.Date(), imageName,
+                imageData, List.of(Role.ROLE_USER));
+        
         userRepository.save(user);
         return userMapper.toDTO(user);
     }
