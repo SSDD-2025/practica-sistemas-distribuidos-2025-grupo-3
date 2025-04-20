@@ -29,7 +29,6 @@ public class CommentService {
     @Autowired
     private PostService postService;
 
-
     public void createComment(String content, User user, Post post) {
         Comment comment = new Comment(content, user, post);
         commentRepository.save(comment);
@@ -41,7 +40,6 @@ public class CommentService {
         return commentDTO;
     }
 
-
     public List<Comment> findByUserName(UserDTOBasic user) {
         return commentRepository.findByOwner(userRepository.findByUsername(user.username())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
@@ -49,11 +47,10 @@ public class CommentService {
 
     public List<CommentDTO> findByUserId(Long id) {
         User user = userRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         List<Comment> comments = commentRepository.findByOwner(user);
         return commentMapper.toDTOs(comments);
     }
-    
 
     public List<CommentDTO> findAll() {
         return commentMapper.toDTOs(commentRepository.findAll());
@@ -64,6 +61,11 @@ public class CommentService {
         Comment comment = new Comment(commentContent, currentUser, post);
         commentRepository.save(comment);
         return commentMapper.toDTO(comment);
+    }
+
+    public Comment getCommentById(Long id) {
+        return commentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comentario no encontrado"));
     }
 
 }

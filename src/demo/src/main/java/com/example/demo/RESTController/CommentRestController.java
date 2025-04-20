@@ -5,15 +5,19 @@ import java.security.Principal;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.example.demo.DTO.Comment.CommentDTO;
 import com.example.demo.Service.CommentService;
 import com.example.demo.Service.UserService;
+import com.example.demo.model.Comment;
 import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,7 +58,16 @@ public class CommentRestController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteComment(@PathVariable Long id) {
+    public void deleteComment(@PathVariable Long id, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        User currentUser = userService.getUserByUsername(principal.getName());
+
+        Comment comment = commentService.getCommentById(id);
+
+        if (!currentUser.getId().equals(comment.getOwner().getId()) && !currentUser.isAdmin()) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can't delete this comment");
+        }
+
         commentService.deleteComment(id);
     }
 
