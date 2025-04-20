@@ -63,8 +63,14 @@ public class SecurityConfig {
 
         http.securityMatcher("/api/**") // Aplica esta configuración solo a rutas "/api/**"
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.GET, "/api/users/").hasRole("USER") // A guest cannot see the full
+                                                                                        // list of users, only those who
+                                                                                        // have posted
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/users/").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/**").hasRole("USER")
                         .requestMatchers(HttpMethod.PUT, "/api/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest().permitAll());
 
