@@ -106,6 +106,10 @@ public class User {
         return roles;
     }
 
+    public boolean isAdmin() {
+        return roles != null && roles.contains(Role.ROLE_ADMIN);
+    }
+
     // Setters
     public void setId(long id) {
         this.id = id;

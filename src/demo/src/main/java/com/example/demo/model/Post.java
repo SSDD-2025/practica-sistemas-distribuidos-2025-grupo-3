@@ -130,10 +130,17 @@ public class Post {
         this.imageData = imageData;
     }
 
+    public List<User.Role> getRoles() {
+        return this.owner.getRoles();
+    }
+    
+    public boolean isAdmin() {
+        return this.getRoles().contains(User.Role.ROLE_ADMIN);
+    }
+
     @Override
     public String toString() {
         return String.format("Post[id=%d, title='%s', postContent='%s']", id, title, postContent);
     }
 
-    
 }
