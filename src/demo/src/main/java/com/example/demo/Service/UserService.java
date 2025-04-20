@@ -167,6 +167,14 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void editUserProfileImage(User user, MultipartFile imageFile) throws IOException {
+        if (imageFile != null && !imageFile.isEmpty()) {
+            user.setImage(imageFile.getOriginalFilename());
+            user.setImageData(imageFile.getBytes());
+        }
+        userRepository.save(user);
+    }
+
     public void deleteById(Long userId) {
         userRepository.deleteById(userId);
     }

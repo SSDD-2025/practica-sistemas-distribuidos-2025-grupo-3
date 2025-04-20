@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
-
 @RestController
 @RequestMapping("/api/comments")
 public class CommentRestController {
@@ -54,13 +53,10 @@ public class CommentRestController {
 
         return ResponseEntity.created(location).body(commentDTO);
     }
-    
 
     @DeleteMapping("/{id}")
     public void deleteComment(@PathVariable Long id) {
         commentService.deleteComment(id);
     }
-
-    
 
 }

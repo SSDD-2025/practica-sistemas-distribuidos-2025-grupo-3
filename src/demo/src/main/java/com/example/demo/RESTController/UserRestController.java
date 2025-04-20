@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.DTO.user.UserDTOBasic;
@@ -26,8 +28,6 @@ import com.example.demo.model.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-
-
 
 @RestController
 @RequestMapping("/api/users")
@@ -47,7 +47,8 @@ public class UserRestController {
 
     @PostMapping("/")
     public ResponseEntity<UserDTOBasic> postUser(@RequestBody UserDTOBasic userDTOBasic) {
-        userDTOBasic = userService.createUserDTOBasic(userDTOBasic.username(), userDTOBasic.email(), userDTOBasic.password());
+        userDTOBasic = userService.createUserDTOBasic(userDTOBasic.username(), userDTOBasic.email(),
+                userDTOBasic.password());
 
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userDTOBasic.id()).toUri();
 
@@ -55,13 +56,28 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTOBasic> putUser(@PathVariable Long id, @RequestBody UserDTOBasic userDTOBasic) throws IOException {
+    public ResponseEntity<UserDTOBasic> putUser(@PathVariable Long id, @RequestBody UserDTOBasic userDTOBasic)
+            throws IOException {
         User userToUpdate = userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Usuario no encontrado con id: " + id));
-        userService.editUserRest(userToUpdate, userDTOBasic.username(), userDTOBasic.email(), userDTOBasic.password());
+        userService.editUserRest(userToUpdate, userToUpdate.getUsername(), userDTOBasic.email(),
+                userDTOBasic.password()); // We use getUsername() to not change the username since we don't allow it to
+                                          // be changed in the frontend
 
         return ResponseEntity.ok(userMapper.toDTO(userToUpdate));
+    }
+
+    @PutMapping("/{id}/image")
+    public ResponseEntity<Object> putUserImage(
+            @PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+
+        User userToUpdate = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Usuario no encontrado con id: " + id));
+
+        userService.editUserProfileImage(userToUpdate, imageFile);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
