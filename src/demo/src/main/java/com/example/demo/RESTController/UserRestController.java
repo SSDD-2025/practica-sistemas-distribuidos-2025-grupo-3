@@ -58,11 +58,19 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTOBasic> putUser(@PathVariable Long id, @RequestBody UserDTOBasic userDTOBasic)
-            throws IOException {
+    public ResponseEntity<UserDTOBasic> putUser(@PathVariable Long id, @RequestBody UserDTOBasic userDTOBasic,
+            HttpServletRequest request) throws IOException {
+        Principal principal = request.getUserPrincipal();
+        User currentUser = userService.getUserByUsername(principal.getName());
+
+        if (!currentUser.getId().equals(id)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You don't have the permission.");
+        }
+
         User userToUpdate = userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "User not found by id: " + id));
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found by id " + id));
+
         userService.editUserRest(userToUpdate, userToUpdate.getUsername(), userDTOBasic.email(),
                 userDTOBasic.password());
 
@@ -71,13 +79,23 @@ public class UserRestController {
 
     @PutMapping("/{id}/image")
     public ResponseEntity<Object> putUserImage(
-            @PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+            @PathVariable long id, @RequestParam MultipartFile imageFile, HttpServletRequest request)
+            throws IOException {
+
+        Principal principal = request.getUserPrincipal();
+        User currentUser = userService.getUserByUsername(principal.getName());
+
+        if (currentUser.getId() != id) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "you can only edit your own profile image.");
+        }
 
         User userToUpdate = userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "\"User not found by id: " + id));
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found by id " + id));
 
         userService.editUserProfileImage(userToUpdate, imageFile);
+
         return ResponseEntity.noContent().build();
     }
 
