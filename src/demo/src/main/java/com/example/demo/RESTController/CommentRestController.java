@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.DTO.Comment.CommentDTO;
 import com.example.demo.Service.CommentService;
 import com.example.demo.Service.UserService;
-import com.example.demo.model.Comment;
 import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;

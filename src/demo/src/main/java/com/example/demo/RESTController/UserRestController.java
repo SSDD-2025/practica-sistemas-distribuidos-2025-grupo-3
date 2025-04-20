@@ -8,10 +8,8 @@ import java.security.Principal;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,10 +62,9 @@ public class UserRestController {
             throws IOException {
         User userToUpdate = userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Usuario no encontrado con id: " + id));
+                        "User not found by id: " + id));
         userService.editUserRest(userToUpdate, userToUpdate.getUsername(), userDTOBasic.email(),
-                userDTOBasic.password()); // We use getUsername() to not change the username since we don't allow it to
-                                          // be changed in the frontend
+                userDTOBasic.password());
 
         return ResponseEntity.ok(userMapper.toDTO(userToUpdate));
     }
@@ -78,7 +75,7 @@ public class UserRestController {
 
         User userToUpdate = userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Usuario no encontrado con id: " + id));
+                        "\"User not found by id: " + id));
 
         userService.editUserProfileImage(userToUpdate, imageFile);
         return ResponseEntity.noContent().build();
@@ -90,12 +87,12 @@ public class UserRestController {
         User currentUser = userService.getUserByUsername(principal.getName());
 
         if (!currentUser.getId().equals(id) && !currentUser.isAdmin()) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No tienes permiso para eliminar este usuario.");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You don't have the permission.");
         }
 
         User userToDelete = userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Usuario no encontrado con id: " + id));
+                        "User not found by id: " + id));
 
         UserDTOBasic deletedUserDTO = userMapper.toDTO(userToDelete);
 
