@@ -57,8 +57,18 @@ public class ComunityRestController {
     }
 
     @PutMapping("/{id}")
-    public CommunityDTOBasic replaceCommunity(@PathVariable Long id, @RequestBody CommunityDTOBasic communityDTO) {
-        return communityService.replaceCommunity(id, communityDTO);
+    public ResponseEntity<CommunityDTOBasic> replaceCommunity(@PathVariable Long id,
+            @RequestBody CommunityDTOBasic communityDTO, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        User currentUser = userService.getUserByUsername(principal.getName());
+
+        if (!currentUser.getRoles().stream().anyMatch(role -> role.name().equals("ROLE_ADMIN"))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to update this community.");
+        }
+
+        CommunityDTOBasic updatedCommunity = communityService.replaceCommunity(id, communityDTO);
+
+        return ResponseEntity.ok(updatedCommunity);
     }
 
     @DeleteMapping("/{id}")
