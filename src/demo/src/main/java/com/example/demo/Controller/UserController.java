@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,12 @@ import com.example.demo.model.User;
 
 import org.springframework.ui.Model;
 
+import com.example.demo.DTO.Comment.CommentDTO;
+import com.example.demo.DTO.Post.PostDTO;
+import com.example.demo.DTO.user.UserDTOBasic;
+import com.example.demo.DTO.user.UserMapper;
+import com.example.demo.Service.CommentService;
+import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +34,16 @@ import jakarta.servlet.http.HttpServletRequest;
 public class UserController {
 
     @Autowired
+    private PostService postService;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserMapper mapper;
 
     @PostMapping("/register")
     public String register(String username, String email, String password, HttpServletRequest request, Model model) throws IOException {
@@ -94,5 +112,37 @@ public class UserController {
     @GetMapping("/user/image/{userId}")
     public ResponseEntity<byte[]> getUserImage(@PathVariable Long userId) {
         return userService.getUserImage(userId);
+    }
+
+    @GetMapping("/myPosts")
+    public String myPosts(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+        Principal principal = request.getUserPrincipal();
+        UserDTOBasic user = mapper.toDTO(userService.getUserByUsername(principal.getName()));
+        Pageable pageable = PageRequest.of(page, size);
+        Page<PostDTO> postsPage = postService.findByUserNameOrderByCreationDateDesc(user, pageable);
+
+        model.addAttribute("posts", postsPage.getContent());
+        model.addAttribute("currentPage", postsPage.getNumber());
+        model.addAttribute("totalPages", postsPage.getTotalPages());
+        model.addAttribute("previousPage", postsPage.hasPrevious() ? postsPage.getNumber() - 1 : 0);
+        model.addAttribute("nextPage", postsPage.getTotalPages() > 0 && postsPage.hasNext() ? postsPage.getNumber() + 1 : postsPage.getTotalPages() - 1);
+        model.addAttribute("user", user);
+        return "userPosts";  
+    }
+
+    @GetMapping("/myComments")
+    public String myComments(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+        Principal principal = request.getUserPrincipal();
+        UserDTOBasic user = mapper.toDTO(userService.getUserByUsername(principal.getName()));
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CommentDTO> commentPage = commentService.findByUserName(user, pageable);
+        
+        model.addAttribute("comments", commentPage.getContent());
+        model.addAttribute("currentPage", commentPage.getNumber());
+        model.addAttribute("totalPages", commentPage.getTotalPages());
+        model.addAttribute("previousPage", commentPage.hasPrevious() ? commentPage.getNumber() - 1 : 0);
+        model.addAttribute("nextPage", commentPage.getTotalPages() > 0 && commentPage.hasNext() ? commentPage.getNumber() + 1 : commentPage.getTotalPages() - 1);
+        model.addAttribute("user", user);
+        return "userComments";
     }
 }

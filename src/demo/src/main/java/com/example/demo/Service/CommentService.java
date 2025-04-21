@@ -3,6 +3,8 @@ package com.example.demo.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.DTO.Comment.CommentDTO;
@@ -66,6 +68,13 @@ public class CommentService {
     public Comment getCommentById(Long id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Comentario no encontrado"));
+    }
+
+    public Page<CommentDTO> findByUserName(UserDTOBasic user, Pageable pageable) {
+        User userEntity = userRepository.findByUsername(user.username())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        Page<Comment> commentsPage = commentRepository.findByOwner(userEntity, pageable);
+        return commentsPage.map(commentMapper::toDTO);
     }
 
 }

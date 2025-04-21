@@ -28,4 +28,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findTop5ByOrderByCreationDateDesc();
 
+    Page<Post> findByOwnerOrderByCreationDateDesc(User user, Pageable pageable);
+
 }

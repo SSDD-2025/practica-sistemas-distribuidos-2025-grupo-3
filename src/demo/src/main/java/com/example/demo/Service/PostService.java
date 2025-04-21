@@ -160,4 +160,11 @@ public class PostService {
 
         return mapperPost.toDTORest(post);
     }
+
+    public Page<PostDTO> findByUserNameOrderByCreationDateDesc(UserDTOBasic user, Pageable pageable) {
+        Page<Post> postsPage = postRepository
+                .findByOwnerOrderByCreationDateDesc(userRepository.findByUsername(user.username())
+                        .orElseThrow(() -> new RuntimeException("Usuario no encontrado")), pageable);
+        return postsPage.map(mapperPost::toDTO);
+    }
 }

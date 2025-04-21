@@ -2,15 +2,13 @@
 <html lang="es">
 
 <head>
-    <title>LC-Mi cuenta</title>
+    <title>Linked Community</title>
     {{> commons/head}}
 </head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
+
     {{> commons/header}}
-    <!--{{#exito}}
-alert("Usuario editado con exito") This little block was an idea to show a message when the user edited his profile, but it didn't work
-{{/exito}}                    we will try to implement it later -->
 
     <div class="container flex-grow-1 mt-1">
         <form action="/home" method="get" class="mb-3">
@@ -59,25 +57,59 @@ alert("Usuario editado con exito") This little block was an idea to show a messa
                 </div>
             </div>
 
-            <!-- Posts and Comments Section -->
-            <div class="col-md-8">
-                <h3 class="mb-3">Acciones</h3>
-                <div class="d-flex flex-column gap-3">
-                    <form action="/myPosts" method="get">
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="bi bi-file-earmark-text me-2"></i> Ver Mis Publicaciones
-                        </button>
-                    </form>
-                    <form action="/myComments" method="get">
-                        <button type="submit" class="btn btn-secondary w-100">
-                            <i class="bi bi-chat-left-text me-2"></i> Ver Mis Comentarios
-                        </button>
-                    </form>
+            <!-- My comments section -->
+            <h3 class="mb-3 mt-5">Mis Comentarios</h3>
+            <div id="comment-container">
+                {{#comments}}
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">{{commentContent}}</p>
+                        <div class="d-flex flex-column align-items-end">
+                            <form action="/comment/deleteComment/{{id}}" method="post" class="d-inline mt-2"
+                                onsubmit="return confirm('¿Seguro que deseas eliminar este comentario?')">
+                                <input type="hidden" name="_csrf" value="{{token}}">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Eliminar comentario
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+                {{/comments}}
+                {{^comments}}
+                <p class="text-muted">Aún no has comentado nada.</p>
+                {{/comments}}
             </div>
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {{#currentPage}}
+                    <li class="page-item {{#isFirst}}disabled{{/isFirst}}">
+                        <a class="page-link" href="?page={{previousPage}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {{/currentPage}}
+
+                    {{#totalPages}}
+                    {{#pages}}
+                    <li class="page-item {{#isCurrent}}active{{/isCurrent}}">
+                        <a class="page-link" href="?page={{pageNumber}}">{{pageNumber}}</a>
+                    </li>
+                    {{/pages}}
+                    {{/totalPages}}
+
+                    {{#currentPage}}
+                    <li class="page-item {{#isLast}}disabled{{/isLast}}">
+                        <a class="page-link" href="?page={{nextPage}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {{/currentPage}}
+                </ul>
+            </nav>
         </div>
     </div>
-
     {{> commons/footer}}
 </body>
 
