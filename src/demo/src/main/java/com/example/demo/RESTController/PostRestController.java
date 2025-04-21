@@ -5,14 +5,19 @@ import java.security.Principal;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.Post.PostDTORest;
 import com.example.demo.DTO.Post.PostMapper;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
+import com.example.demo.model.Post;
 import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,8 +43,10 @@ public class PostRestController {
     private PostMapper mapper;
 
     @GetMapping("/")
-    public Collection<PostDTORest> getAllPosts() {
-        return mapper.toDTORest(postService.findAll());
+    public Page<PostDTORest> getAllPosts(@RequestParam(defaultValue = "0") int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Post> postsPage = postService.findAll(pageable);
+        return postsPage.map(mapper::toDTORest);
     }
 
     @GetMapping("/{id}")

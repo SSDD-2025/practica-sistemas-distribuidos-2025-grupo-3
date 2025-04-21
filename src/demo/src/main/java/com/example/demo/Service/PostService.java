@@ -132,6 +132,10 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public Page<Post> findAll(Pageable pageable) {
+        return postRepository.findAll(pageable);
+    }
+
     public PostDTO replacePost(Long id, PostDTO updatedPostDTO) {
         if (postRepository.existsById(id)) {
             Post updatedPost = mapperPost.toDomain(updatedPostDTO);
