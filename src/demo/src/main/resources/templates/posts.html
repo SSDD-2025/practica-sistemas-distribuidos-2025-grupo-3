@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Linked Community</title>
+    {{> commons/head}}
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    {{> commons/header}}
+
+    <div class="container flex-grow-1 mt-4">
+        <div class="row mt-4">
+            <!-- Left column -->
+            <div class="col-md-3">
+                {{> commons/sidebar}}
+            </div>
+
+            <!-- Central column -->
+            <div class="col-md-8 mb-4">
+                <h3 class="mb-3">Todos los Posts</h3>
+
+                
+                <div id="post-container" class="d-flex flex-column gap-3 mb-4" data-initial-page="{{actualPage}}">
+                    <!-- We basically charge the posts here with the posterst.js -->
+                </div>
+
+                <!-- Pagination buttons -->
+                <div class="d-flex justify-content-between">
+                    <button id="prev-btn" class="btn btn-secondary">Anterior</button>
+                    <button id="next-btn" class="btn btn-secondary">Siguiente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Not implemented yet alert -->
+    <div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1050;">
+        <div id="alertToast" class="toast align-items-center text-bg-primary border-0" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">Aún no implementado</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    {{> commons/footer}}
+
+    
+    <script src="/js/postrest.js"></script>
+</body>
+
+</html>

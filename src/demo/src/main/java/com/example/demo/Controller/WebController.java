@@ -84,6 +84,13 @@ public class WebController {
         return "communities";
     }
 
+    @GetMapping("/posts")
+    public String posts(@RequestParam(defaultValue = "0") int page, Model model) {
+        model.addAttribute("actualPage", page);
+        model.addAttribute("isPosts", true);
+        return "posts";
+    }
+
     @GetMapping("/followed")
     public String friendsPage(Model model, HttpServletRequest request) {
 
