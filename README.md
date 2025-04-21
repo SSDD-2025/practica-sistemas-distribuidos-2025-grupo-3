@@ -37,6 +37,27 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   4. [Community.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/model/Community.java)
   5. [application.properties](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/resources/application.properties)
 
+- **Tareas realizadas en la segunda parte del proyecto:**
+
+  En esta parte me centré en la realización de consultas con Postman para poder replicar desde la API REST todas las funcionalidades disponibles en la web. Este proceso me llevó bastante tiempo, ya que tuve que apoyarme en la documentación mientras desarrollaba los DTOs necesarios para realizar las consultas de forma correcta y personalizada, en función de la cantidad de información que necesitaba obtener.
+  
+  También surgieron algunos problemas relacionados con la seguridad, en los que fue necesario establecer distinciones claras entre los roles de Admin y Guest, con el fin de restringir adecuadamente las acciones que puede realizar cada usuario. Además, trabajamos con diversas relaciones entre entidades para poder obtener los posts de un usuario o de una comunidad junto con sus datos correspondientes.
+
+- **Commits más significativos en la segunda parte del proyecto:**
+
+  1. [Changes on delete user so the user can delete his own](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/e254e1072f7eed4a007a69798792123b08fac9a9)
+  2. [Creation of Get Comments and Comment form user in Api](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/31bff0eacb9c82cb4cef8b400d618b7abebf6338)
+  3. [Making change of Api to make get form postman](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/14ac00eb79da90903218ba12c7f8121affa72f0b)
+  4. [Only the own user can change his profile](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/80f0ec28287dc816599e8faa494557484e51bcfc)
+  5. [Creation of getAllPosts](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/4b91a0730d47a8a78e4a9eb111cdb7cfdda232b0)
+
+- **Ficheros con mayor participación en la segunda parte del proyecto:**
+  1. [ComunityRestController.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/RESTController/ComunityRestController.java)
+  2. [CommentMapper.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/DTO/Comment/CommentMapper.java)
+  3. [PostDTORest.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/DTO/Post/PostDTORest.java)
+  4. [CommentRestController.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/RESTController/CommentRestController.java)
+  5. [UserRestController.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/RESTController/UserRestController.java)
+
   ### ALONSO DIAZ SERRANO
 
 - **Tareas realizadas:**
@@ -165,6 +186,10 @@ Con todo esto ya podrias utilizar nuestro codigo a partir de lo anteriormente me
 ### **Edit**
 
 ![Edit](src/demo/Images/Edit.png)
+
+### **Admin Panel**
+
+![Admin Panel](src/demo/Images/AdminPanel.png)
 
 ## **NAVIGATION DIAGRAM**
 
