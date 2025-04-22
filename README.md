@@ -122,6 +122,23 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   4. [Registration Page (HTML)](src/demo/src/main/resources/templates/registrationPage.html)
   5. [Edit User Page (HTML)](src/demo/src/main/resources/templates/editUserPage.html)
 
+- **Tareas realizadas en la segunda parte del proyecto:**
+
+- **Commits más significativos en la segunda parte del proyecto:**
+
+  1. [Added the all Posts View For All Users Using API REST functionalities](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/61462454c9cd6019a982548630307d632401e27e#diff-4e6f8337575ab1f6460a2a625a35f19841924fc0af8181bd86f6c360760b653d)
+  2. [Corrected Post User for API](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/7091d18ad60252806c006dc466a79cfbd1122239)
+  3. [Edit User with Image](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/5890044373dc1788911663978fd6764b65dc5faa)
+  4. [Permissions for API Edit](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/261f347ada841972558ac53aad598d518695a010)
+  5. [GetAllPosts from Postman is now paged](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/513c9005a582187b58e6c502dfc5d09b8fcce9af)
+
+- **Ficheros con mayor participación en la segunda parte del proyecto:**
+  1. [Posts Loader (Javascript)](src/demo/src/main/resources/static/js/postrest.js)
+  2. [All Posts View (HTML)](src/demo/src/main/resources/templates/posts.html)
+  3. [Post Rest Controller (Java)](src/demo/src/main/java/com/example/demo/RESTController/PostRestController.java)
+  4. [Sidebar Menu (HMTL)](src/demo/src/main/resources/templates/commons/sidebar.html)
+  5. [User Rest Controller (Java)](src/demo/src/main/java/com/example/demo/RESTController/UserRestController.java)
+
 ## **EXECUTION INSTRUCTIONS**
 
 Antes de acceder a nuestro codigo deberán comprobar que tienen las versiones necesarias para poder utilizarlo, aqui se muestran las versiones utilizadas:

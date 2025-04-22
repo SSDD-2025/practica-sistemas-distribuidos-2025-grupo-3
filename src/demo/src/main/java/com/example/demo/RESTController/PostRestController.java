@@ -2,7 +2,6 @@ package com.example.demo.RESTController;
 
 import java.net.URI;
 import java.security.Principal;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
