@@ -145,6 +145,8 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
 
 - **Tareas realizadas en la segunda parte del proyecto:**
 
+  - En esta segunda entrega, las tareas que yo realicé, se centraron en el desarollo de la consulta de la API REST con AJAX paginada y algunas de las funcionalidades de la API REST relativas a los usuarios.
+
 - **Commits más significativos en la segunda parte del proyecto:**
 
   1. [Added the all Posts View For All Users Using API REST functionalities](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/61462454c9cd6019a982548630307d632401e27e#diff-4e6f8337575ab1f6460a2a625a35f19841924fc0af8181bd86f6c360760b653d)
