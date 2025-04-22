@@ -78,6 +78,27 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   4. [CommentService.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/Service/CommentService.java)
   5. [CommentController.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/Controller/CommentController.java)
 
+- **Tareas realizadas en la segunda parte del proyecto:**
+  - Community y Post ambos DTOs y Controladores Rest.
+  - Creación de la estructura de la bateria de querys en Postman.
+  - RestController de User (post y edit sin imagen).
+  - Paginación web.
+  - Documentación de ApiRest.
+
+- **Commits más significativos en la segunda parte del proyecto:**
+  1. [PostDTO mapper and PostRestController](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/47fdeb45e42bec308636c153f81dc7abf62d9650)
+  2. [CommunityRest and CommunityDTO](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/6700f6a896d15ef55a4979d2349ee6bbe9e5e09a)
+  3. [Post comment Api](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/6f553fcfbddd2d9406a62902b89161743b76a4a6)
+  4. [Paginacion posts en comunidades](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/139492080bfc5b47bd2765c79f9baa16beceba96)
+  5. [Post user](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/909f2cba839859589665bb550d137e252692405d)
+
+- **Ficheros con mayor participación en la segunda parte del proyecto:**
+  1. [Community (folder)](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/tree/main/src/demo/src/main/java/com/example/demo/DTO/Community)
+  2. [UserRestController.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/RESTController/UserRestController.java)
+  3. [CommunityRestController.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/RESTController/ComunityRestController.java)
+  4. [PostRestController.java](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/src/main/java/com/example/demo/RESTController/PostRestController.java)
+  5. [Api-doc](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/blob/main/src/demo/api-docs/api-docs.yaml)
+
   ### NICOLAS VELEZ LEAL
 
 - **Tareas realizadas:**
