@@ -105,7 +105,8 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/js/**", "/assets/**").permitAll()
                         // Website pages
                         .requestMatchers("/", "/login", "/logout").permitAll()
-                        .requestMatchers("/registrationPage", "/register", "/error", "/guest", "/home").permitAll()
+                        .requestMatchers("/registrationPage", "/register", "/error", "/guest", "/home", "/posts")
+                        .permitAll()
                         .requestMatchers("/profile/*").permitAll()
                         .requestMatchers("/communities", "/communities/*").permitAll()
                         .requestMatchers("/whoAreWe").permitAll()

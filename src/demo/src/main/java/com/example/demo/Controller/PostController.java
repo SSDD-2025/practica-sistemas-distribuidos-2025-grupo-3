@@ -65,7 +65,7 @@ public class PostController {
         if (communityId != null) {
             return "redirect:/communities/" + communityId;
         } else {
-            return "redirect:/userMainPage";
+            return "redirect:/myPosts";
         }
 
     }

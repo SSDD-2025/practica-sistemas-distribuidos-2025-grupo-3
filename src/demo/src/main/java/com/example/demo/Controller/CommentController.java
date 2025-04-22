@@ -44,17 +44,17 @@ public class CommentController {
 
     @PostMapping("/comment/deleteComment/{commentId}")
     public String deleteComment(@PathVariable Long commentId,
-                                @RequestParam(required = false) Long communityId,
-                                Principal principal) {
+            @RequestParam(required = false) Long communityId,
+            Principal principal) {
 
         commentService.deleteComment(commentId);
 
         User currentUser = userService.getUserByUsername(principal.getName());
-        
+
         if (currentUser.getRoles().contains(Role.ROLE_ADMIN) && communityId != null) {
             return "redirect:/communities/" + communityId;
         } else {
-            return "redirect:/userMainPage";
+            return "redirect:/myComments";
         }
     }
 

@@ -46,7 +46,8 @@ public class UserController {
     private UserMapper mapper;
 
     @PostMapping("/register")
-    public String register(String username, String email, String password, HttpServletRequest request, Model model) throws IOException {
+    public String register(String username, String email, String password, HttpServletRequest request, Model model)
+            throws IOException {
         boolean[] registrationStatus = new boolean[] { false, false, false };
 
         userService.registerUser(username, email, password, registrationStatus);
@@ -66,7 +67,6 @@ public class UserController {
         return "editUserPage";
     }
 
-
     @PostMapping("/editUser")
     public String editUser(
             @RequestParam(required = false) String email,
@@ -83,7 +83,6 @@ public class UserController {
 
     }
 
-
     @PostMapping("/user/delete")
     public String deleteUser(HttpServletRequest request) {
         User user = userService.getUserByUsername(request.getUserPrincipal().getName());
@@ -97,11 +96,11 @@ public class UserController {
         userService.deleteById(userId);
 
         return "redirect:/admin?mensaje=Usuario eliminado correctamente";
-}
+    }
 
     @PostMapping("/follow/{id}")
     public String toggleFollow(@PathVariable Long id, HttpServletRequest request) {
-        
+
         String name = request.getUserPrincipal().getName();
         User user = userService.getUserByUsername(name);
 
@@ -115,33 +114,40 @@ public class UserController {
     }
 
     @GetMapping("/myPosts")
-    public String myPosts(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+    public String myPosts(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size) {
         Principal principal = request.getUserPrincipal();
         UserDTOBasic user = mapper.toDTO(userService.getUserByUsername(principal.getName()));
         Pageable pageable = PageRequest.of(page, size);
         Page<PostDTO> postsPage = postService.findByUserNameOrderByCreationDateDesc(user, pageable);
 
         model.addAttribute("posts", postsPage.getContent());
+        model.addAttribute("postsBoolean", postsPage.hasContent());
         model.addAttribute("currentPage", postsPage.getNumber());
         model.addAttribute("totalPages", postsPage.getTotalPages());
         model.addAttribute("previousPage", postsPage.hasPrevious() ? postsPage.getNumber() - 1 : 0);
-        model.addAttribute("nextPage", postsPage.getTotalPages() > 0 && postsPage.hasNext() ? postsPage.getNumber() + 1 : postsPage.getTotalPages() - 1);
+        model.addAttribute("nextPage", postsPage.getTotalPages() > 0 && postsPage.hasNext() ? postsPage.getNumber() + 1
+                : postsPage.getTotalPages() - 1);
         model.addAttribute("user", user);
-        return "userPosts";  
+        return "userPosts";
     }
 
     @GetMapping("/myComments")
-    public String myComments(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+    public String myComments(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size) {
         Principal principal = request.getUserPrincipal();
         UserDTOBasic user = mapper.toDTO(userService.getUserByUsername(principal.getName()));
         Pageable pageable = PageRequest.of(page, size);
         Page<CommentDTO> commentPage = commentService.findByUserName(user, pageable);
-        
+
         model.addAttribute("comments", commentPage.getContent());
+        model.addAttribute("commentsBoolean", commentPage.hasContent());
         model.addAttribute("currentPage", commentPage.getNumber());
         model.addAttribute("totalPages", commentPage.getTotalPages());
         model.addAttribute("previousPage", commentPage.hasPrevious() ? commentPage.getNumber() - 1 : 0);
-        model.addAttribute("nextPage", commentPage.getTotalPages() > 0 && commentPage.hasNext() ? commentPage.getNumber() + 1 : commentPage.getTotalPages() - 1);
+        model.addAttribute("nextPage",
+                commentPage.getTotalPages() > 0 && commentPage.hasNext() ? commentPage.getNumber() + 1
+                        : commentPage.getTotalPages() - 1);
         model.addAttribute("user", user);
         return "userComments";
     }

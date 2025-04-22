@@ -11,51 +11,14 @@
     {{> commons/header}}
 
     <div class="container flex-grow-1 mt-1">
-        <form action="/home" method="get" class="mb-3">
+        <form action="/userMainPage" method="get" class="mb-3">
             <button type="submit" class="btn btn-secondary align-items-center">
-                <i class="bi bi-arrow-left me-2"></i> Volver a home
+                <i class="bi bi-arrow-left me-2"></i> Volver a Mi cuenta
             </button>
         </form>
         <div class="row">
             <!-- Profile section -->
-            <div class="col-md-4">
-                <div class="card text-center shadow-sm position-relative">
-                    <div class="dropdown position-absolute top-0 start-0 m-2">
-                        <button class="btn btn-light btn-sm rounded-circle shadow-sm" type="button" id="userOptions"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-start shadow-sm p-2 rounded">
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="/editUserPage">
-                                    <i class="bi bi-pencil text-primary me-2"></i> Editar Perfil
-                                </a>
-                            </li>
-                            <li>
-                                <form id="eliminarUsuarioForm" action="/user/delete" method="POST">
-                                    <input type="hidden" name="_csrf" value="{{token}}" />
-                                    <button type="button" class="dropdown-item d-flex align-items-center text-danger"
-                                        onclick="confirmarEliminacion()">
-                                        <i class="bi bi-trash me-2"></i> Eliminar Perfil
-                                    </button>
-                                </form>
-
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="card-body">
-                        <img src="/user/image/{{user.id}}" alt="Foto de perfil"
-                            class="rounded-circle img-fluid mb-3 mt-5"
-                            style="width: 150px; height: 150px; object-fit: cover;">
-                        <h4 class="card-title">{{user.username}}</h4>
-                        <p class="text-muted">Correo: {{user.email}}</p>
-                        {{#user.date}}
-                        <p class="text-muted">Miembro desde: {{user.date}}</p>
-                        {{/user.date}}
-                    </div>
-                </div>
-            </div>
+            {{> commons/profile}}
 
             <!-- Posts section -->
             <div class="col-md-8">
@@ -88,6 +51,7 @@
                     {{/posts}}
                 </div>
             </div>
+            {{#postsBoolean}}
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
                     {{#currentPage}}
@@ -97,7 +61,7 @@
                         </a>
                     </li>
                     {{/currentPage}}
-            
+
                     {{#totalPages}}
                     {{#pages}}
                     <li class="page-item {{#isCurrent}}active{{/isCurrent}}">
@@ -105,7 +69,7 @@
                     </li>
                     {{/pages}}
                     {{/totalPages}}
-            
+
                     {{#currentPage}}
                     <li class="page-item {{#isLast}}disabled{{/isLast}}">
                         <a class="page-link" href="?page={{nextPage}}" aria-label="Next">
@@ -115,6 +79,7 @@
                     {{/currentPage}}
                 </ul>
             </nav>
+            {{/postsBoolean}}
         </div>
     </div>
     {{> commons/footer}}
