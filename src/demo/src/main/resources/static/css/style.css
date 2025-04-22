@@ -1,5 +1,6 @@
 /* Estilos globales */
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
@@ -25,7 +26,7 @@ header {
 }
 
 .logo-small {
-    height: 60px; 
+    height: 60px;
     display: block;
 }
 
@@ -62,7 +63,7 @@ header {
 }
 
 .btn-account:hover {
-    background-color: #f6b276; 
+    background-color: #f6b276;
     transform: scale(1.05);
 }
 
@@ -72,7 +73,7 @@ header {
 }
 
 .btn-register:hover {
-    background-color: #8daa8a; 
+    background-color: #8daa8a;
     transform: scale(1.05);
 }
 
@@ -82,7 +83,7 @@ header {
 }
 
 .btn-logout:hover {
-    background-color: #e57373; 
+    background-color: #e57373;
     transform: scale(1.05);
 }
 
@@ -90,7 +91,7 @@ header {
 
 .list-group-item.active {
     background-color: #f8f9fa;
-    color: #343a40; 
+    color: #343a40;
     font-weight: bold;
     border-left: 4px solid #6c757d;
 }
@@ -200,16 +201,20 @@ textarea:focus {
     text-decoration: none;
     position: relative;
 }
+
 .profile-img {
     transition: all 0.3s ease;
     position: relative;
 }
+
 .profile-link:hover .profile-img {
     filter: brightness(50%);
 }
+
 .profile-link:hover .profile-text {
     opacity: 1;
 }
+
 .profile-text {
     position: absolute;
     top: 50%;
@@ -233,8 +238,8 @@ textarea:focus {
 }
 
 .dropdown-menu {
-    min-width: 180px; 
-    border-radius: 10px; 
+    min-width: 180px;
+    border-radius: 10px;
 }
 
 .dropdown-item {
@@ -320,7 +325,7 @@ textarea:focus {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px; 
+    gap: 15px;
 }
 
 .community-item {
@@ -332,7 +337,7 @@ textarea:focus {
     align-items: center;
     justify-content: center;
     text-align: center;
-    transition: background 0.3s ease-in-out; 
+    transition: background 0.3s ease-in-out;
     position: relative;
 }
 
@@ -355,7 +360,7 @@ textarea:focus {
 }
 
 .community-item:hover .community-link {
-    color: #FFFFFF; 
+    color: #FFFFFF;
 }
 
 .no-communities {
@@ -364,7 +369,15 @@ textarea:focus {
     text-align: center;
 }
 
+nav[aria-label="Page navigation"] .page-link {
+    color: #013D5A !important;
+}
 
+.custom-color,
+.custom-color * {
+    /* aplica a todos los hijos */
+    color: #013D5A !important;
+}
 
 /* FOOTER */
 

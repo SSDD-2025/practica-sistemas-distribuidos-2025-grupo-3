@@ -51,32 +51,26 @@
                     {{/posts}}
                 </div>
             </div>
+
+            <!-- Pagination -->
             {{#postsBoolean}}
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
-                    {{#currentPage}}
-                    <li class="page-item {{#isFirst}}disabled{{/isFirst}}">
+                    <li class="page-item">
+                        <span class="page-link">Página {{currentPage}} de {{totalPages}}</span>
+                    </li>
+
+                    <li class="page-item">
                         <a class="page-link" href="?page={{previousPage}}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    {{/currentPage}}
 
-                    {{#totalPages}}
-                    {{#pages}}
-                    <li class="page-item {{#isCurrent}}active{{/isCurrent}}">
-                        <a class="page-link" href="?page={{pageNumber}}">{{pageNumber}}</a>
-                    </li>
-                    {{/pages}}
-                    {{/totalPages}}
-
-                    {{#currentPage}}
-                    <li class="page-item {{#isLast}}disabled{{/isLast}}">
+                    <li class="page-item">
                         <a class="page-link" href="?page={{nextPage}}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
-                    {{/currentPage}}
                 </ul>
             </nav>
             {{/postsBoolean}}

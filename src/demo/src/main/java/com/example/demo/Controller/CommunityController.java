@@ -55,16 +55,17 @@ public class CommunityController {
     }
 
     @GetMapping("/communities/{id}")
-    public String showCommunity(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,  Model model, @PathVariable Long id) {
+    public String showCommunity(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
+            Model model, @PathVariable Long id) {
 
-        
         Pageable pageable = PageRequest.of(page, size);
         Page<PostDTO> postsPage = postService.findByCommunityIdWithPagination(id, pageable);
 
         CommunityDTOBasic communityDTOBasic = communityService.findDTOBasicById(id);
         model.addAttribute("community", communityDTOBasic);
         model.addAttribute("posts", postsPage.getContent());
-        model.addAttribute("currentPage", postsPage.getNumber());
+        model.addAttribute("postsBoolean", postsPage.hasContent());
+        model.addAttribute("currentPage", postsPage.getNumber() + 1);
         model.addAttribute("totalPages", postsPage.getTotalPages());
         model.addAttribute("previousPage", postsPage.hasPrevious() ? postsPage.getNumber() - 1 : 0);
         model.addAttribute("nextPage", postsPage.hasNext() ? postsPage.getNumber() + 1 : postsPage.getTotalPages() - 1);

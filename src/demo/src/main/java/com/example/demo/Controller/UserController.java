@@ -123,7 +123,7 @@ public class UserController {
 
         model.addAttribute("posts", postsPage.getContent());
         model.addAttribute("postsBoolean", postsPage.hasContent());
-        model.addAttribute("currentPage", postsPage.getNumber());
+        model.addAttribute("currentPage", postsPage.getNumber() + 1);
         model.addAttribute("totalPages", postsPage.getTotalPages());
         model.addAttribute("previousPage", postsPage.hasPrevious() ? postsPage.getNumber() - 1 : 0);
         model.addAttribute("nextPage", postsPage.getTotalPages() > 0 && postsPage.hasNext() ? postsPage.getNumber() + 1
@@ -142,7 +142,7 @@ public class UserController {
 
         model.addAttribute("comments", commentPage.getContent());
         model.addAttribute("commentsBoolean", commentPage.hasContent());
-        model.addAttribute("currentPage", commentPage.getNumber());
+        model.addAttribute("currentPage", commentPage.getNumber() + 1);
         model.addAttribute("totalPages", commentPage.getTotalPages());
         model.addAttribute("previousPage", commentPage.hasPrevious() ? commentPage.getNumber() - 1 : 0);
         model.addAttribute("nextPage",
