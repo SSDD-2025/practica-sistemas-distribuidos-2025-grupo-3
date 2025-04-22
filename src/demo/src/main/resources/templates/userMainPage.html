@@ -62,22 +62,42 @@ alert("Usuario editado con exito") This little block was an idea to show a messa
             <!-- Posts and Comments Section -->
             <div class="col-md-8">
                 <h3 class="mb-3">Acciones</h3>
-                <div class="d-flex flex-column gap-3">
-                    <form action="/myPosts" method="get">
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="bi bi-file-earmark-text me-2"></i> Ver Mis Publicaciones
-                        </button>
-                    </form>
-                    <form action="/myComments" method="get">
-                        <button type="submit" class="btn btn-secondary w-100">
-                            <i class="bi bi-chat-left-text me-2"></i> Ver Mis Comentarios
-                        </button>
-                    </form>
+                <div class="row">
+                    <!-- Card for My Posts -->
+                    <div class="col-md-6 d-flex">
+                        <a href="/myPosts" class="text-decoration-none w-100">
+                            <div class="card shadow-sm border-0 h-100">
+                                <div class="card-body d-flex align-items-center">
+                                    <i class="bi bi-file-earmark-text text-primary fs-3 me-3"></i>
+                                    <div>
+                                        <h5 class="card-title mb-0 text-primary">Ver Mis Publicaciones</h5>
+                                        <p class="card-text text-muted">Consulta todas las publicaciones que has creado.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Card for My Comments -->
+                    <div class="col-md-6 d-flex">
+                        <a href="/myComments" class="text-decoration-none w-100">
+                            <div class="card shadow-sm border-0 h-100">
+                                <div class="card-body d-flex align-items-center">
+                                    <i class="bi bi-chat-left-text text-secondary fs-3 me-3"></i>
+                                    <div>
+                                        <h5 class="card-title mb-0 text-secondary">Ver Mis Comentarios</h5>
+                                        <p class="card-text text-muted">Revisa todos los comentarios que has realizado.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
     {{> commons/footer}}
 </body>
 
