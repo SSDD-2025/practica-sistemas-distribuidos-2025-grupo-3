@@ -101,9 +101,11 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
 
   ### NICOLAS VELEZ LEAL
 
+  #### Entrega 1
+
 - **Tareas realizadas:**
   - Creacion de la estructura básica de funcinamiento de la web. Mejora de la primera versión navegable.
-  - Navegavión del sitio a través del web controller.
+  - Navegación del sitio a través del web controller.
   - Creacion del sistema de subida de posts con sus imágenes.
   - Constante mejora de estilos y creacion y reestructuración de los html.
 
@@ -120,6 +122,27 @@ Dado que trabajamos en equipo, aunque algunos commits fueron realizados por un s
   3. [Home (HTML)](src/demo/src/main/resources/templates/home.html)
   4. [Community (HTML)](src/demo/src/main/resources/templates/community.html)
   5. [Styles (CSS)](src/demo/src/main/resources/static/css/style.css)
+
+  #### Entrega 2
+
+- **Tareas realizadas:**
+  - Implementación de seguridad en la página web y api a través de urls protegidas.
+  - Panel de administración con las funcionalidades de eliminar usuarios y comunidades.
+  - Mejora del diseño y navegación de la página web, mensajes informativos mejorados.
+
+- **Commits más significativos:**
+  1. [Security Update - Bugs fixed](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/b66ed8166079ec77802518967f80f951b2f6a267)
+  2. [Security Update 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/9310d16890ef204386f293d2a149112f50497f81)
+  3. [Refined Community and post Api](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/9a34042d0e8875f91b82124b5c7f5bfb98739ba8)
+  4. [Rest update](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/3eb02548617bae37fba08ec68b318189dc451aac)
+  5. [Some errors fixed](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-3/commit/95ed950cce9887ca0253b84481160f5bd9785920)
+
+- **Ficheros con mayor participación:**
+  1. [Security Config](src/demo/src/main/java/com/example/demo/security/SecurityConfig.java)
+  2. [Post Controller ](src/demo/src/main/java/com/example/demo/Controller/PostController.java)
+  3. [Web controller ](src/demo/src/main/java/com/example/demo/Controller/WebController.java)
+  4. [User Controller ](src/demo/src/main/java/com/example/demo/Controller/UserController.java)
+  5. [Community Service](src/demo/src/main/java/com/example/demo/Service/CommunityService.java)
 
   ### SERGIO ESPINOSA ROBLES
 
