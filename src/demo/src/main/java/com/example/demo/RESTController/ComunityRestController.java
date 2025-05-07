@@ -13,9 +13,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.DTO.Community.CommunityDTO;
 import com.example.demo.DTO.Community.CommunityDTOBasic;
+import com.example.demo.DTO.user.UserDTOBasic;
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.UserService;
-import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -60,9 +60,9 @@ public class ComunityRestController {
     public ResponseEntity<CommunityDTOBasic> replaceCommunity(@PathVariable Long id,
             @RequestBody CommunityDTOBasic communityDTO, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        User currentUser = userService.getUserByUsername(principal.getName());
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
 
-        if (!currentUser.getRoles().stream().anyMatch(role -> role.name().equals("ROLE_ADMIN"))) {
+        if (!userService.isAdmin(userDTOBasic)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to update this community.");
         }
 
@@ -74,11 +74,10 @@ public class ComunityRestController {
     @DeleteMapping("/{id}")
     public CommunityDTO deleteCommunity(@PathVariable Long id, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        User currentUser = userService.getUserByUsername(principal.getName());
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
 
-        if (!currentUser.isAdmin()) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                    "Only admins can delete communities.");
+        if (!userService.isAdmin(userDTOBasic)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only admins can delete communities.");
         }
 
         return communityService.deleteById(id);

@@ -20,14 +20,13 @@ import com.example.demo.DTO.Community.CommunityMapper;
 import com.example.demo.DTO.Post.PostDTO;
 import com.example.demo.DTO.Post.PostDTORest;
 import com.example.demo.DTO.Post.PostMapper;
+import com.example.demo.DTO.user.UserMapper;
 import com.example.demo.DTO.user.UserDTOBasic;
 import com.example.demo.Repository.PostRepository;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.model.Community;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
-
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class PostService {
@@ -42,12 +41,15 @@ public class PostService {
     private UserRepository userRepository;
 
     @Autowired
-    private PostMapper mapperPost;
+    private PostMapper postMapper;
 
     @Autowired
-    private CommunityMapper mapperCommunity;
+    private CommunityMapper communityMapper;
 
-    public PostDTO createPost(String title, String content, MultipartFile imageFile, User user,
+    @Autowired
+    private UserMapper userMapper;
+
+    public PostDTO createPost(String title, String content, MultipartFile imageFile, UserDTOBasic userDTOBasic,
             CommunityDTOBasic communityDTObasic) {
         byte[] imageData = null;
         String imageName = null;
@@ -61,10 +63,11 @@ public class PostService {
             throw new RuntimeException("Error al procesar la imagen", e);
         }
 
-        Community community = mapperCommunity.toDomain(communityDTObasic);
+        User user = userMapper.toDomain(userDTOBasic);
+        Community community = communityMapper.toDomain(communityDTObasic);
         Post post = new Post(title, content, imageName, imageData, user, community);
         postRepository.save(post);
-        return mapperPost.toDTO(post);
+        return postMapper.toDTO(post);
     }
 
     public ResponseEntity<byte[]> getPostImage(Long postId) {
@@ -81,51 +84,49 @@ public class PostService {
         return new ResponseEntity<byte[]>(imageData, headers, HttpStatus.OK);
     }
 
-    public void deletePost(Long postId, User user) {
+    public PostDTO deletePost(Long postId, UserDTOBasic userDTOBasic) {
 
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new EntityNotFoundException("Post no encontrado"));
-
-        boolean isOwner = post.getOwner().equals(user);
-        boolean isAdmin = userService.isAdmin(user);
+        Post post = postRepository.findById(postId).orElse(null);
+        boolean isOwner = post.getOwner().equals(userMapper.toDomain(userDTOBasic));
+        boolean isAdmin = userService.isAdmin(userDTOBasic);
 
         if (!isOwner && !isAdmin) {
             throw new AccessDeniedException("No tienes permiso para eliminar este post");
         }
-
         postRepository.delete(post);
+        return postMapper.toDTO(post);
     }
 
     public List<PostDTO> findByUserOrderByCreationDateDesc(User user) {
         List<Post> posts = postRepository.findByOwnerOrderByCreationDateDesc(user);
-        return mapperPost.toDTOs(posts);
+        return postMapper.toDTOs(posts);
     }
 
     public List<PostDTO> findTop5ByOrderByCreationDateDesc() {
         List<Post> posts = postRepository.findTop5ByOrderByCreationDateDesc();
-        return mapperPost.toDTOs(posts);
+        return postMapper.toDTOs(posts);
     }
 
-    public Post findPostById(Long postId) {
-        return postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Post no encontrado"));
+    public PostDTO findPostById(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(null);
+        return postMapper.toDTO(post);
     }
 
     public List<PostDTO> findByCommunityIdOrderByCreationDateDesc(Long id) {
         List<Post> posts = postRepository.findByCommunityIdOrderByCreationDateDesc(id);
-        return mapperPost.toDTOs(posts);
+        return postMapper.toDTOs(posts);
     }
 
     public Page<PostDTO> findByCommunityIdWithPagination(Long communityId, Pageable pageable) {
         Page<Post> postsPage = postRepository.findByCommunityIdOrderByCreationDateDesc(communityId, pageable);
-        return postsPage.map(mapperPost::toDTO);
+        return postsPage.map(postMapper::toDTO);
     }
 
     public List<PostDTO> findByUserNameOrderByCreationDateDesc(UserDTOBasic user) {
         List<Post> posts = postRepository
                 .findByOwnerOrderByCreationDateDesc(userRepository.findByUsername(user.username())
                         .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
-        return mapperPost.toDTOs(posts);
+        return postMapper.toDTOs(posts);
     }
 
     public List<Post> findAll() {
@@ -138,33 +139,35 @@ public class PostService {
 
     public PostDTO replacePost(Long id, PostDTO updatedPostDTO) {
         if (postRepository.existsById(id)) {
-            Post updatedPost = mapperPost.toDomain(updatedPostDTO);
+            Post updatedPost = postMapper.toDomain(updatedPostDTO);
             updatedPost.setId(id);
 
             postRepository.save(updatedPost);
 
-            return mapperPost.toDTO(updatedPost);
+            return postMapper.toDTO(updatedPost);
         } else {
             throw new NoSuchElementException();
         }
     }
 
-    public PostDTORest createPostDTORest(String title, String postContent, User owner,
+    public PostDTORest createPostDTORest(String title, String postContent,
+            UserDTOBasic userDTOBasic,
             CommunityDTOBasic communityDTObasic) {
 
-        Community community = mapperCommunity.toDomain(communityDTObasic);
+        User owner = userMapper.toDomain(userDTOBasic);
+        Community community = communityMapper.toDomain(communityDTObasic);
 
         Post post = new Post(title, postContent, null, null, owner, community);
 
         postRepository.save(post);
 
-        return mapperPost.toDTORest(post);
+        return postMapper.toDTORest(post);
     }
 
     public Page<PostDTO> findByUserNameOrderByCreationDateDesc(UserDTOBasic user, Pageable pageable) {
         Page<Post> postsPage = postRepository
                 .findByOwnerOrderByCreationDateDesc(userRepository.findByUsername(user.username())
                         .orElseThrow(() -> new RuntimeException("Usuario no encontrado")), pageable);
-        return postsPage.map(mapperPost::toDTO);
+        return postsPage.map(postMapper::toDTO);
     }
 }

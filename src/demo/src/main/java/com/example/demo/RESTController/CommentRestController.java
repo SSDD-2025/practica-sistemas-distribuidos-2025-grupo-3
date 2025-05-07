@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.DTO.Comment.CommentDTO;
+import com.example.demo.DTO.user.UserDTOBasic;
 import com.example.demo.Service.CommentService;
 import com.example.demo.Service.UserService;
-import com.example.demo.model.Comment;
-import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -49,8 +48,8 @@ public class CommentRestController {
     @PostMapping("/")
     public ResponseEntity<CommentDTO> postComment(@RequestBody CommentDTO commentDTO, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        User currentUser = userService.getUserByUsername(principal.getName());
-        commentDTO = commentService.createCommentDTO(commentDTO.commentContent(), currentUser, commentDTO.postId());
+        UserDTOBasic currentUser = userService.getUserByUsername(principal.getName());
+        commentDTO = commentService.createComment(commentDTO.commentContent(), currentUser, commentDTO.postId());
 
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(commentDTO.id()).toUri();
 
@@ -59,16 +58,14 @@ public class CommentRestController {
 
     @DeleteMapping("/{id}")
     public void deleteComment(@PathVariable Long id, HttpServletRequest request) {
+
         Principal principal = request.getUserPrincipal();
-        User currentUser = userService.getUserByUsername(principal.getName());
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
 
-        Comment comment = commentService.getCommentById(id);
-
-        if (!currentUser.getId().equals(comment.getOwner().getId()) && !currentUser.isAdmin()) {
+        CommentDTO commentDTO = commentService.deleteComment(id, userDTOBasic);
+        if (commentDTO == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can't delete this comment");
         }
-
-        commentService.deleteComment(id);
     }
 
 }

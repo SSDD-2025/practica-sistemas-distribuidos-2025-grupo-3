@@ -2,7 +2,9 @@ package com.example.demo.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import com.example.demo.CustomExceptions.UserRegistrationProblemException;
 import com.example.demo.DTO.Post.PostDTO;
@@ -90,15 +91,15 @@ public class UserService {
         return new ResponseEntity<byte[]>(imageData, headers, HttpStatus.OK);
     }
 
-    public List<FollowingUserDTO> getAllUsersExceptUser(User user) {
-        List<User> users = userRepository.findAll();
-        users.remove(user);
-        return userMapper.toDTOs(users, user);
-
+    public List<FollowingUserDTO> getAllUsersExceptCurrentUser(UserDTOBasic userDTOBasic) {
+        List<User> usersLists = userRepository.findAll();
+        List<UserDTOBasic> users = userMapper.toDTOsBasic(usersLists);
+        users.remove(userDTOBasic);
+        return userMapper.toDTOs(users, userDTOBasic);
     }
 
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+    public UserDTOBasic getUserByUsername(String username) {
+        return userMapper.toDTO(userRepository.findByUsername(username).orElse(null));
     }
 
     public UserDTOBasic getUserById(Long id) {
@@ -144,8 +145,11 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public void editUser(User user, String email, String password, MultipartFile imageFile)
+    public void editUser(
+            UserDTOBasic userDTOBasic, String email, String password, MultipartFile imageFile)
             throws IOException {
+
+        User user = userMapper.toDomain(userDTOBasic);
 
         if (password != null && !password.trim().isEmpty()) {
             user.setPassword(passwordEncoder.encode(password));
@@ -179,8 +183,11 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    public boolean isAdmin(User user) {
-        return user.getRoles().contains(Role.ROLE_ADMIN);
+    public boolean isAdmin(UserDTOBasic userDTOBasic) {
+        User user = userMapper.toDomain(userDTOBasic);
+        List<Role> roles = Optional.ofNullable(user.getRoles())
+                .orElse(Collections.emptyList());
+        return roles.contains(Role.ROLE_ADMIN);
     }
 
     public List<UserDTOBasic> findAllDTOBasic() {
@@ -189,12 +196,13 @@ public class UserService {
 
     public UserDTOBasic findById(Long id) {
         return userRepository.findById(id)
-            .map(userMapper::toDTO)  
-            .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con id: " + id));
+                .map(userMapper::toDTO)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con id: " + id));
     }
+
     public User findByIdOrThrow(Long id) {
         return userRepository.findById(id)
-               .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
     }
 
     public UserDTOBasic createUserDTOBasic(String username, String email, String password) {
@@ -209,24 +217,25 @@ public class UserService {
             message = "El email ya existe";
             throw new UserRegistrationProblemException(message);
         }
-        
+
         ClassPathResource imgFile = new ClassPathResource("static/assets/img/default-user-profile-image.webp");
         byte[] imageData;
         try {
             imageData = Files.readAllBytes(imgFile.getFile().toPath());
         } catch (IOException e) {
-            imageData = null; //Will probably never happen, but just in case better to take care of it
+            imageData = null; // Will probably never happen, but just in case better to take care of it
         }
         String imageName = imgFile.getFilename();
 
         User user = new User(username, passwordEncoder.encode(password), email, new java.util.Date(), imageName,
                 imageData, List.of(Role.ROLE_USER));
-        
+
         userRepository.save(user);
         return userMapper.toDTO(user);
     }
 
-    public void editUserRest(User userToUpdate, String username, String email, String password) throws IOException {
+    public void editUserRest(UserDTOBasic userToUpdate, String username, String email, String password)
+            throws IOException {
         editUser(userToUpdate, email, password, null);
     }
 }

@@ -16,12 +16,11 @@ import com.example.demo.DTO.Post.PostDTO;
 import com.example.demo.DTO.user.FollowedUserDTO;
 import com.example.demo.DTO.user.FollowingUserDTO;
 import com.example.demo.DTO.user.UserDTOBasic;
-import com.example.demo.DTO.user.UserMapper;
+
 import com.example.demo.Service.CommentService;
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
-import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -40,17 +39,14 @@ public class WebController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserMapper mapper;
-
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
 
         Principal principal = request.getUserPrincipal();
 
         if (principal != null) {
-            User user = userService.getUserByUsername(principal.getName());
-            model.addAttribute("user", mapper.toDTO(user));
+            UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
+            model.addAttribute("user", userDTOBasic);
             model.addAttribute("isGuest", false);
         } else {
             model.addAttribute("isGuest", true);
@@ -95,8 +91,8 @@ public class WebController {
     public String friendsPage(Model model, HttpServletRequest request) {
 
         Principal principal = request.getUserPrincipal();
-        User user = userService.getUserByUsername(principal.getName());
-        List<FollowedUserDTO> followedUsers = userService.getFollowedUsersWithPosts(user.getId());
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
+        List<FollowedUserDTO> followedUsers = userService.getFollowedUsersWithPosts(userDTOBasic.id());
         model.addAttribute("followedUsers", followedUsers);
         model.addAttribute("isFriends", true);
         return "followed";
@@ -105,8 +101,8 @@ public class WebController {
     @GetMapping("/people")
     public String peoplePage(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        User currentUser = userService.getUserByUsername(principal.getName());
-        List<FollowingUserDTO> userList = userService.getAllUsersExceptUser(currentUser);
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
+        List<FollowingUserDTO> userList = userService.getAllUsersExceptCurrentUser(userDTOBasic);
         model.addAttribute("isPeople", true);
         model.addAttribute("users", userList);
         return "people";
@@ -124,9 +120,9 @@ public class WebController {
     @GetMapping("/userMainPage")
     public String userMainPage(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        UserDTOBasic user = mapper.toDTO(userService.getUserByUsername(principal.getName()));
-        model.addAttribute("posts", postService.findByUserNameOrderByCreationDateDesc(user));
-        model.addAttribute("comments", commentService.findByUserName(user));
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
+        model.addAttribute("posts", postService.findByUserNameOrderByCreationDateDesc(userDTOBasic));
+        model.addAttribute("comments", commentService.findByUserName(userDTOBasic));
         return "userMainPage";
     }
 
@@ -149,8 +145,8 @@ public class WebController {
     @GetMapping("/admin")
     public String adminPage(Model model, HttpServletRequest request, @RequestParam(required = false) String mensaje) {
         Principal principal = request.getUserPrincipal();
-        User currentUser = userService.getUserByUsername(principal.getName());
-        List<FollowingUserDTO> userList = userService.getAllUsersExceptUser(currentUser);
+        UserDTOBasic currentUser = userService.getUserByUsername(principal.getName());
+        List<FollowingUserDTO> userList = userService.getAllUsersExceptCurrentUser(currentUser);
         List<CommunityDTOBasic> communities = communityService.findAll();
 
         model.addAttribute("usersLeft", userList.isEmpty());

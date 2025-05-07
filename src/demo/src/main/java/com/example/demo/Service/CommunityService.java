@@ -18,45 +18,51 @@ public class CommunityService {
     private CommunityRepository communityRepository;
 
     @Autowired
-    private CommunityMapper mapper;
+    private CommunityMapper communityMapper;
 
     public CommunityDTOBasic findDTOBasicById(Long id) {
-        return mapper.toDTOBasic(communityRepository.findById(id).orElse(null));
+        return communityMapper.toDTOBasic(communityRepository.findById(id).orElse(null));
     }
 
     public CommunityDTO findDTOById(Long id) {
-        return mapper.toDTO(communityRepository.findById(id).orElse(null));
+        return communityMapper.toDTO(communityRepository.findById(id).orElse(null));
     }
 
     public List<CommunityDTOBasic> findAll() {
-        return mapper.toDTOsBasic(communityRepository.findAll());
+        return communityMapper.toDTOsBasic(communityRepository.findAll());
     }
 
     public CommunityDTO createCommunity(String name) {
         if ((name != null && name.length() < 50) && (!communityRepository.existsByName(name))) {
             Community community = new Community(name);
             communityRepository.save(community);
-            return mapper.toDTO(community);
+            return communityMapper.toDTO(community);
         }
         return null;
     }
 
     public CommunityDTOBasic replaceCommunity(Long id, CommunityDTOBasic updaCommunityDTO) {
         if (communityRepository.existsById(id)) {
-            Community updatedCommunity = mapper.toDomain(updaCommunityDTO);
+            Community updatedCommunity = communityMapper.toDomain(updaCommunityDTO);
             updatedCommunity.setId(id);
 
             communityRepository.save(updatedCommunity);
 
-            return mapper.toDTOBasic(updatedCommunity);
+            return communityMapper.toDTOBasic(updatedCommunity);
         } else {
             throw new NoSuchElementException();
         }
     }
 
     public CommunityDTO deleteById(Long id) {
-        CommunityDTO communityDTO = mapper.toDTO(communityRepository.findById(id).orElseThrow());
-        communityRepository.deleteById(id);
-        return communityDTO;
+        Community community = communityRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Community not found with id: " + id));
+        communityRepository.delete(community);
+        return communityMapper.toDTO(community);
+    }
+
+    public Community findById(Long id) {
+        return communityRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Community not found with id: " + id));
     }
 }

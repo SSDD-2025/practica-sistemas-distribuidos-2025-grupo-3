@@ -61,9 +61,8 @@ public class UserRestController {
     public ResponseEntity<UserDTOBasic> putUser(@PathVariable Long id, @RequestBody UserDTOBasic userDTOBasic,
             HttpServletRequest request) throws IOException {
         Principal principal = request.getUserPrincipal();
-        User currentUser = userService.getUserByUsername(principal.getName());
 
-        if (!currentUser.getId().equals(id)) {
+        if (!userDTOBasic.id().equals(id)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You don't have the permission.");
         }
 
@@ -83,9 +82,9 @@ public class UserRestController {
             throws IOException {
 
         Principal principal = request.getUserPrincipal();
-        User currentUser = userService.getUserByUsername(principal.getName());
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
 
-        if (currentUser.getId() != id) {
+        if (userDTOBasic.id() != id) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
                     "you can only edit your own profile image.");
         }
@@ -102,9 +101,9 @@ public class UserRestController {
     @DeleteMapping("/{id}")
     public ResponseEntity<UserDTOBasic> deleteUser(@PathVariable Long id, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        User currentUser = userService.getUserByUsername(principal.getName());
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
 
-        if (!currentUser.getId().equals(id) && !currentUser.isAdmin()) {
+        if (!userDTOBasic.id().equals(id) && !userService.isAdmin(userDTOBasic)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You don't have the permission.");
         }
 

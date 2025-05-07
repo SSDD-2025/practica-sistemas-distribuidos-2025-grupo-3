@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.Community.CommunityDTOBasic;
+import com.example.demo.DTO.user.UserDTOBasic;
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
-import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -38,10 +38,10 @@ public class PostController {
             HttpServletRequest request) {
 
         String name = request.getUserPrincipal().getName();
-        User user = userService.getUserByUsername(name);
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(name);
 
         CommunityDTOBasic communityDTOBasic = communityService.findDTOBasicById(communityId);
-        postService.createPost(title, content, imageFile, user, communityDTOBasic);
+        postService.createPost(title, content, imageFile, userDTOBasic, communityDTOBasic);
 
         return "redirect:/communities/" + communityId;
     }
@@ -58,9 +58,9 @@ public class PostController {
             HttpServletRequest request) {
 
         String name = request.getUserPrincipal().getName();
-        User currentUser = userService.getUserByUsername(name);
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(name);
 
-        postService.deletePost(postId, currentUser);
+        postService.deletePost(postId, userDTOBasic);
 
         if (communityId != null) {
             return "redirect:/communities/" + communityId;

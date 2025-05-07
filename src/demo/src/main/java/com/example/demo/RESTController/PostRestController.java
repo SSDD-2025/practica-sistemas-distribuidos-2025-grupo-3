@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.DTO.Post.PostDTO;
 import com.example.demo.DTO.Post.PostDTORest;
 import com.example.demo.DTO.Post.PostMapper;
+import com.example.demo.DTO.user.UserDTOBasic;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
 import com.example.demo.model.Post;
-import com.example.demo.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -39,26 +40,27 @@ public class PostRestController {
     private UserService userService;
 
     @Autowired
-    private PostMapper mapper;
+    private PostMapper postMapper;
 
     @GetMapping("/")
     public Page<PostDTORest> getAllPosts(@RequestParam(defaultValue = "0") int page) {
         Pageable pageable = PageRequest.of(page, 10);
         Page<Post> postsPage = postService.findAll(pageable);
-        return postsPage.map(mapper::toDTORest);
+        return postsPage.map(postMapper::toDTORest);
     }
 
     @GetMapping("/{id}")
     public PostDTORest getPost(@PathVariable Long id) {
-        return mapper.toDTORest(postService.findPostById(id));
+        return postMapper.toDTORest(postService.findPostById(id));
     }
 
     @PostMapping("/")
     public ResponseEntity<PostDTORest> postCommumnnity(@RequestBody PostDTORest PostDTORest,
             HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        User currentUser = userService.getUserByUsername(principal.getName());
-        PostDTORest = postService.createPostDTORest(PostDTORest.title(), PostDTORest.postContent(), currentUser,
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
+        PostDTORest = postService.createPostDTORest(PostDTORest.title(), PostDTORest.postContent(),
+                userDTOBasic,
                 PostDTORest.community());
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(PostDTORest.id()).toUri();
 
@@ -68,12 +70,11 @@ public class PostRestController {
     @DeleteMapping("/{id}")
     public PostDTORest deletePost(@PathVariable Long id, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        User currentUser = userService.getUserByUsername(principal.getName());
-        PostDTORest postDTORest = mapper.toDTORest(postService.findPostById(id));
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
 
-        postService.deletePost(id, currentUser);
+        PostDTO postDTO = postService.deletePost(id, userDTOBasic);
 
-        return postDTORest;
+        return postMapper.toDTORest(postDTO);
     }
 
 }

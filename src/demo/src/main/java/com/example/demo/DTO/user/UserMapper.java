@@ -23,7 +23,9 @@ public interface UserMapper {
 
     User toDomain(FollowingUserDTO userDTO);
 
-    List<FollowingUserDTO> toDTOs(Collection<User> users, @Context User currentUser);
+    User toDomain(UserDTOBasic userDTOBasic);
+
+    List<FollowingUserDTO> toDTOs(Collection<UserDTOBasic> users, @Context UserDTOBasic currentUser);
 
     default boolean checkIsFollowing(User currentUser, User user) {
         return currentUser.getFriends() != null && currentUser.getFriends().contains(user);

@@ -16,14 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.model.User;
-
 import org.springframework.ui.Model;
 
 import com.example.demo.DTO.Comment.CommentDTO;
 import com.example.demo.DTO.Post.PostDTO;
 import com.example.demo.DTO.user.UserDTOBasic;
-import com.example.demo.DTO.user.UserMapper;
+
 import com.example.demo.Service.CommentService;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
@@ -42,9 +40,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserMapper mapper;
-
     @PostMapping("/register")
     public String register(String username, String email, String password, HttpServletRequest request, Model model)
             throws IOException {
@@ -62,8 +57,8 @@ public class UserController {
     @GetMapping("/editUserPage")
     public String editUser(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        User user = userService.getUserByUsername(principal.getName());
-        model.addAttribute("user", user);
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
+        model.addAttribute("user", userDTOBasic);
         return "editUserPage";
     }
 
@@ -75,7 +70,7 @@ public class UserController {
             HttpServletRequest request,
             Model model) throws IOException {
 
-        User user = userService.getUserByUsername(request.getUserPrincipal().getName());
+        UserDTOBasic user = userService.getUserByUsername(request.getUserPrincipal().getName());
 
         userService.editUser(user, email, password, imageFile);
 
@@ -85,8 +80,8 @@ public class UserController {
 
     @PostMapping("/user/delete")
     public String deleteUser(HttpServletRequest request) {
-        User user = userService.getUserByUsername(request.getUserPrincipal().getName());
-        userService.deleteUser(user.getId());
+        UserDTOBasic user = userService.getUserByUsername(request.getUserPrincipal().getName());
+        userService.deleteUser(user.id());
 
         return "redirect:/";
     }
@@ -102,9 +97,9 @@ public class UserController {
     public String toggleFollow(@PathVariable Long id, HttpServletRequest request) {
 
         String name = request.getUserPrincipal().getName();
-        User user = userService.getUserByUsername(name);
+        UserDTOBasic user = userService.getUserByUsername(name);
 
-        userService.toggleFollow(user.getId(), id);
+        userService.toggleFollow(user.id(), id);
         return "redirect:/people";
     }
 
@@ -117,9 +112,9 @@ public class UserController {
     public String myPosts(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size) {
         Principal principal = request.getUserPrincipal();
-        UserDTOBasic user = mapper.toDTO(userService.getUserByUsername(principal.getName()));
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
         Pageable pageable = PageRequest.of(page, size);
-        Page<PostDTO> postsPage = postService.findByUserNameOrderByCreationDateDesc(user, pageable);
+        Page<PostDTO> postsPage = postService.findByUserNameOrderByCreationDateDesc(userDTOBasic, pageable);
 
         model.addAttribute("posts", postsPage.getContent());
         model.addAttribute("postsBoolean", postsPage.hasContent());
@@ -128,7 +123,7 @@ public class UserController {
         model.addAttribute("previousPage", postsPage.hasPrevious() ? postsPage.getNumber() - 1 : 0);
         model.addAttribute("nextPage", postsPage.getTotalPages() > 0 && postsPage.hasNext() ? postsPage.getNumber() + 1
                 : postsPage.getTotalPages() - 1);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userDTOBasic);
         return "userPosts";
     }
 
@@ -136,9 +131,9 @@ public class UserController {
     public String myComments(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size) {
         Principal principal = request.getUserPrincipal();
-        UserDTOBasic user = mapper.toDTO(userService.getUserByUsername(principal.getName()));
+        UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
         Pageable pageable = PageRequest.of(page, size);
-        Page<CommentDTO> commentPage = commentService.findByUserName(user, pageable);
+        Page<CommentDTO> commentPage = commentService.findByUserName(userDTOBasic, pageable);
 
         model.addAttribute("comments", commentPage.getContent());
         model.addAttribute("commentsBoolean", commentPage.hasContent());
@@ -148,7 +143,7 @@ public class UserController {
         model.addAttribute("nextPage",
                 commentPage.getTotalPages() > 0 && commentPage.hasNext() ? commentPage.getNumber() + 1
                         : commentPage.getTotalPages() - 1);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userDTOBasic);
         return "userComments";
     }
 }

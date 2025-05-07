@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.DTO.Comment.CommentDTO;
 import com.example.demo.DTO.Comment.CommentMapper;
+import com.example.demo.DTO.Post.PostMapper;
 import com.example.demo.DTO.user.UserDTOBasic;
 import com.example.demo.Repository.CommentRepository;
 import com.example.demo.Repository.UserRepository;
@@ -31,19 +33,35 @@ public class CommentService {
     @Autowired
     private PostService postService;
 
-    public void createComment(String content, User user, Post post) {
-        Comment comment = new Comment(content, user, post);
+    @Autowired
+    private PostMapper postMapper;
+
+    public CommentDTO createComment(String commentContent, UserDTOBasic userDTOBasic, Long postId) {
+        Post post = postMapper.toDomain(postService.findPostById(postId));
+        User currentUser = userRepository.findByUsername(userDTOBasic.username()).orElseThrow(
+                () -> new RuntimeException("Usuario no encontrado"));
+        Comment comment = new Comment(commentContent, currentUser, post);
         commentRepository.save(comment);
+        return commentMapper.toDTO(comment);
     }
 
-    public CommentDTO deleteComment(Long commentId) {
-        CommentDTO commentDTO = commentMapper.toDTO(commentRepository.findById(commentId).orElseThrow());
-        commentRepository.deleteById(commentId);
-        return commentDTO;
+    public CommentDTO deleteComment(Long commentId, UserDTOBasic userDTOBasic) {
+        Comment comment = commentRepository.findById(commentId).orElse(null);
+
+        boolean isOwner = comment.getOwner()
+                .equals(userRepository.findByUsername(comment.getOwner().getUsername()).orElse(null));
+        boolean isAdmin = userRepository.findByUsername(comment.getOwner().getUsername()).orElse(null).isAdmin();
+
+        if (!isOwner && !isAdmin) {
+            throw new AccessDeniedException("No tienes permiso para eliminar este comentario");
+        }
+
+        commentRepository.delete(comment);
+        return commentMapper.toDTO(comment);
     }
 
-    public List<Comment> findByUserName(UserDTOBasic user) {
-        return commentRepository.findByOwner(userRepository.findByUsername(user.username())
+    public List<Comment> findByUserName(UserDTOBasic userDTOBasic) {
+        return commentRepository.findByOwner(userRepository.findByUsername(userDTOBasic.username())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
     }
 
@@ -58,16 +76,8 @@ public class CommentService {
         return commentMapper.toDTOs(commentRepository.findAll());
     }
 
-    public CommentDTO createCommentDTO(String commentContent, User currentUser, Long postId) {
-        Post post = postService.findPostById(postId);
-        Comment comment = new Comment(commentContent, currentUser, post);
-        commentRepository.save(comment);
-        return commentMapper.toDTO(comment);
-    }
-
-    public Comment getCommentById(Long id) {
-        return commentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Comentario no encontrado"));
+    public CommentDTO getCommentById(Long id) {
+        return commentMapper.toDTO(commentRepository.findById(id).orElse(null));
     }
 
     public Page<CommentDTO> findByUserName(UserDTOBasic user, Pageable pageable) {

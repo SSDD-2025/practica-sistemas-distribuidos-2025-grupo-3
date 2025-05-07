@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.DTO.Community.CommunityDTOBasic;
 import com.example.demo.DTO.Post.PostDTO;
+import com.example.demo.DTO.user.UserDTOBasic;
 import com.example.demo.Service.CommunityService;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.UserService;
-import com.example.demo.model.User;
-import com.example.demo.model.User.Role;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -42,10 +41,9 @@ public class CommunityController {
         Principal principal = request.getUserPrincipal();
 
         if (principal != null) {
-
-            User user = userService.getUserByUsername(principal.getName());
-            boolean isAdmin = user.getRoles().contains(Role.ROLE_ADMIN);
-            model.addAttribute("user", user);
+            UserDTOBasic userDTOBasic = userService.getUserByUsername(principal.getName());
+            boolean isAdmin = userService.isAdmin(userDTOBasic);
+            model.addAttribute("user", userDTOBasic);
             model.addAttribute("isAdmin", isAdmin);
             model.addAttribute("isGuest", false);
         } else {
@@ -60,8 +58,8 @@ public class CommunityController {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<PostDTO> postsPage = postService.findByCommunityIdWithPagination(id, pageable);
-
         CommunityDTOBasic communityDTOBasic = communityService.findDTOBasicById(id);
+
         model.addAttribute("community", communityDTOBasic);
         model.addAttribute("posts", postsPage.getContent());
         model.addAttribute("postsBoolean", postsPage.hasContent());

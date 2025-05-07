@@ -21,9 +21,6 @@ public class Community {
     @OneToMany(mappedBy = "community", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "communities")
-    private List<User> users = new ArrayList<>();
-
     public Community(String name) {
         this.name = name;
     }
@@ -54,14 +51,6 @@ public class Community {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     @Override

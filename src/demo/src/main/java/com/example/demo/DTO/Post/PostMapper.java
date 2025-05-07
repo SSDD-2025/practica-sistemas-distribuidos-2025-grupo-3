@@ -16,12 +16,13 @@ public interface PostMapper {
 
     Post toDomain(PostDTO postDTO);
 
+    Post toDomain(PostDTORest postDTORest);
+
+    PostDTORest toDTORest(PostDTO post);
+
+    PostDTORest toDTORest(Post post);
+
     @Mapping(target = "creationDate", source = "creationDate", dateFormat = "dd/MM/yyyy HH:mm")
     List<PostDTO> toDTOs(Collection<Post> posts);
 
-    List<PostDTORest> toDTORest(Collection<Post> posts);
-
-    Post toDomain(PostDTORest postDTORest);
-
-    PostDTORest toDTORest(Post post);
 }
