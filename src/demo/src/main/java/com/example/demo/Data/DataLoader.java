@@ -38,7 +38,10 @@ public class DataLoader {
 
         @PostConstruct
         public void run() throws Exception {
-
+                if (communityRepository.count() > 0) {
+                        System.out.println("DataLoader: datos ya existentes, salto carga inicial.");
+                        return;
+                }
                 /* COMMUNITIES */
                 communityRepository.save(new Community("Java"));
                 communityRepository.save(new Community("Futbol"));

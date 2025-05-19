@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: docker-web
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8443:8443"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://db:3306/test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+      SPRING_DATASOURCE_USERNAME: "appuser"
+      SPRING_DATASOURCE_PASSWORD: "apppass"
+    depends_on:
+      - db
+    restart: on-failure
+
+  db:
+    container_name: docker-db
+    image: mysql:9.2
+    environment:
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: "password"
+
+      MYSQL_DATABASE: "test"
+      MYSQL_USER: "appuser"
+      MYSQL_PASSWORD: "apppass"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$${MYSQL_ROOT_PASSWORD}" ]
+      interval: 5s
+      timeout: 5s
+      start_period: 10s
+      retries: 5

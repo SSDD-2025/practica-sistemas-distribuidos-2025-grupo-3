@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: docker-web
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8443:8443"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://193.147.60.43:3306/test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+      SPRING_DATASOURCE_USERNAME: "appuser"
+      SPRING_DATASOURCE_PASSWORD: "apppass"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+    restart: on-failure

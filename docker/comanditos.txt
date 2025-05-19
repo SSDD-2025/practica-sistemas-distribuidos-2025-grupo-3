@@ -1,0 +1,32 @@
+Descargar imagen
+$ docker pull nicolasv67/lc:1.0.0
+
+Parar y borrar todos los contenedores
+$ docker rm -f $(docker ps -a -q)
+
+Crear contenedor con una imagen
+$docker run --name Linked-Community -p 8443:8443 -d nicolasv67/lc:1.0.0
+
+Nicolas@DESKTOP-LRTM5FV MINGW64 ~/Documents/GitHub/practica-sistemas-distribuidos-2025-grupo-3 (main)
+$ ./docker/create_image.sh 
+
+En la carpeta donde está el fichero, la aplicación se ejecuta con el comando:
+$ docker compose up
+
+Crear la red y los contenedores con comandos Docker
+$ docker network create lc-network
+
+
+● Ejecutamos el siguiente comando desde el directorio donde está el fichero docker-compose.yml
+    ● Crea una red nueva
+    ● Inicia los dos contenedores
+    ● Usa el nombre de la carpeta para nombrar la red y los contenedores
+$ docker compose up
+
+
+Nicolas@DESKTOP-LRTM5FV MINGW64 ~/Documents/GitHub/practica-sistemas-distribuidos-2025-grupo-3 (main)
+$ rm -rf ./docker/mysql/*
+
+● Podemos especificar el nombre del fichero si no se llama exactamente docker-compose.yml con la flag -f
+$ docker compose -f docker-compose.production.yml up
+docker compose -f docker-compose.local.yml up
