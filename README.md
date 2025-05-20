@@ -265,3 +265,19 @@ Con todo esto ya podrias utilizar nuestro codigo a partir de lo anteriormente me
 ## **CLASSES DIAGRAM**
 
 ![Entity Diagram](src/demo/Images/Classes%20diagram.png)
+
+
+### Documentacion Docker-Parte 3:
+
+## Instrucciones de Ejecución
+ Para poder realizar la parte 3 de esta practica tendremos que tener el proyecto de github descargado y docker instalado.
+
+ En el directorio raiz del proyecto ejecutar el siguiente comando:
+
+  $ docker compose -f docker/docker-compose.local.yml up
+
+Se creará la imagen docker en el momento con los archivos siguiendo el dockerfile
+
+Para crear la imagen con dockerfile, desde el directorio raiz se puede ejecutar el siguiente script:
+
+$ ./docker/create_image.sh
