@@ -270,14 +270,33 @@ Con todo esto ya podrias utilizar nuestro codigo a partir de lo anteriormente me
 ### Documentacion Docker-Parte 3:
 
 ## Instrucciones de Ejecución
- Para poder realizar la parte 3 de esta practica tendremos que tener el proyecto de github descargado y docker instalado.
 
- En el directorio raiz del proyecto ejecutar el siguiente comando:
+Para poder realizar la parte 3 de esta practica tendremos que tener el proyecto de github descargado y docker instalado.
 
-  $ docker compose -f docker/docker-compose.local.yml up
+Los comandos y scripts están hechos para ejecutar en linux, se puede usar una git bash como shell en windows o anaconda
+
+En el directorio raiz del proyecto ejecutar el siguiente comando:
+
+````log
+    $ docker compose -f docker/docker-compose.local.yml up
+````
 
 Se creará la imagen docker en el momento con los archivos siguiendo el dockerfile
 
 Para crear la imagen con dockerfile, desde el directorio raiz se puede ejecutar el siguiente script:
+````log
+    $ ./docker/create_image.sh
+````
 
-$ ./docker/create_image.sh
+Para publicar la imagen en dockerhub, desde el directorio raiz se puede ejecutar el siguiente script:
+
+Para lo que habra que estar logueado previamente con docker login y cambiar el nombre de usuario de docker.
+
+````log
+    $ ./docker/push_image.sh
+````
+
+Para crear el proyecto usando buildpacks usamos el siguiente comando
+````log
+    $ mvn spring-boot:build-image -Dspring-boot.build-image.imageName=nicolasv67/lc:1.0.0
+````
